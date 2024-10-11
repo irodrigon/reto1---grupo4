@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package client;
+package com.tartanga.grupo4.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,11 +15,11 @@ import javafx.stage.Stage;
  *
  * @author Iñi
  */
-public class Client extends Application {
+public class ApplicationU extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
         
         Scene scene = new Scene(root);
         
