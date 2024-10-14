@@ -5,17 +5,18 @@
  */
 package server;
 
+
+import Example.Signable;
+
 /**
  *
- * @author Iñi
+ * @author rabio
  */
-public class Server {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+public class DAOFactory {
     
+    public static Signable getSignable(){
+        
+        return new DAO();
+        
+    }
 }
