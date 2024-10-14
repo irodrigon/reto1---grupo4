@@ -1,37 +1,52 @@
 package com.tartanga.grupo4.controllers;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.application.Platform;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
- *
- * @author Iñi
+ * Controlador para la ventana de Sign In.
  */
-public class SignInController implements Initializable {
-    
+public class SignInController {
+
     @FXML
-    private Button btnExit;
-    
-    @FXML
-    private void exitApp(ActionEvent event) {
-        Platform.exit();
+    private void handleCreateUser(ActionEvent event) {
+        try {
+            // Cargar la vista de registro (SignUpView)
+            Parent signUpView = FXMLLoader.load(getClass().getResource("/com/tartanga/grupo4/views/SignUp.fxml"));
+            
+            // Obtener la ventana actual desde el evento
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            // Cambiar a la vista de registro
+            Scene signUpScene = new Scene(signUpView);
+            stage.setScene(signUpScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Manejo de errores
+        }
     }
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+
+    @FXML
+    private void handleLogin(ActionEvent event) {
+        try {
+            // Cargar la vista principal (MainView)
+            Parent mainView = FXMLLoader.load(getClass().getResource("/com/tartanga/grupo4/views/MainView.fxml"));
+            
+            // Obtener la ventana actual desde el evento
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            // Cambiar a la vista principal
+            Scene mainScene = new Scene(mainView);
+            stage.setScene(mainScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Manejo de errores
+        }
+    }
 }
