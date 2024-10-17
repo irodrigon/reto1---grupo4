@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tartanga.grupo4.controllers.SignUpController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../../../../style1/nuevo1.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tartanga.grupo4.controllers.SignUpController">
    <children>
       <Button fx:id="btn_Register" layoutX="818.0" layoutY="715.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="97.0" text="Register" />
       <Label fx:id="lbl_Username" layoutX="56.0" layoutY="232.0" prefHeight="40.0" prefWidth="97.0" text="Login:">
