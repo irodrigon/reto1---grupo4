@@ -18,24 +18,31 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import javafx.scene.control.Button;
 
 public class SignUpController {
+    
+    @FXML
+    private Button btn_Back;
+    
+    @FXML
+    private void initialize() {
+        btn_Back.setOnAction(this::handleGoBack);
+    }
 
     @FXML
     private void handleGoBack(ActionEvent event) {
         try {
-            // Cargar la nueva vista de SignIn
-            Parent signInView = FXMLLoader.load(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
-            
-            // Obtener la ventana actual
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
-            // Configurar la nueva escena
-            Scene signInScene = new Scene(signInView);
-            window.setScene(signInScene);
-            window.show();
+        FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
+        Parent mainView = FXMLLoader.load();
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        Scene scene = new Scene(mainView);
+        stage.setScene(scene);
+        stage.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Puedes usar un logger aquí si lo prefieres
+            e.printStackTrace();
         }
     }
 }
