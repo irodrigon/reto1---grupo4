@@ -6,7 +6,7 @@
 package server;
 
 import Example.Message;
-import Example.SignInSignUp;
+import Example.SignInSignUpEnum;
 import Example.User;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -26,6 +26,7 @@ public class Worker extends Thread {
     ObjectOutputStream salida = null;
     private ApplicationS servidor;
     private Message message;
+    User user;
 
     public Worker(Socket cliente, ApplicationS servidor) {
         this.cliente = cliente;
@@ -34,38 +35,39 @@ public class Worker extends Thread {
 
     @Override
     public void run() {
-        
-        try{
+
+        try {
             entrada = new ObjectInputStream(cliente.getInputStream());
             salida = new ObjectOutputStream(cliente.getOutputStream());
-            
+
             message = (Message) entrada.readObject();
-            
-            if(message.getSignInSignUp().equals(SignInSignUp.SIGN_IN)){
-                User user = DAOFactory.getSignable().signIn();
-                salida.writeObject("Sign in correcto");
-            }else if(message.getSignInSignUp().equals(SignInSignUp.SIGN_UP)){
-                User user = DAOFactory.getSignable().signUp();
-                salida.writeObject("Sign up correcto");
-            }else{
+
+            if (message.getSignInSignUpEnum().equals(SignInSignUpEnum.SIGN_IN_REQUEST)) {
+                user = DAOFactory.getSignable().signIn(message.getUser());
+
+            } else if (message.getSignInSignUpEnum().equals(SignInSignUpEnum.SIGN_UP_REQUEST)) {
+                user = DAOFactory.getSignable().signUp(message.getUser());
+
+            } else {
                 //Deberiamos incluir nuestra excepcion aqui o asegurarnos que nos llega un enum
             }
             
+            
             //Hay que decidir que se quiere devolver y cambiar esta parte
-            
-            
-        }catch (IOException error){
+            salida.writeObject(user);
+
+        } catch (IOException error) {
             Logger.getLogger("SERVIDOR").log(Level.SEVERE, "Fallo al mandar/recivir message");
-            
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             servidor.liberarConexion();
             liberaRecursos();
         }
 
     }
-    
+
     public void liberaRecursos() {
         try {
 

@@ -16,14 +16,14 @@ public class DAO implements Signable{
     
     
     @Override
-    public User signIn(){
-        User user = new User();
+    public User signIn(User user){
+        
         return user;
     }
     
     @Override
-    public User signUp(){
-        User user = new User();
+    public User signUp(User user){
+        
         return user;
     }
 }

@@ -11,6 +11,6 @@ package Example;
  */
 public interface Signable {
     
-    public User signIn();
-    public User signUp();
+    public User signIn(User user);
+    public User signUp(User user);
 }

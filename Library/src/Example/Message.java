@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class Message implements Serializable{
     private static final long serialVersionUID = 1L;
     private User user;
-    private Enum SignInSignUp;
+    private Enum SignInSignUpEnum;
     
     public Message (){
         
@@ -28,13 +28,14 @@ public class Message implements Serializable{
         this.user = user;
     }
 
-    public Enum getSignInSignUp() {
-        return SignInSignUp;
+    public Enum getSignInSignUpEnum() {
+        return SignInSignUpEnum;
     }
 
-    public void setSignInSignUp(Enum SignInSignUp) {
-        this.SignInSignUp = SignInSignUp;
+    public void setSignInSignUpEnum(Enum SignInSignUpEnum) {
+        this.SignInSignUpEnum = SignInSignUpEnum;
     }
+
     
     
 }

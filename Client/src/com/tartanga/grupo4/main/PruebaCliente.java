@@ -1,7 +1,7 @@
 package com.tartanga.grupo4.main;
 
 import Example.Message;
-import Example.SignInSignUp;
+import Example.SignInSignUpEnum;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -28,7 +28,7 @@ public class PruebaCliente{
 			entrada = new ObjectInputStream(cliente.getInputStream());
 	
 			Message message = new Message();
-                        message.setSignInSignUp(SignInSignUp.SIGN_UP);
+                        message.setSignInSignUpEnum(SignInSignUpEnum.SIGN_UP_REQUEST);
                         salida.writeObject(message);
                         
 			String mensaje = (String) entrada.readObject();
