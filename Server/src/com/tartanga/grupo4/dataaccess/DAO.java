@@ -46,15 +46,13 @@ public class DAO implements Signable {
             connection = dataSource.getConnection();
 
             preparedStatement = connection.prepareStatement(SELECT_RES_USERS);
-
+            
+            preparedStatement.setString(1, user.getUsername());
+            
             resultSet = preparedStatement.executeQuery();
 
-            preparedStatement.setString(1, user.getUsername());
-
-            ResultSet rs = preparedStatement.executeQuery();
-
             if (resultSet.next()) {
-                int count = rs.getInt(1);
+                int count = resultSet.getInt(1);
                 if (count > 0) {
                     throw new UserExistInDatabaseException();
                 } else {
