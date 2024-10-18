@@ -30,6 +30,7 @@ public class Cliente implements Signable {
     private static final Logger logger = Logger.getLogger("Client");
     Message message = new Message();
     SignInSignUpEnum sign;
+
     public void mandarMessage() {
 
     }
@@ -39,7 +40,7 @@ public class Cliente implements Signable {
 		c1.iniciar();
 	}*/
     @Override
-    public User signIn(User user) {
+    public User signIn(User user) throws ServerErrorException, UserExistInDatabaseException, Exception {
         try {
             cliente = new Socket(IP, PUERTO);
             logger.log(Level.INFO, "Conexion realizada con el servidor");
@@ -54,37 +55,29 @@ public class Cliente implements Signable {
             message = (Message) entrada.readObject();
             sign = (SignInSignUpEnum) message.getSignInSignUpEnum();
             logger.log(Level.INFO, "Respuesta del servidor recivida");
-            
-            switch(sign){
+
+            switch (sign) {
                 case OK:
                     logger.log(Level.INFO, "Usuario verificado");
                     break;
-                    
+
                 case USER_PASSWD_ERROR:
                     logger.log(Level.SEVERE, "ERROR, contrasena y/o usuario incorrecto");
                     throw new UserPasswdException();
-                
+
                 case SERVER_ERROR:
                     logger.log(Level.SEVERE, "ERROR interno del server");
                     throw new ServerErrorException();
             }
-            
-
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }finally{
-            logger.log(Level.INFO, "Conexion cliente cerrada");
+            return user;
+        } finally {
             finalizar();
         }
-        
-        return user;
 
     }
 
     @Override
-    public User signUp(User user) {
+    public User signUp(User user) throws UserPasswdException, ServerErrorException, Exception {
         try {
             cliente = new Socket(IP, PUERTO);
             logger.log(Level.INFO, "Conexion realizada con el servidor");
@@ -99,30 +92,25 @@ public class Cliente implements Signable {
             message = (Message) entrada.readObject();
             sign = (SignInSignUpEnum) message.getSignInSignUpEnum();
             logger.log(Level.INFO, "Respuesta del servidor recivida");
-            
-            switch(sign){
+
+            switch (sign) {
                 case OK:
                     logger.log(Level.INFO, "Usuario registrado");
                     break;
-                    
+
                 case USER_EXIST_IN_DB:
                     logger.log(Level.SEVERE, "ERROR, el login introducido ya existe");
                     throw new UserExistInDatabaseException();
-                
+
                 case SERVER_ERROR:
                     logger.log(Level.SEVERE, "ERROR interno del server");
                     throw new ServerErrorException();
             }
 
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }finally{
+            return user;
+        } finally {
             finalizar();
-            logger.log(Level.INFO, "Conexion cliente cerrada");
         }
-        return user;
     }
 
     public void finalizar() {

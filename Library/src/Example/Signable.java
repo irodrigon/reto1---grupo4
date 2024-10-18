@@ -5,12 +5,16 @@
  */
 package Example;
 
+import exceptions.ServerErrorException;
+import exceptions.UserExistInDatabaseException;
+import exceptions.UserPasswdException;
+
 /**
  *
  * @author rabio
  */
 public interface Signable {
     
-    public User signIn(User user);
-    public User signUp(User user);
+    public User signIn (User user) throws UserPasswdException,ServerErrorException,Exception;
+    public User signUp(User user)throws ServerErrorException,UserExistInDatabaseException,Exception;
 }

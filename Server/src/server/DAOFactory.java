@@ -14,9 +14,20 @@ import Example.Signable;
  */
 public class DAOFactory {
     
-    public static Signable getSignable(){
-        
-        return new DAO();
-        
+   private static DAOFactory instance;
+
+
+    private DAOFactory() {
+    }
+
+    public static DAOFactory getInstance() {
+        if (instance == null) {
+            instance = new DAOFactory();
+        }
+        return instance;
+    }
+
+    public Signable getSignable() {
+        return new DAO(); 
     }
 }

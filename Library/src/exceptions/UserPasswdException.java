@@ -15,6 +15,6 @@ public class UserPasswdException extends Exception {
      * message.
      */
     public UserPasswdException() {      
-        super("El usuario/contraseña son incorrectos");
+        super("The user/password is not correct");
     }
 }
