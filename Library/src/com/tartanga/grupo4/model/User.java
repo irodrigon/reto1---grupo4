@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Example;
+package com.tartanga.grupo4.model;
 
 /**
  *
- * @author Iñi
+ * @author rabio
  */
-public class Example {
+public class User {
     
 }
