@@ -5,40 +5,34 @@
  */
 package com.tartanga.grupo4.model;
 
+import java.io.Serializable;
+
 /**
  *
- * @author egure
+ * @author rabio
  */
-public class Message {
-  
-      private User usuario;
-      private SignInSignUpEnum type;
+public class Message implements Serializable {
 
-    public Message(User usuario, SignInSignUpEnum type) {
-        this.usuario = usuario;
-        this.type = type;
-    }
-    
-     public Message() {
-         this.usuario = null;
-        this.type = null;
+    private static final long serialVersionUID = 1L;
+    private User user;
+    private Enum SignInSignUpEnum;
+    public Message() {
+
     }
 
-    public SignInSignUpEnum getType() {
-        return type;
+    public User getUser() {
+        return user;
     }
 
-    public void setType(SignInSignUpEnum type) {
-        this.type = type;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "Message{" + "usuario=" + usuario + ", type=" + type + '}';
+    public Enum getSignInSignUpEnum() {
+        return SignInSignUpEnum;
     }
-     
-     
-      
-      
-      
+
+    public void setSignInSignUpEnum(Enum SignInSignUpEnum) {
+        this.SignInSignUpEnum = SignInSignUpEnum;
+    }
 }

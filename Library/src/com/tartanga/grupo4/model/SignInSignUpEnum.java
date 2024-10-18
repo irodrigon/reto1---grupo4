@@ -6,11 +6,19 @@
 package com.tartanga.grupo4.model;
 
 /**
- *The {@code SignInSignUpEnum} enum refers to server part what methoth does it have follow
+ * The {@code SignInSignUpEnum} enum refers to server part what methoth does it
+ * have follow
+ *
  * @author Aratz
  */
 public enum SignInSignUpEnum {
     SIGN_IN_REQUEST,
-    LOG_IN_REQUEST;
+    SIGN_UP_REQUEST,
+    OK,
+    USER_PASSWD_ERROR,
+    USER_EXIST_IN_DB,
+    SERVER_ERROR;
+
+
 
 }
