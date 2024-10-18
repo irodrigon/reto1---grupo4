@@ -44,8 +44,18 @@ public void initialize(URL location, ResourceBundle resources) {
             e.printStackTrace();
         }
     });
-    }
+}
     
+    private void cerrarAplicacion() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Cerrar Aplicación");
+        alert.setHeaderText("¿Estás seguro de que quieres cerrar la aplicación?");
+        alert.setContentText("Confirma si deseas salir.");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            Platform.exit();
+        }
+    }
 
     @FXML
 private void handlelogOut(ActionEvent event) throws IOException {
@@ -57,6 +67,7 @@ private void handlelogOut(ActionEvent event) throws IOException {
     stage.setScene(scene);
     stage.show();
 }
+
 
 
     @FXML
