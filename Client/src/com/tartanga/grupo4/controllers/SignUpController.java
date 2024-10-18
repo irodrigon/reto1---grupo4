@@ -19,15 +19,25 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class SignUpController {
     
     @FXML
-    private Button btn_Back;
+    private Button btn_Back,btn_Register;
+    @FXML
+    private TextField fld_Email,fld_Password,fld_Confirm,fld_Name,fld_City,fld_Street,fld_Zip;
+    @FXML
+    private CheckBox chb_Active;
+    @FXML
+    private Label lbl_error_Email,lbl_error_Password,lbl_error_Confirm,lbl_error_Name,lbl_error_City,lbl_error_Street,lbl_error_Z;
     
     @FXML
     private void initialize() {
         btn_Back.setOnAction(this::handleGoBack);
+        btn_Register.setOnAction(this::handleRegister);
     }
 
     @FXML
@@ -44,5 +54,8 @@ public class SignUpController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private void handleRegister(ActionEvent event){
+        
     }
 }
