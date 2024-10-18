@@ -25,10 +25,6 @@ public class Pool {
             basicDataSource.setInitialSize(5);
             basicDataSource.setMaxTotal(10);
             basicDataSource.setMaxWaitMillis(30000);
-
-       
-           
-        
     }
 
     public BasicDataSource getDataSource() {

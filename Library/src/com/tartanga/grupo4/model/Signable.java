@@ -5,6 +5,8 @@
  */
 package com.tartanga.grupo4.model;
 
+import com.tartanga.grupo4.exceptions.UserExistInDatabaseException;
+
 /**
  *
  * @author rabio
@@ -12,5 +14,5 @@ package com.tartanga.grupo4.model;
 public interface Signable {
     
     public User signIn(User user);
-    public User signUp(User user);
+    public User signUp(User user) throws UserExistInDatabaseException;
 }
