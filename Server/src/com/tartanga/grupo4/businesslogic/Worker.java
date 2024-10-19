@@ -6,6 +6,7 @@
 package com.tartanga.grupo4.businesslogic;
 
 import com.tartanga.grupo4.dataaccess.DAOFactory;
+import com.tartanga.grupo4.exceptions.UserExistInDatabaseException;
 import com.tartanga.grupo4.main.ApplicationS;
 import com.tartanga.grupo4.model.Message;
 import com.tartanga.grupo4.model.SignInSignUpEnum;
@@ -48,7 +49,11 @@ public class Worker extends Thread {
                 user = DAOFactory.getSignable().signIn(message.getUser());
 
             } else if (message.getSignInSignUpEnum().equals(SignInSignUpEnum.SIGN_UP_REQUEST)) {
-                user = DAOFactory.getSignable().signUp(message.getUser());
+                try {
+                    user = DAOFactory.getSignable().signUp(message.getUser());
+                } catch (UserExistInDatabaseException ex) {
+                    Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             } else {
                 //Deberiamos incluir nuestra excepcion aqui o asegurarnos que nos llega un enum
