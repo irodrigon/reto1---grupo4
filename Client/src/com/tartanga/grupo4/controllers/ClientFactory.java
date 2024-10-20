@@ -3,31 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package server;
-
+package com.tartanga.grupo4.controllers;
 
 import Example.Signable;
+import com.tartanga.grupo4.main.Cliente;
 
 /**
  *
  * @author rabio
  */
-public class DAOFactory {
+public class ClientFactory {
     
-   private static DAOFactory instance;
+   private static ClientFactory instance;
 
 
-    private DAOFactory() {
+    private ClientFactory() {
     }
 
-    public static synchronized DAOFactory getInstance() {
+    public static synchronized ClientFactory getInstance() {
         if (instance == null) {
-            instance = new DAOFactory();
+            instance = new ClientFactory();
         }
         return instance;
     }
 
     public Signable getSignable() {
-        return new DAO(); 
+        return new Cliente(); 
     }
 }

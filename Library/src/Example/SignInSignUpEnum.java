@@ -15,5 +15,6 @@ public enum SignInSignUpEnum {
     OK,
     USER_PASSWD_ERROR,
     USER_EXIST_IN_DB,
-    SERVER_ERROR;
+    SERVER_ERROR,
+    MAX_CONNECTIONS;
 }

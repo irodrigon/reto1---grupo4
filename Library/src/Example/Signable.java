@@ -5,6 +5,7 @@
  */
 package Example;
 
+import exceptions.MaxConnectionsException;
 import exceptions.ServerErrorException;
 import exceptions.UserExistInDatabaseException;
 import exceptions.UserPasswdException;
@@ -15,6 +16,6 @@ import exceptions.UserPasswdException;
  */
 public interface Signable {
     
-    public User signIn (User user) throws UserPasswdException,ServerErrorException,Exception;
-    public User signUp(User user)throws ServerErrorException,UserExistInDatabaseException,Exception;
+    public User signIn (User user) throws UserPasswdException,ServerErrorException,Exception,MaxConnectionsException;
+    public User signUp(User user)throws ServerErrorException,UserExistInDatabaseException,Exception,MaxConnectionsException;
 }

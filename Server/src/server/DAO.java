@@ -7,6 +7,8 @@ package server;
 
 import Example.Signable;
 import Example.User;
+import exceptions.ServerErrorException;
+import exceptions.UserPasswdException;
 
 /**
  *
@@ -16,9 +18,9 @@ public class DAO implements Signable{
     
     
     @Override
-    public User signIn(User user){
+    public User signIn(User user) throws UserPasswdException,ServerErrorException{
+        throw new ServerErrorException();
         
-        return user;
     }
     
     @Override

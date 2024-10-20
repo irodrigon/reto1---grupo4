@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class Worker extends Thread {
 
-    private static final Logger logger = Logger.getLogger("Client");
+    private static final Logger logger = Logger.getLogger("Worker");
     Socket cliente;
     ObjectInputStream entrada = null;
     ObjectOutputStream salida = null;
@@ -46,43 +46,44 @@ public class Worker extends Thread {
             message = (Message) entrada.readObject();
 
             if (message.getSignInSignUpEnum().equals(SignInSignUpEnum.SIGN_IN_REQUEST)) {
-                user = DAOFactory.getSignable().signIn(message.getUser());
+                user = DAOFactory.getInstance().getSignable().signIn(message.getUser());
                 message.setSignInSignUpEnum(SignInSignUpEnum.OK);
                 logger.log(Level.INFO, "User has been verified");
 
             } else if (message.getSignInSignUpEnum().equals(SignInSignUpEnum.SIGN_UP_REQUEST)) {
-                user = DAOFactory.getSignable().signUp(message.getUser());
+                user = DAOFactory.getInstance().getSignable().signUp(message.getUser());
                 message.setSignInSignUpEnum(SignInSignUpEnum.OK);
-
+                logger.log(Level.INFO, "User has been created");
             } else {
                 message.setSignInSignUpEnum(SignInSignUpEnum.SERVER_ERROR);
+                logger.log(Level.INFO, "Client did not send a request. ERROR");
             }
 
             mandarMessage(message);
 
         } catch (UserPasswdException error) {
-            logger.log(Level.INFO, "Password/USer does not match");
+            logger.log(Level.INFO, "Password/USer does not match", error.toString());
             message.setSignInSignUpEnum(SignInSignUpEnum.USER_PASSWD_ERROR);
             mandarMessage(message);
             
         } catch (UserExistInDatabaseException error) {
-            logger.log(Level.INFO, "User login already Exist in DB");
+            logger.log(Level.INFO, "User login already Exist in DB", error.toString());
             message.setSignInSignUpEnum(SignInSignUpEnum.USER_EXIST_IN_DB);
             mandarMessage(message);
 
         } catch (IOException error) {
-            logger.log(Level.INFO, "Failed to send message,ERROR CRITICAL", error);
+            logger.log(Level.INFO, "Failed to send message,ERROR CRITICAL", error.toString());
             message.setSignInSignUpEnum(SignInSignUpEnum.SERVER_ERROR);
             mandarMessage(message);
             
         } catch (Exception error) {
-            logger.log(Level.INFO, "ERROR SERVIDOR", error);
+            logger.log(Level.INFO, "ERROR SERVIDOR", error.toString());
             message.setSignInSignUpEnum(SignInSignUpEnum.SERVER_ERROR);
             mandarMessage(message);
             
         } finally {
-            servidor.liberarConexion();
             liberaRecursos();
+            servidor.controlarConexion(0);
         }
 
     }
@@ -110,7 +111,7 @@ public class Worker extends Thread {
         try {
             salida.writeObject(message);
         } catch (IOException error) {
-            logger.log(Level.SEVERE, "Failed to send message,ERROR CRITICAL", error);
+            logger.log(Level.SEVERE, "Failed to send message,CRITICAL ERROR", error);
         }
     }
 }

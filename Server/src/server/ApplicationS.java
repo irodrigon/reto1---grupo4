@@ -5,7 +5,10 @@
  */
 package server;
 
+import Example.Message;
+import Example.SignInSignUpEnum;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -22,17 +25,19 @@ public class ApplicationS {
     Socket cliente = null;
     private static int conexiones = 0;
     private final int MAX_CONEXIONES = 5;
+    private static final Logger logger = Logger.getLogger("ApplicationS");
+    ObjectOutputStream salida = null;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         ApplicationS application = new ApplicationS();
-        try{
+        try {
+            logger.log(Level.INFO, "Starting server...");
             application.iniciar();
-        }catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (IOException error) {
+            logger.log(Level.INFO, "Critical error when starting the server", error.toString());
         }
 
     }
@@ -40,24 +45,34 @@ public class ApplicationS {
     public void iniciar() throws IOException {
 
         try {
-            Logger.getLogger("SERVIDOR").log(Level.INFO, "Iniciando servidor...");
             servidor = new ServerSocket(PUERTO);
 
             while (true) {
-                Logger.getLogger("SERVIDOR").log(Level.INFO, "Esperando conexion del cliente");
+                logger.log(Level.INFO, "Wating conexion from client");
                 cliente = servidor.accept();
 
                 if (conexiones < MAX_CONEXIONES) {
-                    conexiones++;
-                    Worker hilo = new Worker(cliente,this);
+                    controlarConexion(1);
+                    Worker hilo = new Worker(cliente, this);
                     hilo.start();
 
                 } else {
-                    Logger.getLogger("SERVIDOR").log(Level.INFO, "Se ha denegado a un cliente por ser mas del maximo permitido");
+                    //Esto no esta testeado porque no tengo manera de mantener 5 conexiones a la vez. Probar con Junit
+                    logger.log(Level.INFO, "Max conections (5) reached, refusing service");
+                    salida = new ObjectOutputStream(cliente.getOutputStream());
+                    Message message = new Message();
+                    message.setSignInSignUpEnum(SignInSignUpEnum.MAX_CONNECTIONS);
+                    salida.writeObject(message);
+                    if (cliente != null) {
+                        cliente.close();
+                    }
+                    if (salida != null) {
+                        salida.close();
+                    }
                 }
 
             }
-        }catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -66,7 +81,7 @@ public class ApplicationS {
 
         }
     }
-    
+
     public void finalizar() {
         try {
             if (servidor != null) {
@@ -82,9 +97,15 @@ public class ApplicationS {
             e.printStackTrace();
         }
     }
-    public synchronized void liberarConexion() {
-        conexiones--;
-        Logger.getLogger("SERVIDOR").log(Level.INFO, "Cliente desconectado conexiones actuales: {0}", conexiones);
+
+    public synchronized void controlarConexion(int tipo) {
+        if (tipo == 1) {
+            conexiones++;
+            Logger.getLogger("SERVIDOR").log(Level.INFO, "Clients connected: {0}", conexiones);
+        } else {
+            conexiones--;
+            Logger.getLogger("SERVIDOR").log(Level.INFO, "Clients connected: {0}", conexiones);
+        }
 
     }
 
