@@ -59,12 +59,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_error_Email" layoutX="277.0" layoutY="290.0" text="error login" />
-      <Label fx:id="lbl_error_Password" layoutX="265.0" layoutY="392.0" text="Error password" />
-      <Label fx:id="lbl_error_Confirm" layoutX="242.0" layoutY="493.0" text="Not the same password" />
-      <Label fx:id="lbl_error_Name" layoutX="241.0" layoutY="597.0" text="Numbers aren't allowed" />
-      <Label fx:id="lbl_error_Zip" layoutX="672.0" layoutY="493.0" text="letters aren't allowed" />
-      <Label fx:id="lbl_error_CIty" layoutX="664.0" layoutY="290.0" text="Numbers aren't allowed" />
-      <Label fx:id="lbl_error_Street" layoutX="664.0" layoutY="384.0" text="Numbers aren't allowed" />
+      <Label fx:id="lbl_error_Email" layoutX="277.0" layoutY="290.0" text="" />
+      <Label fx:id="lbl_error_Password" layoutX="265.0" layoutY="392.0" text="" />
+      <Label fx:id="lbl_error_Confirm" layoutX="242.0" layoutY="493.0" text="" />
+      <Label fx:id="lbl_error_Name" layoutX="241.0" layoutY="597.0" text="" />
+      <Label fx:id="lbl_error_Zip" layoutX="672.0" layoutY="493.0" text="" />
+      <Label fx:id="lbl_error_City" layoutX="664.0" layoutY="290.0" text="" />
+      <Label fx:id="lbl_error_Street" layoutX="664.0" layoutY="384.0" text="" />
    </children>
 </Pane>

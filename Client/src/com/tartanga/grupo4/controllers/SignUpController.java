@@ -9,6 +9,7 @@ package com.tartanga.grupo4.controllers;
  *
  * @author Alin & Aratz
  */
+import com.tartanga.grupo4.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -146,6 +149,7 @@ public class SignUpController {
 
         // If no errors, proceed with registration logic
         if (!hasError) {
+            User user= new User(email, password, name, street, isActive, city, Integer.parseInt(zip));
             try {
                 FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
                 Parent mainView = FXMLLoader.load();
@@ -158,8 +162,12 @@ public class SignUpController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else{
-            
+        } else {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Ha ocurrido un error en alguno de los campos");
+            alert.setContentText("Por favor, inténtalo de nuevo.");
+            alert.showAndWait();
         }
     }
 }
