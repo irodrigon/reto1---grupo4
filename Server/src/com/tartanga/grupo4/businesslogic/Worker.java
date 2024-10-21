@@ -10,6 +10,8 @@ import com.tartanga.grupo4.main.ApplicationS;
 import com.tartanga.grupo4.model.Message;
 import com.tartanga.grupo4.model.SignInSignUpEnum;
 import com.tartanga.grupo4.model.User;
+import exceptions.ServerErrorException;
+import exceptions.UserPasswdException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -62,6 +64,10 @@ public class Worker extends Thread {
             Logger.getLogger("SERVIDOR").log(Level.SEVERE, "Fallo al mandar/recivir message");
 
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UserPasswdException ex) {
+            Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ServerErrorException ex) {
             Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             servidor.liberarConexion();

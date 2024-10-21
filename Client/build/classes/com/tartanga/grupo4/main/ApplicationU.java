@@ -5,6 +5,7 @@
  */
 package com.tartanga.grupo4.main;
 
+import com.tartanga.grupo4.controllers.SignInController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,22 +17,18 @@ import javafx.stage.Stage;
  * @author Iñi
  */
 public class ApplicationU extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
+        Parent root = (Parent)loader.load();
         
-        Scene scene = new Scene(root);
-        
-        stage.setScene(scene);
-        stage.show();
+        SignInController controller = (SignInController)loader.getController();
+        controller.setStage(stage);
+        controller.initStage(root);
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }
-    
 }

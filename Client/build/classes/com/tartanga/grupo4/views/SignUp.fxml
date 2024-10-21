@@ -10,7 +10,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../../../../style1/nuevo1.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tartanga.grupo4.controllers.SignUpController">
    <children>
       <Button fx:id="btn_Register" layoutX="818.0" layoutY="715.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="97.0" text="Register" />
-      <Label fx:id="lbl_Email" layoutX="56.0" layoutY="232.0" prefHeight="40.0" prefWidth="97.0" text="Login:">
+      <Label fx:id="lbl_Username" layoutX="56.0" layoutY="232.0" prefHeight="40.0" prefWidth="97.0" text="Login:">
          <font>
             <Font size="14.0" />
          </font></Label>
@@ -22,7 +22,7 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Label fx:id="lbl_Name" layoutX="56.0" layoutY="538.0" prefHeight="43.0" prefWidth="62.0" text="Name:">
+      <Label fx:id="lbl_Email" layoutX="56.0" layoutY="538.0" prefHeight="43.0" prefWidth="62.0" text="Name:">
          <font>
             <Font size="14.0" />
          </font></Label>
@@ -30,10 +30,10 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <TextField fx:id="fld_Email" layoutX="199.0" layoutY="224.0" prefHeight="59.0" prefWidth="211.0" promptText="example@example.com" />
+      <TextField fx:id="fld_Username" layoutX="199.0" layoutY="224.0" prefHeight="59.0" prefWidth="211.0" promptText="example@example.com" />
       <TextField fx:id="fld_Password" layoutX="199.0" layoutY="317.0" prefHeight="59.0" prefWidth="211.0" promptText="Password" />
       <TextField fx:id="fld_Confirm" layoutX="199.0" layoutY="421.0" prefHeight="59.0" prefWidth="211.0" />
-      <TextField fx:id="fld_Name" layoutX="199.0" layoutY="529.0" prefHeight="59.0" prefWidth="211.0" promptText="Name" />
+      <TextField fx:id="fld_Email" layoutX="199.0" layoutY="529.0" prefHeight="59.0" prefWidth="211.0" promptText="Name" />
       <TextField fx:id="fld_City" layoutX="622.0" layoutY="223.0" prefHeight="59.0" prefWidth="211.0" promptText="City" />
       <Label fx:id="lbl_Title" contentDisplay="CENTER" layoutX="375.0" layoutY="54.0" prefHeight="59.0" prefWidth="251.0" text="WELCOME NEW USER">
          <font>
@@ -59,12 +59,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_error_Email" layoutX="277.0" layoutY="290.0" text="error login" />
-      <Label fx:id="lbl_error_Password" layoutX="265.0" layoutY="392.0" text="Error password" />
-      <Label fx:id="lbl_error_Confirm" layoutX="242.0" layoutY="493.0" text="Not the same password" />
-      <Label fx:id="lbl_error_Name" layoutX="241.0" layoutY="597.0" text="Numbers aren't allowed" />
-      <Label fx:id="lbl_error_Zip" layoutX="672.0" layoutY="493.0" text="letters aren't allowed" />
-      <Label fx:id="lbl_error_CIty" layoutX="664.0" layoutY="290.0" text="Numbers aren't allowed" />
-      <Label fx:id="lbl_error_Street" layoutX="664.0" layoutY="384.0" text="Numbers aren't allowed" />
+      <Label layoutX="277.0" layoutY="290.0" text="error login" />
+      <Label layoutX="265.0" layoutY="392.0" text="Error password" />
+      <Label layoutX="242.0" layoutY="493.0" text="Not the same password" />
+      <Label layoutX="241.0" layoutY="597.0" text="Numbers aren't allowed" />
+      <Label layoutX="672.0" layoutY="493.0" text="letters aren't allowed" />
+      <Label layoutX="664.0" layoutY="290.0" text="Numbers aren't allowed" />
+      <Label layoutX="664.0" layoutY="392.0" text="Numbers aren't allowed" />
    </children>
 </Pane>

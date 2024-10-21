@@ -1,0 +1,87 @@
+
+.root {
+    -fx-padding: 20;
+    -fx-background-color: #1e1e1e;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #cfcfcf;
+}
+
+.label-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #00ffcc; 
+    -fx-padding: 20 0;
+}
+
+.button {
+    -fx-background-color: #005f73; 
+    -fx-text-fill: white; 
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-border-color: #00ffcc; 
+}
+
+.button:hover {
+    -fx-background-color: #0a9396; 
+    -fx-cursor: hand;
+}
+
+.button:pressed {
+    -fx-background-color: #003d4c;
+}
+
+.text-field {
+    -fx-padding: 10;
+    -fx-background-color: #2c2c2c; 
+    -fx-text-fill: #cfcfcf; 
+    -fx-border-color: #00ffcc;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.text-field:focused {
+    -fx-border-color: #00bfa5; 
+}
+
+.label {
+    -fx-text-fill: #cfcfcf;
+}
+
+.panel {
+    -fx-background-color: #2c2c2c; 
+    -fx-border-color: #4b4b4b; 
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-padding: 20;
+}
+
+.tooltip {
+    -fx-background-color: #2c2c2c; 
+    -fx-text-fill: #cfcfcf; 
+    -fx-border-color: #00ffcc; 
+}
+
+.combo-box {
+    -fx-background-color: #2c2c2c;  /* Fondo oscuro coherente con el panel */
+    -fx-border-color: #00ffcc;      /* Borde color cian */
+    -fx-border-radius: 5;           /* Bordes redondeados */
+    -fx-background-radius: 5;
+    -fx-text-fill: #cfcfcf;         /* Texto claro */
+}
+
+.combo-box:hover {
+    -fx-background-color: #3a3a3a;  /* Fondo más claro al pasar el ratón */
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #2c2c2c;  /* Fondo de las opciones */
+    -fx-text-fill: #cfcfcf;         /* Texto de las opciones */
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #005f73;  /* Fondo azul al pasar el ratón sobre una opción */
+    -fx-text-fill: white;
+}
