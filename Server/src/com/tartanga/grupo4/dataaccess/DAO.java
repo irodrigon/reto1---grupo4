@@ -23,7 +23,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
  */
 public class DAO implements Signable {
 
-    private final String INSERT_RES_PARTNER = "INSERT INTO RES_PARTNER(name,street,city,zip,email) VALUES (?,?,?,?,?)";
+    private final String INSERT_RES_PARTNER = "INSERT INTO RES_PARTNER(company_id,name,street,city,zip,email) VALUES (1,?,?,?,?,?)";
     private final String INSERT_RES_USERS = "INSERT INTO RES_USERS(company_id,partner_id,login,password,active,notification_type) VALUES (1,(SELECT id FROM RES_PARTNER WHERE email = ?),?,?,'email')";
     private final String SELECT_RES_USERS = "SELECT COUNT(*) FROM RES_USERS WHERE login = ?";
 
@@ -39,16 +39,15 @@ public class DAO implements Signable {
 
     @Override
     public User signUp(User user) throws UserExistInDatabaseException {
-
+        Pool pool = new Pool();
         try {
-            Pool pool = new Pool();
-            BasicDataSource dataSource = pool.getDataSource();
-            connection = dataSource.getConnection();
+
+            connection = pool.getConnection();
 
             preparedStatement = connection.prepareStatement(SELECT_RES_USERS);
-            
+
             preparedStatement.setString(1, user.getUsername());
-            
+
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -63,7 +62,7 @@ public class DAO implements Signable {
                     preparedStatement.setString(3, user.getCity());
                     preparedStatement.setInt(4, user.getZip());
                     preparedStatement.setString(5, user.getUsername());
-                    
+
                     preparedStatement = connection.prepareStatement(INSERT_RES_USERS);
 
                     preparedStatement.setString(1, user.getUsername());
@@ -74,6 +73,12 @@ public class DAO implements Signable {
 
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (connection != null) {
+                pool.freeConnection(connection);
+            }
         }
 
         return user;
