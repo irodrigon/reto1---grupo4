@@ -1,13 +1,13 @@
 /*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package com.tartanga.grupo4.controllers;
 
 /**
  *
- * @author Alin
+ * @author Alin & Aratz
  */
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,7 +32,7 @@ public class SignUpController {
     @FXML
     private CheckBox chb_Active;
     @FXML
-    private Label lbl_error_Email, lbl_error_Password, lbl_error_Confirm, lbl_error_Name, lbl_error_City, lbl_error_Street, lbl_error_Z;
+    private Label lbl_error_Email, lbl_error_Password, lbl_error_Confirm, lbl_error_Name, lbl_error_City, lbl_error_Street, lbl_error_Zip;
 
     @FXML
     private void initialize() {
@@ -67,51 +67,99 @@ public class SignUpController {
         boolean isActive = chb_Active.isSelected();
         boolean hasError = false;
 
+        // Email validation
         if (email.isEmpty()) {
             lbl_error_Email.setText("Email is required");
             hasError = true;
         } else if (!email.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")) {
             lbl_error_Email.setText("Please enter a valid email address.");
             hasError = true;
+        } else {
+            lbl_error_Email.setText("");
         }
 
+        // Password validation
         if (password.isEmpty()) {
             lbl_error_Password.setText("Password is required");
             hasError = true;
         } else if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$")) {
             lbl_error_Password.setText("Password must be at least 6 characters long and include uppercase, lowercase letters, and numbers.");
             hasError = true;
+        } else {
+            lbl_error_Password.setText("");
         }
 
+        // Confirm password validation
         if (confirm.isEmpty()) {
             lbl_error_Confirm.setText("Password confirmation is required");
             hasError = true;
-        } else if (!password.isEmpty() && !password.equals(confirm)) {
+        } else if (!password.equals(confirm)) {
             lbl_error_Confirm.setText("Passwords don´t match.");
             hasError = true;
+        } else {
+            lbl_error_Confirm.setText("");
         }
-        
-        if (name.isEmpty()){
+
+        // Name validation
+        if (name.isEmpty()) {
             lbl_error_Name.setText("Name is required");
             hasError = true;
+        } else if (name.matches(".*\\d.*")) {
+            lbl_error_Name.setText("Name cannot contain numbers");
+            hasError = true;
+        } else {
+            lbl_error_Name.setText("");
         }
-                
 
-        if (hasError) {
-        return;
-    }
-        
-        try {
-            FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
-            Parent mainView = FXMLLoader.load();
+        // City validation
+        if (city.isEmpty()) {
+            lbl_error_City.setText("City is required");
+            hasError = true;
+        } else if (city.matches(".*\\d.*")) {
+            lbl_error_City.setText("City cannot contain numbers");
+            hasError = true;
+        } else {
+            lbl_error_City.setText("");
+        }
 
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        // Street validation
+        if (street.isEmpty()) {
+            lbl_error_Street.setText("Street is required");
+            hasError = true;
+        } else if (street.matches(".*\\d.*")) {
+            lbl_error_Street.setText("Street cannot contain numbers");
+            hasError = true;
+        } else {
+            lbl_error_Street.setText("");
+        }
 
-            Scene scene = new Scene(mainView);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Zip code validation
+        if (zip.isEmpty()) {
+            lbl_error_Zip.setText("ZIP code is required");
+            hasError = true;
+        } else if (!zip.matches("\\d{1,10}")) {
+            lbl_error_Zip.setText("Invalid ZIP code");
+            hasError = true;
+        } else {
+            lbl_error_Zip.setText("");
+        }
+
+        // If no errors, proceed with registration logic
+        if (!hasError) {
+            try {
+                FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
+                Parent mainView = FXMLLoader.load();
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+                Scene scene = new Scene(mainView);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            
         }
     }
 }
