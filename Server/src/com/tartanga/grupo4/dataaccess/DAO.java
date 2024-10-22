@@ -5,7 +5,9 @@
  */
 package com.tartanga.grupo4.dataaccess;
 
+import com.tartanga.grupo4.exceptions.ServerErrorException;
 import com.tartanga.grupo4.exceptions.UserExistInDatabaseException;
+import com.tartanga.grupo4.exceptions.UserPasswdException;
 import com.tartanga.grupo4.model.Signable;
 import com.tartanga.grupo4.model.User;
 import com.tartanga.grupo4.pool.Pool;
@@ -15,7 +17,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.dbcp2.BasicDataSource;
 
 /**
  *
@@ -24,25 +25,66 @@ import org.apache.commons.dbcp2.BasicDataSource;
 public class DAO implements Signable {
 
     private final String INSERT_RES_PARTNER = "INSERT INTO RES_PARTNER(company_id,name,street,city,zip,email) VALUES (1,?,?,?,?,?)";
-    private final String INSERT_RES_USERS = "INSERT INTO RES_USERS(company_id,partner_id,login,password,active,notification_type) VALUES (1,(SELECT id FROM RES_PARTNER WHERE email = ?),?,?,'email')";
+    private final String INSERT_RES_USERS = "INSERT INTO RES_USERS(company_id,partner_id,login,password,active,notification_type) VALUES (1,(SELECT id FROM RES_PARTNER WHERE email = ?),?,?,?,'email')";
     private final String SELECT_RES_USERS = "SELECT COUNT(*) FROM RES_USERS WHERE login = ?";
+    private final String CHECK_USER = "SELECT * from RES_USERS where LOGIN = ? and PASSWORD = ?";
 
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
     @Override
-    public User signIn(User user) {
+    public User signIn(User user) throws UserPasswdException,ServerErrorException{
+
+        Pool pool = new Pool();
+
+        try {
+            connection = pool.getConnection();
+            connection.setAutoCommit(false);
+            preparedStatement = connection.prepareStatement(CHECK_USER);
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            resultSet = preparedStatement.executeQuery();
+            
+            connection.commit();
+
+            if (!resultSet.next()) {
+                user.setUsername(null);
+                user.setPassword(null);
+                throw new UserPasswdException();
+            }
+
+        } catch (SQLException ex) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException rollbackEx) {
+                    Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, "Fallo de rollback: " + rollbackEx.getMessage());
+                }
+            }
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, "Ocurrio un error de SQL: " + ex.getMessage());
+            throw new ServerErrorException();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (connection != null) {
+                pool.freeConnection(connection);
+            }
+        }
 
         return user;
     }
 
     @Override
-    public User signUp(User user) throws UserExistInDatabaseException {
+    public User signUp(User user) throws UserExistInDatabaseException, ServerErrorException {
+
         Pool pool = new Pool();
+
         try {
 
             connection = pool.getConnection();
+
+            connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(SELECT_RES_USERS);
 
@@ -63,16 +105,33 @@ public class DAO implements Signable {
                     preparedStatement.setInt(4, user.getZip());
                     preparedStatement.setString(5, user.getUsername());
 
+                    preparedStatement.executeUpdate();
+
                     preparedStatement = connection.prepareStatement(INSERT_RES_USERS);
 
                     preparedStatement.setString(1, user.getUsername());
-                    preparedStatement.setString(2, user.getPassword());
-                    preparedStatement.setBoolean(3, user.getActive());
+                    preparedStatement.setString(2, user.getUsername());
+                    preparedStatement.setString(3, user.getPassword());
+                    preparedStatement.setBoolean(4, user.getActive());
+                    
+
+                    preparedStatement.executeUpdate();
+                    
+                    connection.commit();
                 }
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException rollbackEx) {
+                    Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, "Fallo de rollback: " + rollbackEx.getMessage());
+                }
+            }
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, "Ocurrio un error de SQL: " + ex.getMessage());
+            throw new ServerErrorException();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

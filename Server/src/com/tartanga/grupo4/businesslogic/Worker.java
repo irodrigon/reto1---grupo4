@@ -6,7 +6,9 @@
 package com.tartanga.grupo4.businesslogic;
 
 import com.tartanga.grupo4.dataaccess.DAOFactory;
+import com.tartanga.grupo4.exceptions.ServerErrorException;
 import com.tartanga.grupo4.exceptions.UserExistInDatabaseException;
+import com.tartanga.grupo4.exceptions.UserPasswdException;
 import com.tartanga.grupo4.main.ApplicationS;
 import com.tartanga.grupo4.model.Message;
 import com.tartanga.grupo4.model.SignInSignUpEnum;
@@ -64,9 +66,12 @@ public class Worker extends Thread {
             salida.writeObject(user);
 
         } catch (IOException error) {
-            Logger.getLogger("SERVIDOR").log(Level.SEVERE, "Fallo al mandar/recivir message");
-
+            Logger.getLogger("SERVIDOR").log(Level.SEVERE, "Fallo al mandar/recibir message");
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UserPasswdException ex) {
+            Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ServerErrorException ex) {
             Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             servidor.liberarConexion();

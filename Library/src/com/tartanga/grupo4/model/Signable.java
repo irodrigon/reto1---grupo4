@@ -5,7 +5,9 @@
  */
 package com.tartanga.grupo4.model;
 
+import com.tartanga.grupo4.exceptions.ServerErrorException;
 import com.tartanga.grupo4.exceptions.UserExistInDatabaseException;
+import com.tartanga.grupo4.exceptions.UserPasswdException;
 
 /**
  *
@@ -13,6 +15,6 @@ import com.tartanga.grupo4.exceptions.UserExistInDatabaseException;
  */
 public interface Signable {
     
-    public User signIn(User user);
-    public User signUp(User user) throws UserExistInDatabaseException;
+    public User signIn(User user) throws UserPasswdException,ServerErrorException;
+    public User signUp(User user) throws UserExistInDatabaseException,ServerErrorException;
 }

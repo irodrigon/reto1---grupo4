@@ -46,11 +46,12 @@ public class ApplicationS {
             Logger.getLogger("SERVIDOR").log(Level.INFO, "Iniciando servidor...");
             servidor = new ServerSocket(PUERTO);
 
-            System.out.println("Presiona ENTER para salir del servidor...");
+            //System.out.println("Presiona ENTER para salir del servidor...");
+            
+            //Thread para cerrar pulsando ENTER
+            //new Thread(this::finishServer).start();
 
-            new Thread(this::finishServer).start();
-
-            while (running) {
+            while (true) {
                 Logger.getLogger("SERVIDOR").log(Level.INFO, "Esperando conexion del cliente");
                 cliente = servidor.accept();
 
@@ -73,13 +74,13 @@ public class ApplicationS {
         }
     }
 
-    public void finishServer() {
+    /*public void finishServer() {
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
         running = false;
         System.out.println("Cerrando servidor...");
         System.exit(0);
-    }
+    }*/
 
     public void finalizar() {
         try {
