@@ -15,6 +15,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Main Class that starts the server. In a loop accepting client sockets until
+ * an admin breaks the loop when it wants to shut it down. At which point the
+ * program will run its course only after making sure that there are no more
+ * active connections.
  *
  * @author Aitor
  */
@@ -29,6 +33,9 @@ public class ApplicationS {
     ObjectOutputStream salida = null;
 
     /**
+     * The main method that launches the server. It initializes the server,
+     * starts listening for client connections, and handles incoming requests.
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -42,6 +49,15 @@ public class ApplicationS {
 
     }
 
+    /**
+     * Starts the server and listens for client connections in a loop. When a
+     * client connects, the server either allocates a new thread for the
+     * connection if the maximum number of connections has not been reached, or
+     * refuses the connection if the limit is exceeded.
+     *
+     * @throws IOException if there is with the connection or
+     *                     <code>ObjectOutputStream</code>.
+     */
     public void iniciar() throws IOException {
 
         try {
@@ -82,6 +98,10 @@ public class ApplicationS {
         }
     }
 
+    /**
+     * Closed the server and client sockets. This method is called when the
+     * server has been ordered to shut down.
+     */
     public void finalizar() {
         try {
             if (servidor != null) {
@@ -98,6 +118,12 @@ public class ApplicationS {
         }
     }
 
+    /**
+     * Synchronizes and controls the number of active client connections.
+     *
+     * @param tipo an integer value to tell the method to increase or decrease <code>conexiones</code>.
+     *             Pass 1 increase, any other value to decrease.
+     */
     public synchronized void controlarConexion(int tipo) {
         if (tipo == 1) {
             conexiones++;
