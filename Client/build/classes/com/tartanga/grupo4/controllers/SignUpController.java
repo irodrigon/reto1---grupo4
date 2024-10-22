@@ -72,7 +72,7 @@ public class SignUpController {
 
         // Email validation
         if (email.isEmpty()) {
-            lbl_error_Email.setText("Email is required");
+            lbl_error_Email.setText("Email is required.");
             hasError = true;
         } else if (!email.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")) {
             lbl_error_Email.setText("Please enter a valid email address.");
@@ -83,10 +83,13 @@ public class SignUpController {
 
         // Password validation
         if (password.isEmpty()) {
-            lbl_error_Password.setText("Password is required");
+            lbl_error_Password.setText("Password is required.");
             hasError = true;
-        } else if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$")) {
-            lbl_error_Password.setText("Password must be at least 6 characters long and include uppercase, lowercase letters, and numbers.");
+        } else if (!password.matches("^.{6,}$")) {
+            lbl_error_Password.setText("Password must be at least \n 6 characters long.");
+            hasError = true;
+        } else if (!password.matches("(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).*")) {
+            lbl_error_Password.setText("Password must include at least one uppercase letter, one lowercase letter, and one number.");
             hasError = true;
         } else {
             lbl_error_Password.setText("");
@@ -94,7 +97,7 @@ public class SignUpController {
 
         // Confirm password validation
         if (confirm.isEmpty()) {
-            lbl_error_Confirm.setText("Password confirmation is required");
+            lbl_error_Confirm.setText("Password confirmation is required.");
             hasError = true;
         } else if (!password.equals(confirm)) {
             lbl_error_Confirm.setText("Passwords don´t match.");
@@ -105,10 +108,10 @@ public class SignUpController {
 
         // Name validation
         if (name.isEmpty()) {
-            lbl_error_Name.setText("Name is required");
+            lbl_error_Name.setText("Name is required.");
             hasError = true;
         } else if (name.matches(".*\\d.*")) {
-            lbl_error_Name.setText("Name cannot contain numbers");
+            lbl_error_Name.setText("Name cannot contain numbers.");
             hasError = true;
         } else {
             lbl_error_Name.setText("");
@@ -116,10 +119,10 @@ public class SignUpController {
 
         // City validation
         if (city.isEmpty()) {
-            lbl_error_City.setText("City is required");
+            lbl_error_City.setText("City is required.");
             hasError = true;
         } else if (city.matches(".*\\d.*")) {
-            lbl_error_City.setText("City cannot contain numbers");
+            lbl_error_City.setText("City cannot contain numbers.");
             hasError = true;
         } else {
             lbl_error_City.setText("");
@@ -127,10 +130,10 @@ public class SignUpController {
 
         // Street validation
         if (street.isEmpty()) {
-            lbl_error_Street.setText("Street is required");
+            lbl_error_Street.setText("Street is required.");
             hasError = true;
         } else if (street.matches(".*\\d.*")) {
-            lbl_error_Street.setText("Street cannot contain numbers");
+            lbl_error_Street.setText("Street cannot contain numbers.");
             hasError = true;
         } else {
             lbl_error_Street.setText("");
@@ -138,10 +141,10 @@ public class SignUpController {
 
         // Zip code validation
         if (zip.isEmpty()) {
-            lbl_error_Zip.setText("ZIP code is required");
+            lbl_error_Zip.setText("ZIP code is required.");
             hasError = true;
         } else if (!zip.matches("\\d{1,10}")) {
-            lbl_error_Zip.setText("Invalid ZIP code");
+            lbl_error_Zip.setText("Invalid ZIP code.");
             hasError = true;
         } else {
             lbl_error_Zip.setText("");
@@ -149,23 +152,17 @@ public class SignUpController {
 
         // If no errors, proceed with registration logic
         if (!hasError) {
-            User user= new User(email, password, name, street, isActive, city, Integer.parseInt(zip));
-            try {
-                FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
-                Parent mainView = FXMLLoader.load();
-
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-                Scene scene = new Scene(mainView);
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            User user = new User(email, password, name, street, isActive, city, Integer.parseInt(zip));
+            //Aqui va ir la factoria y lo necesario para su funcionamiento
+            Alert correct = new Alert(AlertType.NONE);
+            correct.setTitle("Suscesfull");
+            correct.setHeaderText("User created suscesfully.");
+            correct.setContentText("Go back to sign in into your account.");
+            correct.showAndWait();
         } else {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("Ha ocurrido un error en alguno de los campos");
+            alert.setHeaderText("Ha ocurrido un error en alguno de los campos.");
             alert.setContentText("Por favor, inténtalo de nuevo.");
             alert.showAndWait();
         }
