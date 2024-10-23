@@ -1,10 +1,11 @@
 package com.tartanga.grupo4.main;
 
-
 import com.tartanga.grupo4.model.Message;
 import com.tartanga.grupo4.model.SignInSignUpEnum;
 import com.tartanga.grupo4.model.Signable;
 import com.tartanga.grupo4.model.User;
+import static com.tartanga.grupo4.model.SignInSignUpEnum.USER_EXIST_IN_DB;
+import exceptions.MaxConnectionsException;
 import exceptions.ServerErrorException;
 import exceptions.UserExistInDatabaseException;
 import exceptions.UserPasswdException;
@@ -15,12 +16,6 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-IMPORTANTE
-Esta clase solo esta creada para testear el server
-Esta clase hay que borrarla y reemplazarla con la clase 
-cliente una vez la tengamos desarrollada
- */
 public class Cliente implements Signable {
 
     private final int PUERTO = 6000;
@@ -31,6 +26,7 @@ public class Cliente implements Signable {
     private static final Logger logger = Logger.getLogger("Client");
     Message message = new Message();
     SignInSignUpEnum sign;
+
     public void mandarMessage() {
 
     }
@@ -40,10 +36,10 @@ public class Cliente implements Signable {
 		c1.iniciar();
 	}*/
     @Override
-    public User signIn(User user) {
+    public User signIn(User user) throws ServerErrorException, UserExistInDatabaseException, Exception,MaxConnectionsException {
         try {
             cliente = new Socket(IP, PUERTO);
-            logger.log(Level.INFO, "Conexion realizada con el servidor");
+            logger.log(Level.INFO, "Conecting to the server");
 
             salida = new ObjectOutputStream(cliente.getOutputStream());
             entrada = new ObjectInputStream(cliente.getInputStream());
@@ -53,42 +49,40 @@ public class Cliente implements Signable {
             salida.writeObject(message);
 
             message = (Message) entrada.readObject();
+            //user = message.getUser();//Esta linea esta para probar el mensaje, borrarla cuando acabe las pruebas
             sign = (SignInSignUpEnum) message.getSignInSignUpEnum();
-            logger.log(Level.INFO, "Respuesta del servidor recivida");
-            
-            switch(sign){
-                case OK:
-                    logger.log(Level.INFO, "Usuario verificado");
-                    break;
-                    
-                case USER_PASSWD_ERROR:
-                    logger.log(Level.SEVERE, "ERROR, contrasena y/o usuario incorrecto");
-                    throw new UserPasswdException();
-                
-                case SERVER_ERROR:
-                    logger.log(Level.SEVERE, "ERROR interno del server");
-                    throw new ServerErrorException();
-            }
-            
+            logger.log(Level.INFO, "Answer from the server recived");
 
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }finally{
-            logger.log(Level.INFO, "Conexion cliente cerrada");
+            switch (sign) {
+                case OK:
+                    logger.log(Level.INFO, "User verified");
+                    break;
+
+                case USER_PASSWD_ERROR:
+                    logger.log(Level.SEVERE, "ERROR, password or user incorrect");
+                    throw new UserPasswdException();
+
+                case MAX_CONNECTIONS:
+                    logger.log(Level.SEVERE, "Max conections (5) reached, refusing service");
+                    throw new MaxConnectionsException();
+
+                case SERVER_ERROR:
+                    logger.log(Level.SEVERE, "Internal server ERROR");
+                    throw new ServerErrorException();
+
+            }
+            return user;
+        } finally {
             finalizar();
         }
-        
-        return user;
 
     }
 
     @Override
-    public User signUp(User user) {
+    public User signUp(User user) throws UserPasswdException, ServerErrorException, Exception,MaxConnectionsException {
         try {
             cliente = new Socket(IP, PUERTO);
-            logger.log(Level.INFO, "Conexion realizada con el servidor");
+            logger.log(Level.INFO, "Conecting to the server");
 
             salida = new ObjectOutputStream(cliente.getOutputStream());
             entrada = new ObjectInputStream(cliente.getInputStream());
@@ -99,31 +93,30 @@ public class Cliente implements Signable {
 
             message = (Message) entrada.readObject();
             sign = (SignInSignUpEnum) message.getSignInSignUpEnum();
-            logger.log(Level.INFO, "Respuesta del servidor recivida");
-            
-            switch(sign){
+            logger.log(Level.INFO, "Answer from the server recived");
+
+            switch (sign) {
                 case OK:
-                    logger.log(Level.INFO, "Usuario registrado");
+                    logger.log(Level.INFO, "User has been registered");
                     break;
-                    
+
                 case USER_EXIST_IN_DB:
-                    logger.log(Level.SEVERE, "ERROR, el login introducido ya existe");
+                    logger.log(Level.SEVERE, "ERROR, chosen login already exist");
                     throw new UserExistInDatabaseException();
-                
+
+                case MAX_CONNECTIONS:
+                    logger.log(Level.SEVERE, "Max conections (5) reached, refusing service");
+                    throw new MaxConnectionsException();
+
                 case SERVER_ERROR:
-                    logger.log(Level.SEVERE, "ERROR interno del server");
+                    logger.log(Level.SEVERE, "Internal server ERROR");
                     throw new ServerErrorException();
             }
 
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }finally{
+            return user;
+        } finally {
             finalizar();
-            logger.log(Level.INFO, "Conexion cliente cerrada");
         }
-        return user;
     }
 
     public void finalizar() {

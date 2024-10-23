@@ -16,7 +16,7 @@ public class ServerErrorException extends Exception {
      * detail message.
      */
     public ServerErrorException() {
-        super("El server devolvio un error");
+        super("Server returned an error");
     }
 
 }

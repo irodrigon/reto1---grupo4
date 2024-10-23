@@ -69,6 +69,8 @@ public class Worker extends Thread {
             Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ServerErrorException ex) {
             Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             servidor.liberarConexion();
             liberaRecursos();

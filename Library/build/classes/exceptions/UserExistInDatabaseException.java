@@ -16,7 +16,7 @@ public class UserExistInDatabaseException extends Exception {
      * without detail message.
      */
     public UserExistInDatabaseException() {
-        super("Ya existe el login. Introduce otro");
+        super("The introduced login already exist in the DB");
     }
 
 }

@@ -1,6 +1,10 @@
 package com.tartanga.grupo4.controllers;
 
+import com.tartanga.grupo4.main.Cliente;
 import com.tartanga.grupo4.model.User;
+import exceptions.MaxConnectionsException;
+import exceptions.ServerErrorException;
+import exceptions.UserPasswdException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -148,7 +152,19 @@ public class SignUpController {
         // If no errors, proceed with registration logic
         if (!hasError) {
             User user = new User(email, password, name, street, isActive, city, Integer.parseInt(zip));
-            // Aquí iría la lógica de la factoria para guardar el usuario
+            try {
+                user = ClientFactory.getInstance().getSignable().signUp(user);
+
+            } catch (UserPasswdException error) {
+                System.out.println("Password/usuario mal");
+            } catch (ServerErrorException error) {
+                System.out.println("Error critico del server");
+            } catch (MaxConnectionsException error) {
+                System.out.println("Maximas conecsiones alcanzadas");
+            } catch (Exception error) {
+                System.out.println("Otro errores");
+            }
+
             Alert correct = new Alert(AlertType.NONE);
             correct.setTitle("Successful");
             correct.setHeaderText("User created successfully.");
