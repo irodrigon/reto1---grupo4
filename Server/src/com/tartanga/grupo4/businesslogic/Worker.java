@@ -38,7 +38,6 @@ import java.util.logging.Logger;
  * @author Aitor
  */
 public class Worker extends Thread {
-
     private static final Logger logger = Logger.getLogger("Worker");
     Socket cliente;
     ObjectInputStream entrada = null;
@@ -46,6 +45,7 @@ public class Worker extends Thread {
     private ApplicationS servidor;
     private Message message;
     User user;
+
     
     /**
      * Constructor for Worker class.
@@ -57,6 +57,8 @@ public class Worker extends Thread {
         this.cliente = cliente;
         this.servidor = servidor;
     }
+
+    
     
     /**
      * Runs the main logic for handling the client's request.
@@ -117,6 +119,7 @@ public class Worker extends Thread {
         }
 
     }
+    
     /**
      * Closes all resources used in the thread.
      */
@@ -138,6 +141,7 @@ public class Worker extends Thread {
         }
 
     }
+
     /**
      * Sends the the message to the client
      * 
@@ -150,4 +154,5 @@ public class Worker extends Thread {
             logger.log(Level.SEVERE, "Failed to send message,CRITICAL ERROR", error);
         }
     }
+
 }

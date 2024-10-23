@@ -18,5 +18,4 @@ public class ServerErrorException extends Exception {
     public ServerErrorException() {
         super("Server returned an error");
     }
-
 }

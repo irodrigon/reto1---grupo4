@@ -5,7 +5,6 @@
  */
 package com.tartanga.grupo4.dataaccess;
 
-
 import com.tartanga.grupo4.model.Signable;
 
 /**

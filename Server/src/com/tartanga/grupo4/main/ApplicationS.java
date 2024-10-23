@@ -30,6 +30,10 @@ public class ApplicationS {
     Socket cliente = null;
     private static int conexiones = 0;
     private final int MAX_CONEXIONES = 5;
+
+    //private boolean running = true;
+
+
     private static final Logger logger = Logger.getLogger("ApplicationS");
     ObjectOutputStream salida = null;
 
@@ -98,6 +102,15 @@ public class ApplicationS {
 
         }
     }
+          
+    /*public void finishServer() {
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        running = false;
+        System.out.println("Cerrando servidor...");
+        System.exit(0);
+    }*/
+
 
     /**
      * Closed the server and client sockets. This method is called when the
