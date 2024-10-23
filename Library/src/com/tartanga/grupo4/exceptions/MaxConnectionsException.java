@@ -7,15 +7,17 @@ package com.tartanga.grupo4.exceptions;
 
 /**
  *
- * @author 2dami
+ * @author rabio
  */
-public class ServerErrorException extends Exception {
+public class MaxConnectionsException extends Exception {
 
     /**
-     * Creates a new instance of <code>ServerErrorException</code> without
+     * Creates a new instance of <code>MaxConnectionsException</code> without
      * detail message.
      */
-    public ServerErrorException() {
-        super("Server returned an error");
+    public MaxConnectionsException() {
+        super("Max conections (5) reached, refusing service");
     }
+
+   
 }

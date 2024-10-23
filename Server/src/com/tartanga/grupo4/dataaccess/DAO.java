@@ -5,6 +5,7 @@
  */
 package com.tartanga.grupo4.dataaccess;
 
+
 import com.tartanga.grupo4.exceptions.ServerErrorException;
 import com.tartanga.grupo4.exceptions.UserExistInDatabaseException;
 import com.tartanga.grupo4.exceptions.UserPasswdException;
@@ -18,10 +19,12 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 /**
  *
  * @author rabio
  */
+
 public class DAO implements Signable {
 
     private final String INSERT_RES_PARTNER = "INSERT INTO RES_PARTNER(company_id,name,street,city,zip,email) VALUES (1,?,?,?,?,?)";

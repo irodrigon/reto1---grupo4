@@ -1,16 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tartanga.grupo4.model;
 
-/**
- *
- * @author rabio
- */
-public class User {
+import java.io.Serializable;
 
+/**
+ * The {@code User} class represents a system user.
+ * This class stores relevant user information such as username, password, name, street,
+ * active status, city, and zip code. It implements the {@code Serializable} interface
+ * to allow serialization of {@code User} objects.
+ * 
+ * This class has two constructors: one with parameters and one empty.
+ * The parameterized constructor initializes all the class attributes,
+ * while the empty constructor initializes the attributes with {@code null} values.
+ * 
+ * The class also provides getter and setter methods for each attribute, as well
+ * as a {@code toString} method to provide a string representation of a {@code User} object.
+ * 
+ * @author egure
+ */
+public class User implements Serializable {
     private String username;
     private String password;
     private String name;
@@ -20,8 +27,7 @@ public class User {
     private Integer zip;
 
     /**
-     * Constructor that initializes a {@code User} object with all specified
-     * attributes.
+     * Constructor that initializes a {@code User} object with all specified attributes.
      *
      * @param username The username of the user.
      * @param password The user's password.
@@ -41,9 +47,12 @@ public class User {
         this.zip = zip;
     }
 
+
+  
+ 
+    
     /**
-     * Empty constructor that initializes a {@code User} object with all
-     * attributes set to {@code null}.
+     * Empty constructor that initializes a {@code User} object with all attributes set to {@code null}.
      */
     public User() {
         this.username = null;
@@ -57,7 +66,6 @@ public class User {
 
     /**
      * Gets the username of the user.
-     *
      * @return the username of the user.
      */
     public String getUsername() {
@@ -66,7 +74,6 @@ public class User {
 
     /**
      * Sets the username of the user.
-     *
      * @param username The username to set.
      */
     public void setUsername(String username) {
@@ -75,7 +82,6 @@ public class User {
 
     /**
      * Gets the password of the user.
-     *
      * @return the password of the user.
      */
     public String getPassword() {
@@ -84,7 +90,6 @@ public class User {
 
     /**
      * Sets the password of the user.
-     *
      * @param password The password to set.
      */
     public void setPassword(String password) {
@@ -93,7 +98,6 @@ public class User {
 
     /**
      * Gets the name of the user.
-     *
      * @return the name of the user.
      */
     public String getName() {
@@ -102,7 +106,6 @@ public class User {
 
     /**
      * Sets the name of the user.
-     *
      * @param name The name to set.
      */
     public void setName(String name) {
@@ -111,7 +114,6 @@ public class User {
 
     /**
      * Gets the street of the user.
-     *
      * @return the street of the user.
      */
     public String getStreet() {
@@ -120,7 +122,6 @@ public class User {
 
     /**
      * Sets the street of the user.
-     *
      * @param street The street to set.
      */
     public void setStreet(String street) {
@@ -129,7 +130,6 @@ public class User {
 
     /**
      * Gets the active status of the user.
-     *
      * @return the active status of the user.
      */
     public Boolean getActive() {
@@ -138,7 +138,6 @@ public class User {
 
     /**
      * Sets the active status of the user.
-     *
      * @param active The active status to set.
      */
     public void setActive(Boolean active) {
@@ -147,7 +146,6 @@ public class User {
 
     /**
      * Gets the city of the user.
-     *
      * @return the city of the user.
      */
     public String getCity() {
@@ -156,7 +154,6 @@ public class User {
 
     /**
      * Sets the city of the user.
-     *
      * @param city The city to set.
      */
     public void setCity(String city) {
@@ -165,7 +162,6 @@ public class User {
 
     /**
      * Gets the zip code of the user.
-     *
      * @return the zip code of the user.
      */
     public Integer getZip() {
@@ -174,7 +170,6 @@ public class User {
 
     /**
      * Sets the zip code of the user.
-     *
      * @param zip The zip code to set.
      */
     public void setZip(Integer zip) {
@@ -183,7 +178,6 @@ public class User {
 
     /**
      * Returns a string representation of the {@code User} object.
-     *
      * @return a string representation of the user.
      */
     @Override

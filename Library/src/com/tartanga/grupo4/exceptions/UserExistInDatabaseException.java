@@ -7,16 +7,16 @@ package com.tartanga.grupo4.exceptions;
 
 /**
  *
- * @author Iñi
+ * @author 2dami
  */
-public class UserExistInDatabaseException extends Exception{
-      /**
+public class UserExistInDatabaseException extends Exception {
+
+    /**
      * Creates a new instance of <code>UserExistInDatabaseException</code>
      * without detail message.
      */
     public UserExistInDatabaseException() {
-        super("Ya existe el login. Introduce otro");
+        super("The introduced login already exist in the DB");
     }
 
 }
-
