@@ -1,6 +1,6 @@
-
 package com.tartanga.grupo4.controllers;
 
+import com.tartanga.grupo4.main.Cliente;
 import com.tartanga.grupo4.model.User;
 import exceptions.MaxConnectionsException;
 import exceptions.ServerErrorException;
@@ -13,9 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -59,7 +57,6 @@ public class SignUpController {
             e.printStackTrace();
         }
     }
-
 
     private void handleRegister(ActionEvent event) {
         String email = fld_Email.getText();
@@ -159,13 +156,13 @@ public class SignUpController {
                 user = ClientFactory.getInstance().getSignable().signUp(user);
 
             } catch (UserExistInDatabaseException error) {
-                System.out.println("Usuario existente.");
+                System.out.println("Password/usuario mal");
             } catch (ServerErrorException error) {
-                System.out.println("Error critico del server.");
+                System.out.println("Error critico del server");
             } catch (MaxConnectionsException error) {
-                System.out.println("Maximas conecsiones alcanzadas.");
+                System.out.println("Maximas conecsiones alcanzadas");
             } catch (Exception error) {
-                System.out.println("Otro errores.");
+                System.out.println("Otro errores");
             } 
 
             Alert correct = new Alert(AlertType.NONE);

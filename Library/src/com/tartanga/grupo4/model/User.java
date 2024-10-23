@@ -204,5 +204,4 @@ public class User implements Serializable {
                ", zip=" + zip + 
                '}';
     }
-
 }

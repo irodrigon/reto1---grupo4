@@ -5,7 +5,6 @@
  */
 package com.tartanga.grupo4.model;
 
-
 import java.io.Serializable;
 
 /**
