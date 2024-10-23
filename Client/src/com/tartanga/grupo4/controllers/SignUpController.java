@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tartanga.grupo4.controllers;
 
-/**
- *
- * @author Alin & Aratz
- */
 import com.tartanga.grupo4.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +13,8 @@ import java.io.IOException;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -49,11 +42,10 @@ public class SignUpController {
     @FXML
     private void handleGoBack(ActionEvent event) {
         try {
-            FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
-            Parent mainView = FXMLLoader.load();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
+            Parent mainView = fxmlLoader.load();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
             Scene scene = new Scene(mainView);
             stage.setScene(scene);
             stage.show();
@@ -156,18 +148,34 @@ public class SignUpController {
         // If no errors, proceed with registration logic
         if (!hasError) {
             User user = new User(email, password, name, street, isActive, city, Integer.parseInt(zip));
-            //Aqui va ir la factoria y lo necesario para su funcionamiento
+            // Aquí iría la lógica de la factoria para guardar el usuario
             Alert correct = new Alert(AlertType.NONE);
-            correct.setTitle("Suscesfull");
-            correct.setHeaderText("User created suscesfully.");
-            correct.setContentText("Go back to sign in into your account.");
+            correct.setTitle("Successful");
+            correct.setHeaderText("User created successfully.");
+            correct.setContentText("Go back to sign in to your account.");
+            ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.OK_DONE);
+            correct.getButtonTypes().add(closeButton);
             correct.showAndWait();
+
+            // Clear fields after successful registration
+            clearFields();
         } else {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("Ha ocurrido un error en alguno de los campos.");
-            alert.setContentText("Por favor, inténtalo de nuevo.");
+            alert.setHeaderText("There was an error in one of the fields.");
+            alert.setContentText("Please try again.");
             alert.showAndWait();
         }
+    }
+
+    private void clearFields() {
+        fld_Email.setText("");
+        fld_Password.setText("");
+        fld_Confirm.setText("");
+        fld_Name.setText("");
+        fld_City.setText("");
+        fld_Street.setText("");
+        fld_Zip.setText("");
+        chb_Active.setSelected(false);
     }
 }
