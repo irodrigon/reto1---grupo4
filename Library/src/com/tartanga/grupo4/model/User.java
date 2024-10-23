@@ -18,6 +18,7 @@ import java.io.Serializable;
  * @author egure
  */
 public class User implements Serializable {
+    
     private String username;
     private String password;
     private String name;
@@ -191,6 +192,7 @@ public class User implements Serializable {
      * 
      * @return a string representation of the user.
      */
+    @Override
     public String toString() {
         return "User{" + 
                "username='" + username + '\'' + 

@@ -25,7 +25,7 @@ public class ApplicationU extends Application {
         
         SignInController controller = (SignInController)loader.getController();
         controller.setStage(stage);
-        controller.initStage(stage,root);
+        controller.initStage(root);
     }
 
     public static void main(String[] args) {

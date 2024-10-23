@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tartanga.grupo4.controllers;
 
-/**
- *
- * @author Alin & Aratz
- */
+import com.tartanga.grupo4.main.Cliente;
 import com.tartanga.grupo4.model.User;
+import exceptions.MaxConnectionsException;
+import exceptions.ServerErrorException;
+import exceptions.UserExistInDatabaseException;
+import exceptions.UserPasswdException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +22,7 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class SignUpController {
@@ -33,7 +30,9 @@ public class SignUpController {
     @FXML
     private Button btn_Back, btn_Register;
     @FXML
-    private TextField fld_Email, fld_Password, fld_Confirm, fld_Name, fld_City, fld_Street, fld_Zip;
+    private TextField fld_Email, fld_Name, fld_City, fld_Street, fld_Zip;
+    @FXML
+    private PasswordField fld_Password, fld_Confirm;
     @FXML
     private CheckBox chb_Active;
     @FXML
@@ -48,11 +47,10 @@ public class SignUpController {
     @FXML
     private void handleGoBack(ActionEvent event) {
         try {
-            FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
-            Parent mainView = FXMLLoader.load();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
+            Parent mainView = fxmlLoader.load();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
             Scene scene = new Scene(mainView);
             stage.setScene(scene);
             stage.show();
@@ -151,34 +149,50 @@ public class SignUpController {
         } else {
             lbl_error_Zip.setText("");
         }
-        
 
         // If no errors, proceed with registration logic
         if (!hasError) {
             User user = new User(email, password, name, street, isActive, city, Integer.parseInt(zip));
-            //Aqui va ir la factoria y lo necesario para su funcionamiento
+            try {
+                user = ClientFactory.getInstance().getSignable().signUp(user);
+
+            } catch (UserExistInDatabaseException error) {
+                System.out.println("Password/usuario mal");
+            } catch (ServerErrorException error) {
+                System.out.println("Error critico del server");
+            } catch (MaxConnectionsException error) {
+                System.out.println("Maximas conecsiones alcanzadas");
+            } catch (Exception error) {
+                System.out.println("Otro errores");
+            } 
+
             Alert correct = new Alert(AlertType.NONE);
-            correct.setTitle("Suscesfull");
-            correct.setHeaderText("User created suscesfully.");
-            correct.setContentText("Go back to sign in into your account.");
+            correct.setTitle("Successful");
+            correct.setHeaderText("User created successfully.");
+            correct.setContentText("Go back to sign in to your account.");
             ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.OK_DONE);
             correct.getButtonTypes().add(closeButton);
             correct.showAndWait();
-            //Once the alert is clossed set textfields blank
-            fld_Email.setText("");
-            fld_Password.setText("");
-            fld_Confirm.setText("");
-            fld_Name.setText("");
-            fld_City.setText("");
-            fld_Street.setText("");
-            fld_Zip.setText("");
-            
+
+            // Clear fields after successful registration
+            clearFields();
         } else {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("Ha ocurrido un error en alguno de los campos.");
-            alert.setContentText("Por favor, inténtalo de nuevo.");
+            alert.setHeaderText("There was an error in one of the fields.");
+            alert.setContentText("Please try again.");
             alert.showAndWait();
         }
+    }
+
+    private void clearFields() {
+        fld_Email.setText("");
+        fld_Password.setText("");
+        fld_Confirm.setText("");
+        fld_Name.setText("");
+        fld_City.setText("");
+        fld_Street.setText("");
+        fld_Zip.setText("");
+        chb_Active.setSelected(false);
     }
 }

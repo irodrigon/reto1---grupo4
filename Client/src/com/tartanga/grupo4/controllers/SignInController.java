@@ -29,7 +29,7 @@ public class SignInController {
 }
 
     
-    public void initStage(Stage stage, Parent root) {
+    public void initStage(Parent root) {
         logger.info("Initializing Login stage.");
         Scene scene = new Scene(root);
         stage.setScene(scene);
