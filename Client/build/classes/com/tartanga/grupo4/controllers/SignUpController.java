@@ -24,6 +24,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class SignUpController {
@@ -31,7 +32,9 @@ public class SignUpController {
     @FXML
     private Button btn_Back, btn_Register;
     @FXML
-    private TextField fld_Email, fld_Password, fld_Confirm, fld_Name, fld_City, fld_Street, fld_Zip;
+    private TextField fld_Email, fld_Name, fld_City, fld_Street, fld_Zip;
+    @FXML
+    private PasswordField fld_Password, fld_Confirm;
     @FXML
     private CheckBox chb_Active;
     @FXML
