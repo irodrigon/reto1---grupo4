@@ -5,7 +5,7 @@
  */
 package com.tartanga.grupo4.controllers;
 
-import Example.Signable;
+import com.tartanga.grupo4.model.Signable;
 import com.tartanga.grupo4.main.Cliente;
 
 /**

@@ -5,10 +5,10 @@
  */
 package com.tartanga.grupo4.controllers;
 
-import Example.User;
-import exceptions.MaxConnectionsException;
-import exceptions.ServerErrorException;
-import exceptions.UserPasswdException;
+import com.tartanga.grupo4.model.User;
+import com.tartanga.grupo4.exceptions.MaxConnectionsException;
+import com.tartanga.grupo4.exceptions.ServerErrorException;
+import com.tartanga.grupo4.exceptions.UserPasswdException;
 
 /**
  *

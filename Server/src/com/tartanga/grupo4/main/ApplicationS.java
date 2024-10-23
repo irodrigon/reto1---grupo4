@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package server;
+package com.tartanga.grupo4.main;
 
-import Example.Message;
-import Example.SignInSignUpEnum;
+import com.tartanga.grupo4.model.Message;
+import com.tartanga.grupo4.model.SignInSignUpEnum;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.tartanga.grupo4.businesslogic.Worker;
 
 /**
  * Main Class that starts the server. In a loop accepting client sockets until

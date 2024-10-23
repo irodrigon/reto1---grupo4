@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Example;
+package com.tartanga.grupo4.model;
 
-import exceptions.MaxConnectionsException;
-import exceptions.ServerErrorException;
-import exceptions.UserExistInDatabaseException;
-import exceptions.UserPasswdException;
+import com.tartanga.grupo4.exceptions.MaxConnectionsException;
+import com.tartanga.grupo4.exceptions.ServerErrorException;
+import com.tartanga.grupo4.exceptions.UserExistInDatabaseException;
+import com.tartanga.grupo4.exceptions.UserPasswdException;
 
 /**
  *

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package server;
+package com.tartanga.grupo4.dataaccess;
 
 
-import Example.Signable;
+import com.tartanga.grupo4.model.Signable;
 
 /**
  * Synchronized DAO factory. It used singleton design pattern to make sure that

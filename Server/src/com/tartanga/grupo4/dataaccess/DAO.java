@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package server;
+package com.tartanga.grupo4.dataaccess;
 
-import Example.Signable;
-import Example.User;
-import exceptions.ServerErrorException;
-import exceptions.UserPasswdException;
+import com.tartanga.grupo4.model.Signable;
+import com.tartanga.grupo4.model.User;
+import com.tartanga.grupo4.exceptions.ServerErrorException;
+import com.tartanga.grupo4.exceptions.UserPasswdException;
 
 /**
  *

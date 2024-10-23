@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package server;
+package com.tartanga.grupo4.businesslogic;
 
-import Example.Message;
-import Example.SignInSignUpEnum;
-import Example.User;
-import exceptions.UserExistInDatabaseException;
-import exceptions.UserPasswdException;
+import com.tartanga.grupo4.dataaccess.DAOFactory;
+import com.tartanga.grupo4.main.ApplicationS;
+import com.tartanga.grupo4.model.Message;
+import com.tartanga.grupo4.model.SignInSignUpEnum;
+import com.tartanga.grupo4.model.User;
+import com.tartanga.grupo4.exceptions.UserExistInDatabaseException;
+import com.tartanga.grupo4.exceptions.UserPasswdException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
