@@ -4,6 +4,7 @@ import com.tartanga.grupo4.main.Cliente;
 import com.tartanga.grupo4.model.User;
 import exceptions.MaxConnectionsException;
 import exceptions.ServerErrorException;
+import exceptions.UserExistInDatabaseException;
 import exceptions.UserPasswdException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -155,15 +156,15 @@ public class SignUpController {
             try {
                 user = ClientFactory.getInstance().getSignable().signUp(user);
 
-            } catch (UserPasswdException error) {
-                System.out.println("Password/usuario mal");
+            } catch (UserExistInDatabaseException error) {
+                System.out.println("Usuario existente.");
             } catch (ServerErrorException error) {
-                System.out.println("Error critico del server");
+                System.out.println("Error critico del server.");
             } catch (MaxConnectionsException error) {
-                System.out.println("Maximas conecsiones alcanzadas");
+                System.out.println("Maximas conecsiones alcanzadas.");
             } catch (Exception error) {
-                System.out.println("Otro errores");
-            }
+                System.out.println("Otro errores.");
+            } 
 
             Alert correct = new Alert(AlertType.NONE);
             correct.setTitle("Successful");
