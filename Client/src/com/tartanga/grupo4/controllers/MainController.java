@@ -30,29 +30,41 @@ public class MainController implements Initializable {
 
     @FXML
     private Stage stage;
+    
+    @FXML
+    private MenuItem mni_LogOut;
+    
+    @FXML
+    @Override
+public void initialize(URL location, ResourceBundle resources) {
+    mni_LogOut.setOnAction(event -> {
+        try {
+            handlelogOut(event);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    });
+    }
+    
 
     @FXML
-    private void logOut(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
-        Parent root = fxmlLoader.load();
+private void handlelogOut(ActionEvent event) throws IOException {
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
+    Parent root = fxmlLoader.load();
 
-        Stage stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+ Stage stage = (Stage) mni_LogOut.getParentPopup().getOwnerWindow();    
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+}
 
-        stage.setScene(new Scene(root));
-        stage.show();
-
-    }
 
     @FXML
     private void cerrarnAction(ActionEvent event) throws IOException {
 
         Platform.exit();
     }
- 
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
-    }
+
+
 
 }
