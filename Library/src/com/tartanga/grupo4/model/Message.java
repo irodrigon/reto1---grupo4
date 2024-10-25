@@ -35,7 +35,4 @@ public class Message implements Serializable{
     public void setSignInSignUpEnum(Enum SignInSignUpEnum) {
         this.SignInSignUpEnum = SignInSignUpEnum;
     }
-
-    
-    
 }

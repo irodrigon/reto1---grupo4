@@ -18,3 +18,4 @@ public enum SignInSignUpEnum {
     SERVER_ERROR,
     MAX_CONNECTIONS;
 }
+

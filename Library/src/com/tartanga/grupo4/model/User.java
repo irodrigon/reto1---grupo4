@@ -18,6 +18,7 @@ import java.io.Serializable;
  * @author egure
  */
 public class User implements Serializable {
+
     private String username;
     private String password;
     private String name;
@@ -47,9 +48,6 @@ public class User implements Serializable {
         this.zip = zip;
     }
 
-
-  
- 
     
     /**
      * Empty constructor that initializes a {@code User} object with all attributes set to {@code null}.

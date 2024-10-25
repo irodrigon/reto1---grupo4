@@ -59,7 +59,6 @@ public class Worker extends Thread {
     }
 
     
-    
     /**
      * Runs the main logic for handling the client's request.
      * 
@@ -154,5 +153,4 @@ public class Worker extends Thread {
             logger.log(Level.SEVERE, "Failed to send message,CRITICAL ERROR", error);
         }
     }
-
 }
