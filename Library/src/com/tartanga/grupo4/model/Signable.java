@@ -15,10 +15,7 @@ import com.tartanga.grupo4.exceptions.UserPasswdException;
  * @author rabio
  */
 public interface Signable {
-<<<<<<< HEAD
-=======
-    
->>>>>>> origin/Alin
+
     public User signIn (User user) throws UserPasswdException,ServerErrorException,Exception,MaxConnectionsException;
     public User signUp(User user)throws ServerErrorException,UserExistInDatabaseException,Exception,MaxConnectionsException;
 }

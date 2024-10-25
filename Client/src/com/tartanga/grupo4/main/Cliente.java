@@ -1,5 +1,6 @@
 package com.tartanga.grupo4.main;
 
+import com.tartanga.grupo4.exceptions.ClientSideException;
 import com.tartanga.grupo4.model.Message;
 import com.tartanga.grupo4.model.SignInSignUpEnum;
 import com.tartanga.grupo4.model.Signable;
@@ -35,7 +36,7 @@ public class Cliente implements Signable {
 		c1.iniciar();
 	}*/
     @Override
-    public User signIn(User user) throws ServerErrorException, UserExistInDatabaseException, Exception,MaxConnectionsException {
+    public User signIn(User user) throws ServerErrorException, UserPasswdException, ClientSideException, MaxConnectionsException {
         try {
             cliente = new Socket(IP, PUERTO);
             logger.log(Level.INFO, "Conecting to the server");
@@ -68,17 +69,22 @@ public class Cliente implements Signable {
                 case SERVER_ERROR:
                     logger.log(Level.SEVERE, "Internal server ERROR");
                     throw new ServerErrorException();
-
             }
-            return user;
+
+        } catch (IOException error) {
+            logger.log(Level.SEVERE, "IOException from ObjectOutputStream,ObjectInputStream");
+            throw new ClientSideException();
+        } catch (ClassNotFoundException error) {
+            logger.log(Level.SEVERE, "ClassNotFoundException from readObject()");
+            throw new ClientSideException();
         } finally {
             finalizar();
         }
-
+        return user;
     }
 
     @Override
-    public User signUp(User user) throws UserPasswdException, ServerErrorException, Exception,MaxConnectionsException {
+    public User signUp(User user) throws UserExistInDatabaseException, ClientSideException, ServerErrorException, MaxConnectionsException {
         try {
             cliente = new Socket(IP, PUERTO);
             logger.log(Level.INFO, "Conecting to the server");
@@ -112,10 +118,16 @@ public class Cliente implements Signable {
                     throw new ServerErrorException();
             }
 
-            return user;
+        } catch (IOException error) {
+            logger.log(Level.SEVERE, "IOException from ObjectOutputStream,ObjectInputStream");
+            throw new ClientSideException();
+        } catch (ClassNotFoundException error) {
+            logger.log(Level.SEVERE, "ClassNotFoundException from readObject()");
+            throw new ClientSideException();
         } finally {
             finalizar();
         }
+        return user;
     }
 
     public void finalizar() {
@@ -135,4 +147,3 @@ public class Cliente implements Signable {
 
     }
 }
-

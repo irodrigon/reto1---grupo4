@@ -1,11 +1,10 @@
 package com.tartanga.grupo4.controllers;
 
-import com.tartanga.grupo4.main.Cliente;
+
+import com.tartanga.grupo4.exceptions.MaxConnectionsException;
+import com.tartanga.grupo4.exceptions.ServerErrorException;
+import com.tartanga.grupo4.exceptions.UserExistInDatabaseException;
 import com.tartanga.grupo4.model.User;
-import exceptions.MaxConnectionsException;
-import exceptions.ServerErrorException;
-import exceptions.UserExistInDatabaseException;
-import exceptions.UserPasswdException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
