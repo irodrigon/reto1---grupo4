@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package exceptions;
+package com.tartanga.grupo4.exceptions;
 
 /**
  *
@@ -18,5 +18,4 @@ public class ServerErrorException extends Exception {
     public ServerErrorException() {
         super("Server returned an error");
     }
-
 }

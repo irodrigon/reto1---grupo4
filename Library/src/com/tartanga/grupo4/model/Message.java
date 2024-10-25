@@ -11,13 +11,13 @@ import java.io.Serializable;
  *
  * @author rabio
  */
-public class Message implements Serializable {
-
+public class Message implements Serializable{
     private static final long serialVersionUID = 1L;
     private User user;
     private Enum SignInSignUpEnum;
-    public Message() {
-
+    
+    public Message (){
+        
     }
 
     public User getUser() {

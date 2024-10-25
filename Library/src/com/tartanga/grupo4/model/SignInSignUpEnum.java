@@ -6,9 +6,7 @@
 package com.tartanga.grupo4.model;
 
 /**
- * The {@code SignInSignUpEnum} enum refers to server part what methoth does it
- * have follow
- *
+ *The {@code SignInSignUpEnum} enum refers to server part what methoth does it have follow
  * @author Aratz
  */
 public enum SignInSignUpEnum {
@@ -20,3 +18,4 @@ public enum SignInSignUpEnum {
     SERVER_ERROR,
     MAX_CONNECTIONS;
 }
+

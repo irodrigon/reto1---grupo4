@@ -4,11 +4,10 @@ import com.tartanga.grupo4.model.Message;
 import com.tartanga.grupo4.model.SignInSignUpEnum;
 import com.tartanga.grupo4.model.Signable;
 import com.tartanga.grupo4.model.User;
-import static com.tartanga.grupo4.model.SignInSignUpEnum.USER_EXIST_IN_DB;
-import exceptions.MaxConnectionsException;
-import exceptions.ServerErrorException;
-import exceptions.UserExistInDatabaseException;
-import exceptions.UserPasswdException;
+import com.tartanga.grupo4.exceptions.MaxConnectionsException;
+import com.tartanga.grupo4.exceptions.ServerErrorException;
+import com.tartanga.grupo4.exceptions.UserExistInDatabaseException;
+import com.tartanga.grupo4.exceptions.UserPasswdException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -136,3 +135,4 @@ public class Cliente implements Signable {
 
     }
 }
+
