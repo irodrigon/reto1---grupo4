@@ -148,7 +148,7 @@ public class ApplicationS {
         ApplicationS.running = false;
         while(conexiones!=0);
         finalizar();
-        
+        //Falta llamar al pool para cerrar las conexiones
     }
 
 }

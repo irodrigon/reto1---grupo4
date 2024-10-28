@@ -40,6 +40,7 @@ public class Listener implements Runnable {
             appli.stopLoop();
 
         } catch (Exception error) {
+            
             Logger.getLogger("Listener").log(Level.SEVERE, "Error al cerrar Scanner{0}", Arrays.toString(error.getStackTrace()));
         }
     }

@@ -34,9 +34,9 @@ public class CloseableFactory {
     }
     
      /**
-     * Returns a DAO that implements the <code>Signable</code> interface.
+     * Returns a Poll that implements the <code>Signable</code> interface.
      * 
-     * @return DAO contains the method to interact with the DB
+     * @return Pool contains the method to interact with the DB
      */
     public Closeable getCloseable() {
         return new Pool(); 
