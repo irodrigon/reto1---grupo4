@@ -5,6 +5,7 @@
  */
 package com.tartanga.grupo4.main;
 
+import com.tartanga.grupo4.businesslogic.Listener;
 import com.tartanga.grupo4.model.Message;
 import com.tartanga.grupo4.model.SignInSignUpEnum;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.tartanga.grupo4.businesslogic.Worker;
+import java.util.ResourceBundle;
 
 /**
  * Main Class that starts the server. In a loop accepting client sockets until
@@ -29,10 +31,9 @@ public class ApplicationS {
     ServerSocket servidor = null;
     Socket cliente = null;
     private static int conexiones = 0;
-    private final int MAX_CONEXIONES = 5;
-
-    //private boolean running = true;
-
+    private static boolean running = true;
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("com/tartanga/grupo4/resources/connection");
+    private final int MAX_CONEXIONES = Integer.parseInt(resourceBundle.getString("max_conections"));
 
     private static final Logger logger = Logger.getLogger("ApplicationS");
     ObjectOutputStream salida = null;
@@ -45,8 +46,11 @@ public class ApplicationS {
      */
     public static void main(String[] args) {
         ApplicationS application = new ApplicationS();
+        Thread listener = new Thread(new Listener(application));
+
         try {
             logger.log(Level.INFO, "Starting server...");
+            listener.start();
             application.iniciar();
         } catch (IOException error) {
             logger.log(Level.INFO, "Critical error when starting the server", error.toString());
@@ -61,15 +65,16 @@ public class ApplicationS {
      * refuses the connection if the limit is exceeded.
      *
      * @throws IOException if there is with the connection or
-     *                     <code>ObjectOutputStream</code>.
+     * <code>ObjectOutputStream</code>.
      */
     public void iniciar() throws IOException {
 
         try {
             servidor = new ServerSocket(PUERTO);
 
-            while (true) {
-                logger.log(Level.INFO, "Wating conexion from client");
+            while (running) {
+                logger.log(Level.INFO, "Wating conection from client");
+                System.out.println("Press \"ENTER\" to close the server");
                 cliente = servidor.accept();
 
                 if (conexiones < MAX_CONEXIONES) {
@@ -102,32 +107,22 @@ public class ApplicationS {
 
         }
     }
-          
-    /*public void finishServer() {
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-        running = false;
-        System.out.println("Cerrando servidor...");
-        System.exit(0);
-    }*/
-
 
     /**
      * Closed the server and client sockets. This method is called when the
      * server has been ordered to shut down.
      */
-    public void finalizar() {
+    public synchronized void finalizar() {
         try {
-            if (servidor != null) {
+            if (servidor != null && !servidor.isClosed()) {
                 servidor.close();
             }
 
-            if (cliente != null) {
+            if (cliente != null && !cliente.isClosed()) {
                 cliente.close();
             }
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -135,18 +130,25 @@ public class ApplicationS {
     /**
      * Synchronizes and controls the number of active client connections.
      *
-     * @param tipo an integer value to tell the method to increase or decrease <code>conexiones</code>.
-     *             Pass 1 increase, any other value to decrease.
+     * @param tipo an integer value to tell the method to increase or decrease
+     * <code>conexiones</code>. Pass 1 increase, any other value to decrease.
      */
     public synchronized void controlarConexion(int tipo) {
         if (tipo == 1) {
             conexiones++;
-            Logger.getLogger("SERVIDOR").log(Level.INFO, "Clients connected: {0}", conexiones);
+            logger.log(Level.INFO, "Clients connected: {0}", conexiones);
         } else {
             conexiones--;
-            Logger.getLogger("SERVIDOR").log(Level.INFO, "Clients connected: {0}", conexiones);
+            logger.log(Level.INFO, "Clients connected: {0}", conexiones);
         }
 
+    }
+
+    public void stopLoop(){
+        ApplicationS.running = false;
+        while(conexiones!=0);
+        finalizar();
+        
     }
 
 }
