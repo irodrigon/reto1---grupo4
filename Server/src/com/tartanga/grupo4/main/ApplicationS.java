@@ -15,6 +15,8 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.tartanga.grupo4.businesslogic.Worker;
+import com.tartanga.grupo4.dataaccess.CloseableFactory;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
@@ -76,7 +78,7 @@ public class ApplicationS {
                 logger.log(Level.INFO, "Wating conection from client");
                 System.out.println("Press \"ENTER\" to close the server");
                 cliente = servidor.accept();
-
+                
                 if (conexiones < MAX_CONEXIONES) {
                     controlarConexion(1);
                     Worker hilo = new Worker(cliente, this);
@@ -91,17 +93,19 @@ public class ApplicationS {
                     salida.writeObject(message);
                     if (cliente != null) {
                         cliente.close();
+                        cliente=null;
                     }
                     if (salida != null) {
                         salida.close();
+                        salida=null;
                     }
                 }
 
             }
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("The server has been closed");
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("The server has been closed");
         } finally {
             finalizar();
 
@@ -112,17 +116,20 @@ public class ApplicationS {
      * Closed the server and client sockets. This method is called when the
      * server has been ordered to shut down.
      */
-    public synchronized void finalizar() {
+    public void finalizar() {
         try {
             if (servidor != null && !servidor.isClosed()) {
                 servidor.close();
+                servidor=null;
             }
 
             if (cliente != null && !cliente.isClosed()) {
                 cliente.close();
+                cliente=null;
             }
 
         } catch (IOException e) {
+            System.out.println("en catch");
             e.printStackTrace();
         }
     }
@@ -144,11 +151,16 @@ public class ApplicationS {
 
     }
 
-    public void stopLoop(){
+    public void stopLoop() {
         ApplicationS.running = false;
-        while(conexiones!=0);
+        while (conexiones != 0);
+        try {
+            CloseableFactory.getInstance().getCloseable().close();
+        } catch (SQLException error) {
+            logger.log(Level.SEVERE, "ERROR when closing the connections in the pool{0}", error);
+        }
         finalizar();
-        //Falta llamar al pool para cerrar las conexiones
+        
     }
 
 }

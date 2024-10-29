@@ -41,7 +41,7 @@ public class Listener implements Runnable {
 
         } catch (Exception error) {
             
-            Logger.getLogger("Listener").log(Level.SEVERE, "Error al cerrar Scanner{0}", Arrays.toString(error.getStackTrace()));
+            Logger.getLogger("Listener").log(Level.SEVERE, "Error When closing Scanner{0}", Arrays.toString(error.getStackTrace()));
         }
     }
 
