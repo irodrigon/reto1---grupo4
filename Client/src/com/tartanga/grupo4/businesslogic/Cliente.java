@@ -1,4 +1,4 @@
-package com.tartanga.grupo4.main;
+package com.tartanga.grupo4.businesslogic;
 
 import com.tartanga.grupo4.exceptions.ClientSideException;
 import com.tartanga.grupo4.model.Message;

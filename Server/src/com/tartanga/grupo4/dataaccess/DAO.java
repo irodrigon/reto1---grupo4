@@ -42,13 +42,10 @@ public class DAO implements Signable {
 
         try {
             connection = pool.getConnection();
-            connection.setAutoCommit(false);
             preparedStatement = connection.prepareStatement(CHECK_USER);
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
             resultSet = preparedStatement.executeQuery();
-            
-            connection.commit();
 
             if (!resultSet.next()) {
                 user.setUsername(null);
@@ -57,17 +54,11 @@ public class DAO implements Signable {
             }
 
         } catch (SQLException ex) {
-            if (connection != null) {
-                try {
-                    connection.rollback();
-                } catch (SQLException rollbackEx) {
-                    Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, "Fallo de rollback: " + rollbackEx.getMessage());
-                }
-            }
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, "Ocurrio un error de SQL: " + ex.getMessage());
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, "SQL error occurred: " + ex.getMessage());
             throw new ServerErrorException();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServerErrorException();
         } finally {
             if (connection != null) {
                 pool.freeConnection(connection);
@@ -129,13 +120,14 @@ public class DAO implements Signable {
                 try {
                     connection.rollback();
                 } catch (SQLException rollbackEx) {
-                    Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, "Fallo de rollback: " + rollbackEx.getMessage());
+                    Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, "Rollback Exception: " + rollbackEx.getMessage());
                 }
             }
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, "Ocurrio un error de SQL: " + ex.getMessage());
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, "SQL Error Occurred: " + ex.getMessage());
             throw new ServerErrorException();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServerErrorException();
         } finally {
             if (connection != null) {
                 pool.freeConnection(connection);

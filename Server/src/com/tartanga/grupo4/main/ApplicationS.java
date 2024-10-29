@@ -31,8 +31,7 @@ public class ApplicationS {
     private static int conexiones = 0;
     private final int MAX_CONEXIONES = 5;
 
-    //private boolean running = true;
-
+    private boolean running = true;
 
     private static final Logger logger = Logger.getLogger("ApplicationS");
     ObjectOutputStream salida = null;
@@ -61,17 +60,19 @@ public class ApplicationS {
      * refuses the connection if the limit is exceeded.
      *
      * @throws IOException if there is with the connection or
-     *                     <code>ObjectOutputStream</code>.
+     * <code>ObjectOutputStream</code>.
      */
     public void iniciar() throws IOException {
-
+        
         try {
             servidor = new ServerSocket(PUERTO);
-
-            while (true) {
+            
+            new Thread(this::finishServer).start();
+            
+            while (running) {
                 logger.log(Level.INFO, "Wating conexion from client");
                 cliente = servidor.accept();
-
+                
                 if (conexiones < MAX_CONEXIONES) {
                     controlarConexion(1);
                     Worker hilo = new Worker(cliente, this);
@@ -102,15 +103,56 @@ public class ApplicationS {
 
         }
     }
-          
-    /*public void finishServer() {
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-        running = false;
-        System.out.println("Cerrando servidor...");
-        System.exit(0);
-    }*/
 
+    public void finishServer() {
+        System.out.println("Press 'q' to initiate shutdown. Confirm with 'y' or 'n'...");
+
+        try {
+
+            while (running) {
+
+                int input = System.in.read();
+
+                if (input == 'q' || input == 'Q') { 
+
+                    System.out.println("Are you sure you want to shut down the server? (y/n)");
+
+                    
+                    //int confirmation = System.in.read();
+
+                    
+                    System.in.skip(System.in.available());
+
+                   /* if (confirmation == 'y' || confirmation == 'Y') {
+
+                        System.out.println("Shutting down server...");
+
+                        running = false; 
+
+                    } else if (confirmation == 'n' || confirmation == 'N') {
+
+                        System.out.println("Shutdown canceled.");
+
+                    } else {
+
+                        System.out.println("Invalid input. Please enter 'y' or 'n'.");
+
+                    }*/
+
+                }
+
+                
+                //System.in.skip(System.in.available());
+
+            }
+
+        } catch (IOException e) {
+
+            System.err.println("Error reading input: " + e.getMessage());
+
+        }
+
+    }
 
     /**
      * Closed the server and client sockets. This method is called when the
@@ -135,8 +177,8 @@ public class ApplicationS {
     /**
      * Synchronizes and controls the number of active client connections.
      *
-     * @param tipo an integer value to tell the method to increase or decrease <code>conexiones</code>.
-     *             Pass 1 increase, any other value to decrease.
+     * @param tipo an integer value to tell the method to increase or decrease
+     * <code>conexiones</code>. Pass 1 increase, any other value to decrease.
      */
     public synchronized void controlarConexion(int tipo) {
         if (tipo == 1) {

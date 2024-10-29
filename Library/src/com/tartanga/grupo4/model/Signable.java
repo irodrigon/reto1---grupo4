@@ -5,6 +5,7 @@
  */
 package com.tartanga.grupo4.model;
 
+import com.tartanga.grupo4.exceptions.ClientSideException;
 import com.tartanga.grupo4.exceptions.MaxConnectionsException;
 import com.tartanga.grupo4.exceptions.ServerErrorException;
 import com.tartanga.grupo4.exceptions.UserExistInDatabaseException;
@@ -16,6 +17,6 @@ import com.tartanga.grupo4.exceptions.UserPasswdException;
  */
 public interface Signable {
 
-    public User signIn (User user) throws UserPasswdException,ServerErrorException,Exception,MaxConnectionsException;
-    public User signUp(User user)throws ServerErrorException,UserExistInDatabaseException,Exception,MaxConnectionsException;
+    public User signIn (User user) throws UserPasswdException,ServerErrorException,MaxConnectionsException,ClientSideException;
+    public User signUp(User user)throws ServerErrorException,UserExistInDatabaseException,MaxConnectionsException,ClientSideException;
 }

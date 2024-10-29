@@ -1,6 +1,9 @@
 package com.tartanga.grupo4.controllers;
 
 
+import com.tartanga.grupo4.businesslogic.ClientFactory;
+import com.tartanga.grupo4.exceptions.ClientSideException;
+import com.tartanga.grupo4.exceptions.MaxConnectionsException;
 import com.tartanga.grupo4.exceptions.ServerErrorException;
 import com.tartanga.grupo4.exceptions.UserPasswdException;
 import com.tartanga.grupo4.model.User;
@@ -41,9 +44,13 @@ public class SignInController {
 
     @FXML
     private Button btnSeePassword;
+    
+    @FXML
+    private TextField hiddenField;
 
     @FXML
     private void initialize() {
+        hiddenField.setVisible(false);
         btn_Login.setOnAction(this::handleLogin);
         hl_create.setOnAction(this::handleCreateUser);
         btnSeePassword.setOnAction(this::handleViewPassword);
@@ -95,18 +102,18 @@ public class SignInController {
     private void handleLogin(ActionEvent event) {
 
         if (userField.getText().equals("") && passwordField.getText().equals("")) {
-            new Alert(Alert.AlertType.ERROR, "Rellene los campos.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.ERROR, "Fill up the required fields.", ButtonType.OK).showAndWait();
         } else if (!userField.getText().matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")) {
-            new Alert(Alert.AlertType.ERROR, "El email no tiene el formato correcto.", ButtonType.OK).showAndWait();
-        } else if (!passwordField.getPromptText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$")) {
-            new Alert(Alert.AlertType.ERROR, "la contraseña no tiene el formato correcto.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.ERROR, "Please enter a valid email address.", ButtonType.OK).showAndWait();
+        } else if (!passwordField.getText().matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{6,}$")) {
+            new Alert(Alert.AlertType.ERROR, "Password must be 6 characters long, and include at least one uppercase letter, one lowercase letter, and one number.", ButtonType.OK).showAndWait();
         } else {
             try {
                 User user = new User();
                 user.setUsername(userField.getText());
-                user.setPassword(passwordField.getPromptText());
+                user.setPassword(passwordField.getText());
                 user = ClientFactory.getInstance().getSignable().signIn(user);
-                new Alert(Alert.AlertType.INFORMATION, "Usuario Correcto.", ButtonType.OK).showAndWait();
+                //new Alert(Alert.AlertType.INFORMATION, "User verified.", ButtonType.OK).showAndWait();
 
                 FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/MainView.fxml"));
                 Parent mainView = FXMLLoader.load();
@@ -116,24 +123,27 @@ public class SignInController {
                 Scene scene = new Scene(mainView);
                 stage.setScene(scene);
                 stage.show();
-                logger.info("Usuario verificado.");
+                logger.info("Correct user.");
             } catch (UserPasswdException e) {
                 logger.log(Level.SEVERE, "UserPasswdException", e.getMessage());
-                new Alert(Alert.AlertType.ERROR, "El usuario y/o la contraseña son incorrectos.", ButtonType.OK).showAndWait();
+                new Alert(Alert.AlertType.ERROR, "User or password are incorrect.", ButtonType.OK).showAndWait();
             } catch (ServerErrorException srve) {
                 logger.severe("ServerErrorException: " + srve.getMessage());
-                new Alert(Alert.AlertType.ERROR, "El servidor experimento un error.", ButtonType.OK).showAndWait();
-            } catch (Exception e) {
-                new Alert(Alert.AlertType.ERROR, "Error general.", ButtonType.OK).showAndWait();
+                new Alert(Alert.AlertType.ERROR, "Internal server error.", ButtonType.OK).showAndWait();
+            } catch (ClientSideException e) {
+                new Alert(Alert.AlertType.ERROR, "Error on Client Side.", ButtonType.OK).showAndWait();
+            }catch(IOException e){
+                new Alert(Alert.AlertType.ERROR, "Error on Client Side.", ButtonType.OK).showAndWait();
+            }catch(MaxConnectionsException e){
+                 new Alert(Alert.AlertType.ERROR, "Too much conenctions simultaneously, please be patient.", ButtonType.OK).showAndWait();
             }
         }
-
     }
 
     @FXML
     private void onCloseRequestWindowEvent(Event event) {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "¿Desea cerrar la aplicacion?", ButtonType.YES, ButtonType.NO);
-        alert.setTitle("Confirmacion de cierre");
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Do you really want to close the application?", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Closing Application");
         alert.setHeaderText(null);
         alert.showAndWait();
         if (alert.resultProperty().get().equals(ButtonType.YES)) {
@@ -146,11 +156,15 @@ public class SignInController {
     @FXML
     private void handleViewPassword(ActionEvent event) {
         isOn = !isOn;
-
+        
         if (isOn) {
+          
             String password = passwordField.getText();
-            passwordField.clear();
-            passwordField.setPromptText(password);
+            passwordField.setVisible(false);
+            hiddenField.setVisible(true);
+            hiddenField.setText(password);
+            passwordField.setText(password);
+            
             Image image = new Image("/com/tartanga/grupo4/resources/images/eyeclosed.png");
 
             ImageView imageView = new ImageView(image);
@@ -166,8 +180,11 @@ public class SignInController {
 
             btnSeePassword.setStyle("-fx-background-color: transparent; -fx-border-color:transparent");
         } else {
-            passwordField.selectAll();
-            passwordField.setText(passwordField.getPromptText());
+            
+            hiddenField.setVisible(false);
+            passwordField.setText(hiddenField.getText());
+            passwordField.setVisible(true);
+            
             Image image = new Image("/com/tartanga/grupo4/resources/images/eyeopened.png");
 
             ImageView imageView = new ImageView(image);
