@@ -29,16 +29,42 @@ import java.util.ResourceBundle;
  */
 public class ApplicationS {
 
+    /**
+     * Port number on which the server will listen for incoming client connections.
+     */
     private final int PUERTO = 6000;
-    ServerSocket servidor = null;
-    Socket cliente = null;
+    /**
+     * Server socket that listens for client connection requests.
+     */
+     private ServerSocket servidor = null;
+    /**
+     * Client socket that represents the connection between the server and a client.
+     */
+    private Socket cliente = null;
+    /**
+     * Counter to track the number of active client connections.
+     */
     private static int conexiones = 0;
+    /**
+     * Flag indicating whether the server is running; used to control the server's main loop.
+     */
     private static boolean running = true;
+    /**
+     * Resource bundle for loading configuration properties, such as maximum connections allowed.
+     */
     ResourceBundle resourceBundle = ResourceBundle.getBundle("com/tartanga/grupo4/resources/connection");
+    /**
+     * Maximum number of client connections allowed simultaneously, loaded from configuration.
+     */
     private final int MAX_CONEXIONES = Integer.parseInt(resourceBundle.getString("max_conections"));
-
+    /**
+     * Logger to record server events, information, and errors at various log levels.
+     */
     private static final Logger logger = Logger.getLogger("ApplicationS");
-    ObjectOutputStream salida = null;
+    /**
+     * Output stream used to send messages to clients; primarily for transmitting errors.
+     */
+    private ObjectOutputStream salida = null;
 
     /**
      * The main method that launches the server. It initializes the server,
@@ -150,7 +176,10 @@ public class ApplicationS {
         }
 
     }
-
+    /**
+     * Stops the server loop and closes all connections after verifying
+     * that no client connections are still active.
+     */
     public void stopLoop() {
         ApplicationS.running = false;
         while (conexiones != 0);
