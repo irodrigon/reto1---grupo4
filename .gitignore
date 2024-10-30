@@ -1,11 +1,11 @@
-<<<<<<< HEAD
-/JavaFXApplication5/nbproject/private/
-=======
 /JavaFXApplication5/nbproject/private/
 /Library/dist/
 /Library/build/
+/Library/nbproject/
 /Server/dist/
 /Server/build/
+/Server/nbproject/
 /Client/dist/
 /Client/build/
->>>>>>> Aratz
+/Client/nbproject/
+

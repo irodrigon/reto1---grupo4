@@ -11,7 +11,6 @@ package com.tartanga.grupo4.model;
  */
 public enum SignInSignUpEnum {
     SIGN_IN_REQUEST,
-
     SIGN_UP_REQUEST,
     OK,
     USER_PASSWD_ERROR,
@@ -19,3 +18,4 @@ public enum SignInSignUpEnum {
     SERVER_ERROR,
     MAX_CONNECTIONS;
 }
+

@@ -1,11 +1,10 @@
-
 package com.tartanga.grupo4.controllers;
 
+
+import com.tartanga.grupo4.exceptions.MaxConnectionsException;
+import com.tartanga.grupo4.exceptions.ServerErrorException;
+import com.tartanga.grupo4.exceptions.UserExistInDatabaseException;
 import com.tartanga.grupo4.model.User;
-import exceptions.MaxConnectionsException;
-import exceptions.ServerErrorException;
-import exceptions.UserExistInDatabaseException;
-import exceptions.UserPasswdException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +14,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -27,6 +27,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class SignUpController {
+    
+    private Stage stage;
 
     @FXML
     private Button btn_Back, btn_Register;
@@ -59,7 +61,6 @@ public class SignUpController {
             e.printStackTrace();
         }
     }
-
 
     private void handleRegister(ActionEvent event) {
         String email = fld_Email.getText();
@@ -113,7 +114,7 @@ public class SignUpController {
             lbl_error_Name.setText("Name is required.");
             hasError = true;
         } else if (name.matches(".*\\d.*")) {
-            lbl_error_Name.setText("Name cannot contain numbers.");
+            lbl_error_Name.setText("Name can not contain numbers.");
             hasError = true;
         } else {
             lbl_error_Name.setText("");
@@ -124,7 +125,7 @@ public class SignUpController {
             lbl_error_City.setText("City is required.");
             hasError = true;
         } else if (city.matches(".*\\d.*")) {
-            lbl_error_City.setText("City cannot contain numbers.");
+            lbl_error_City.setText("City can not contain numbers.");
             hasError = true;
         } else {
             lbl_error_City.setText("");
@@ -135,7 +136,7 @@ public class SignUpController {
             lbl_error_Street.setText("Street is required.");
             hasError = true;
         } else if (street.matches(".*\\d.*")) {
-            lbl_error_Street.setText("Street cannot contain numbers.");
+            lbl_error_Street.setText("Street can not contain numbers.");
             hasError = true;
         } else {
             lbl_error_Street.setText("");
@@ -159,13 +160,13 @@ public class SignUpController {
                 user = ClientFactory.getInstance().getSignable().signUp(user);
 
             } catch (UserExistInDatabaseException error) {
-                System.out.println("Usuario existente.");
+                System.out.println("Password/usuario mal");
             } catch (ServerErrorException error) {
-                System.out.println("Error critico del server.");
+                System.out.println("Error critico del server");
             } catch (MaxConnectionsException error) {
-                System.out.println("Maximas conecsiones alcanzadas.");
+                System.out.println("Maximas conecsiones alcanzadas");
             } catch (Exception error) {
-                System.out.println("Otro errores.");
+                System.out.println("Otro errores");
             } 
 
             Alert correct = new Alert(AlertType.NONE);
@@ -197,4 +198,31 @@ public class SignUpController {
         fld_Zip.setText("");
         chb_Active.setSelected(false);
     }
+
+    public void setStage(Stage stage) {
+         this.stage = stage;
+    }
+@FXML
+    private void onCloseRequestWindowEvent(Event event) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "¿Desea cerrar la aplicacion?", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Confirmacion de cierre");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+        if (alert.resultProperty().get().equals(ButtonType.YES)) {
+            Platform.exit();
+        } else {
+            event.consume();
+        }
+    }
+    public void initStage(Parent root) {
+        
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("SignUo");
+        stage.setResizable(false);
+        stage.show();
+        stage.setOnCloseRequest(this::onCloseRequestWindowEvent);
+    }
+    
+
 }

@@ -15,16 +15,43 @@ import java.io.Serializable;
  * The class also provides getter and setter methods for each attribute, as well
  * as a {@code toString} method to provide a string representation of a {@code User} object.
  * 
- * @author egure
+ * @author Aratz
  */
 public class User implements Serializable {
-    
+
+    /**
+     * The username of the user.
+     */
     private String username;
+
+    /**
+     * The password of the user.
+     */
     private String password;
+
+    /**
+     * The full name of the user.
+     */
     private String name;
+
+    /**
+     * The street address of the user.
+     */
     private String street;
+
+    /**
+     * The active status of the user. If {@code true}, the user is active; otherwise, inactive.
+     */
     private Boolean active;
+
+    /**
+     * The city where the user resides.
+     */
     private String city;
+
+    /**
+     * The postal zip code of the user's address.
+     */
     private Integer zip;
 
     /**
@@ -47,7 +74,7 @@ public class User implements Serializable {
         this.city = city;
         this.zip = zip;
     }
-    
+
     /**
      * Empty constructor that initializes a {@code User} object with all attributes set to {@code null}.
      */
@@ -63,7 +90,6 @@ public class User implements Serializable {
 
     /**
      * Gets the username of the user.
-     * 
      * @return the username of the user.
      */
     public String getUsername() {
@@ -72,7 +98,6 @@ public class User implements Serializable {
 
     /**
      * Sets the username of the user.
-     * 
      * @param username The username to set.
      */
     public void setUsername(String username) {
@@ -81,7 +106,6 @@ public class User implements Serializable {
 
     /**
      * Gets the password of the user.
-     * 
      * @return the password of the user.
      */
     public String getPassword() {
@@ -90,7 +114,6 @@ public class User implements Serializable {
 
     /**
      * Sets the password of the user.
-     * 
      * @param password The password to set.
      */
     public void setPassword(String password) {
@@ -99,7 +122,6 @@ public class User implements Serializable {
 
     /**
      * Gets the name of the user.
-     * 
      * @return the name of the user.
      */
     public String getName() {
@@ -108,7 +130,6 @@ public class User implements Serializable {
 
     /**
      * Sets the name of the user.
-     * 
      * @param name The name to set.
      */
     public void setName(String name) {
@@ -117,7 +138,6 @@ public class User implements Serializable {
 
     /**
      * Gets the street of the user.
-     * 
      * @return the street of the user.
      */
     public String getStreet() {
@@ -126,7 +146,6 @@ public class User implements Serializable {
 
     /**
      * Sets the street of the user.
-     * 
      * @param street The street to set.
      */
     public void setStreet(String street) {
@@ -135,7 +154,6 @@ public class User implements Serializable {
 
     /**
      * Gets the active status of the user.
-     * 
      * @return the active status of the user.
      */
     public Boolean getActive() {
@@ -144,7 +162,6 @@ public class User implements Serializable {
 
     /**
      * Sets the active status of the user.
-     * 
      * @param active The active status to set.
      */
     public void setActive(Boolean active) {
@@ -153,7 +170,6 @@ public class User implements Serializable {
 
     /**
      * Gets the city of the user.
-     * 
      * @return the city of the user.
      */
     public String getCity() {
@@ -162,7 +178,6 @@ public class User implements Serializable {
 
     /**
      * Sets the city of the user.
-     * 
      * @param city The city to set.
      */
     public void setCity(String city) {
@@ -171,7 +186,6 @@ public class User implements Serializable {
 
     /**
      * Gets the zip code of the user.
-     * 
      * @return the zip code of the user.
      */
     public Integer getZip() {
@@ -180,7 +194,6 @@ public class User implements Serializable {
 
     /**
      * Sets the zip code of the user.
-     * 
      * @param zip The zip code to set.
      */
     public void setZip(Integer zip) {
@@ -189,20 +202,18 @@ public class User implements Serializable {
 
     /**
      * Returns a string representation of the {@code User} object.
-     * 
      * @return a string representation of the user.
      */
     @Override
     public String toString() {
-        return "User{" + 
-               "username='" + username + '\'' + 
-               ", password='" + password + '\'' + 
-               ", name='" + name + '\'' + 
-               ", street='" + street + '\'' + 
-               ", active=" + active + 
-               ", city='" + city + '\'' + 
-               ", zip=" + zip + 
-               '}';
+        return "User{"
+                + "username='" + username + '\''
+                + ", password='" + password + '\''
+                + ", name='" + name + '\''
+                + ", street='" + street + '\''
+                + ", active=" + active
+                + ", city='" + city + '\''
+                + ", zip=" + zip
+                + '}';
     }
-
 }
