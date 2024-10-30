@@ -1,11 +1,10 @@
-
 package com.tartanga.grupo4.controllers;
 
+
+import com.tartanga.grupo4.exceptions.MaxConnectionsException;
+import com.tartanga.grupo4.exceptions.ServerErrorException;
+import com.tartanga.grupo4.exceptions.UserExistInDatabaseException;
 import com.tartanga.grupo4.model.User;
-import exceptions.MaxConnectionsException;
-import exceptions.ServerErrorException;
-import exceptions.UserExistInDatabaseException;
-import exceptions.UserPasswdException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -40,7 +38,7 @@ public class SignUpController {
     private Label lbl_error_Email, lbl_error_Password, lbl_error_Confirm, lbl_error_Name, lbl_error_City, lbl_error_Street, lbl_error_Zip;
 
     @FXML
-    private void initialize() {
+    public void initialize() {
         btn_Back.setOnAction(this::handleGoBack);
         btn_Register.setOnAction(this::handleRegister);
     }
@@ -59,7 +57,6 @@ public class SignUpController {
             e.printStackTrace();
         }
     }
-
 
     private void handleRegister(ActionEvent event) {
         String email = fld_Email.getText();
@@ -159,13 +156,13 @@ public class SignUpController {
                 user = ClientFactory.getInstance().getSignable().signUp(user);
 
             } catch (UserExistInDatabaseException error) {
-                System.out.println("Usuario existente.");
+                System.out.println("Password/usuario mal");
             } catch (ServerErrorException error) {
-                System.out.println("Error critico del server.");
+                System.out.println("Error critico del server");
             } catch (MaxConnectionsException error) {
-                System.out.println("Maximas conecsiones alcanzadas.");
+                System.out.println("Maximas conecsiones alcanzadas");
             } catch (Exception error) {
-                System.out.println("Otro errores.");
+                System.out.println("Otro errores");
             } 
 
             Alert correct = new Alert(AlertType.NONE);
