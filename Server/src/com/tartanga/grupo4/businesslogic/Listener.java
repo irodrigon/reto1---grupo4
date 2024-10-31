@@ -37,7 +37,7 @@ public class Listener implements Runnable {
     }
     
      /**
-     * The main loop of the {@code Listener. Waits for user confirmation 
+     * The main loop of the {@code Listener}. Waits for user confirmation 
      * to shut down the server. It prompts the user to type "Yes" to confirm 
      * shutdown. If the user confirms, it calls the {@code stopLoop} method 
      * on the {@code ApplicationS} instance.

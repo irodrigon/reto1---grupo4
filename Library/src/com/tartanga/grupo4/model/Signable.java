@@ -1,5 +1,6 @@
 package com.tartanga.grupo4.model;
 
+import com.tartanga.grupo4.exceptions.ClientSideException;
 import com.tartanga.grupo4.exceptions.MaxConnectionsException;
 import com.tartanga.grupo4.exceptions.ServerErrorException;
 import com.tartanga.grupo4.exceptions.UserExistInDatabaseException;
@@ -28,8 +29,9 @@ public interface Signable {
      * @throws UserPasswdException if the username or password is incorrect
      * @throws ServerErrorException if a server-side error occurs during authentication
      * @throws MaxConnectionsException if the maximum number of allowed connections is reached
+     * @throws ClientSideException if {@code Cliente} throws an unexpected exception
      */
-    public User signIn(User user) throws UserPasswdException, ServerErrorException, MaxConnectionsException;
+    public User signIn(User user) throws UserPasswdException, ServerErrorException, MaxConnectionsException,ClientSideException;
 
     /**
      * Registers a new user based on the provided {@code User} object. If registration 
@@ -45,6 +47,7 @@ public interface Signable {
      * @throws ServerErrorException if a server-side error occurs during registration
      * @throws UserExistInDatabaseException if the username already exists in the database
      * @throws MaxConnectionsException if the maximum number of allowed connections is reached
+     * @throws ClientSideException if {@code Cliente} throws an unexpected exception
      */
-    public User signUp(User user) throws ServerErrorException, UserExistInDatabaseException, MaxConnectionsException;
+    public User signUp(User user) throws ServerErrorException, UserExistInDatabaseException, MaxConnectionsException,ClientSideException;
 }
