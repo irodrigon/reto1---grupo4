@@ -19,6 +19,7 @@ import java.io.Serializable;
  */
 public class User implements Serializable {
 
+
     /**
      * The username of the user.
      */
@@ -217,3 +218,4 @@ public class User implements Serializable {
                 + '}';
     }
 }
+
