@@ -15,16 +15,44 @@ import java.io.Serializable;
  * The class also provides getter and setter methods for each attribute, as well
  * as a {@code toString} method to provide a string representation of a {@code User} object.
  * 
- * @author egure
+ * @author Aratz
  */
 public class User implements Serializable {
 
+
+    /**
+     * The username of the user.
+     */
     private String username;
+
+    /**
+     * The password of the user.
+     */
     private String password;
+
+    /**
+     * The full name of the user.
+     */
     private String name;
+
+    /**
+     * The street address of the user.
+     */
     private String street;
+
+    /**
+     * The active status of the user. If {@code true}, the user is active; otherwise, inactive.
+     */
     private Boolean active;
+
+    /**
+     * The city where the user resides.
+     */
     private String city;
+
+    /**
+     * The postal zip code of the user's address.
+     */
     private Integer zip;
 
     /**
@@ -48,7 +76,6 @@ public class User implements Serializable {
         this.zip = zip;
     }
 
-    
     /**
      * Empty constructor that initializes a {@code User} object with all attributes set to {@code null}.
      */
@@ -191,3 +218,4 @@ public class User implements Serializable {
                 + '}';
     }
 }
+
