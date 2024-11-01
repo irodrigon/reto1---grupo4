@@ -24,7 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * Controlador para la ventana de Sign In.
+ * @author Iñi
  */
 public class SignInController {
 
@@ -55,12 +55,12 @@ public class SignInController {
         hl_create.setOnAction(this::handleCreateUser);
         btnSeePassword.setOnAction(this::handleViewPassword);
         
-        Image image = new Image("/com/tartanga/grupo4/resources/images/eyeopened.png");
+        Image image = new Image("/com/tartanga/grupo4/resources/images/eyeclosed.png");
 
         ImageView imageView = new ImageView(image);
 
-        imageView.setFitWidth(25);
-        imageView.setFitHeight(25);
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
         imageView.setPreserveRatio(true);
 
         btnSeePassword.setMinSize(25, 25);
@@ -85,16 +85,18 @@ public class SignInController {
     private void handleCreateUser(ActionEvent event) {
 
         try {
-            FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignUp.fxml"));
+            FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignUpView.fxml"));
             Parent mainView = FXMLLoader.load();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             Scene scene = new Scene(mainView);
             stage.setScene(scene);
+            stage.setTitle("SignUp");
             stage.show();
+            stage.centerOnScreen();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Something went worng when loading the window.", e.getMessage());
         }
     }
 
@@ -122,31 +124,47 @@ public class SignInController {
 
                 Scene scene = new Scene(mainView);
                 stage.setScene(scene);
+                stage.setTitle("Main Window");
                 stage.show();
                 logger.info("Correct user.");
             } catch (UserPasswdException e) {
                 logger.log(Level.SEVERE, "UserPasswdException", e.getMessage());
-                new Alert(Alert.AlertType.ERROR, "User or password are incorrect.", ButtonType.OK).showAndWait();
+                new Alert(Alert.AlertType.ERROR, "User or password are incorrect. Please try again.", ButtonType.OK).showAndWait();
             } catch (ServerErrorException srve) {
-                logger.severe("ServerErrorException: " + srve.getMessage());
-                new Alert(Alert.AlertType.ERROR, "Internal server error.", ButtonType.OK).showAndWait();
+                logger.log(Level.SEVERE, "ServerErrorException: {0}", srve.getMessage());
+                new Alert(Alert.AlertType.ERROR, "Internal server error. Contact your system administrator.", ButtonType.OK).showAndWait();
+            } catch(MaxConnectionsException e){
+                 logger.log(Level.SEVERE, "MaxConnectionsException: {0}", e.getMessage());
+                 new Alert(Alert.AlertType.ERROR, "Too many connections simultaneously, please be patient.", ButtonType.OK).showAndWait();
             } catch (ClientSideException e) {
-                new Alert(Alert.AlertType.ERROR, "Error on Client Side.", ButtonType.OK).showAndWait();
+                logger.log(Level.SEVERE, "ClientSideException: {0}", e.getMessage());
+                new Alert(Alert.AlertType.ERROR, "Error on Client Side. Contact your system administrator.", ButtonType.OK).showAndWait();
             }catch(IOException e){
-                new Alert(Alert.AlertType.ERROR, "Error on Client Side.", ButtonType.OK).showAndWait();
-            }catch(MaxConnectionsException e){
-                 new Alert(Alert.AlertType.ERROR, "Too much conenctions simultaneously, please be patient.", ButtonType.OK).showAndWait();
+                logger.log(Level.SEVERE, "IOException: {0}", e.getMessage());
+                new Alert(Alert.AlertType.ERROR, "Error on Client Side. Contact your system administrator.", ButtonType.OK).showAndWait();
+            }catch(Exception e){
+                logger.log(Level.SEVERE, "Critical Error: {0}", e.getMessage());
+                new Alert(Alert.AlertType.ERROR, "Critical error. Please escalate the request. ", ButtonType.OK).showAndWait();
             }
         }
     }
 
     @FXML
     private void onCloseRequestWindowEvent(Event event) {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Do you really want to close the application?", ButtonType.YES, ButtonType.NO);
+        Image icon = new Image("/com/tartanga/grupo4/resources/images/servericon.png");
+        ImageView iconView = new ImageView(icon);
+        iconView.setFitWidth(32);
+        iconView.setFitHeight(32);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you really want to close the application?");
+        ButtonType yesButton = new ButtonType("Yes");
+        ButtonType noButton = new ButtonType("No");
+        alert.getButtonTypes().setAll(yesButton,noButton);
         alert.setTitle("Closing Application");
         alert.setHeaderText(null);
+        Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        alertStage.getIcons().add(icon);
         alert.showAndWait();
-        if (alert.resultProperty().get().equals(ButtonType.YES)) {
+        if (alert.resultProperty().get().equals(yesButton)) {
             Platform.exit();
         } else {
             event.consume();
@@ -165,12 +183,12 @@ public class SignInController {
             hiddenField.setText(password);
             passwordField.setText(password);
             
-            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeclosed.png");
+            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeopened.png");
 
             ImageView imageView = new ImageView(image);
 
-            imageView.setFitWidth(25);
-            imageView.setFitHeight(25);
+            imageView.setFitWidth(50);
+            imageView.setFitHeight(50);
             imageView.setPreserveRatio(true);
 
             btnSeePassword.setMinSize(25, 25);
@@ -185,12 +203,12 @@ public class SignInController {
             passwordField.setText(hiddenField.getText());
             passwordField.setVisible(true);
             
-            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeopened.png");
+            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeclosed.png");
 
             ImageView imageView = new ImageView(image);
 
-            imageView.setFitWidth(25);
-            imageView.setFitHeight(25);
+            imageView.setFitWidth(50);
+            imageView.setFitHeight(50);
             imageView.setPreserveRatio(true);
 
             btnSeePassword.setMinSize(25, 25);

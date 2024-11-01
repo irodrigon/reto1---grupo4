@@ -24,6 +24,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class SignUpController {
 
@@ -37,11 +39,56 @@ public class SignUpController {
     private CheckBox chb_Active;
     @FXML
     private Label lbl_error_Email, lbl_error_Password, lbl_error_Confirm, lbl_error_Name, lbl_error_City, lbl_error_Street, lbl_error_Zip;
-
+    
+    @FXML
+    private Button btnSeePassword;
+    
+    @FXML
+    private TextField hiddenFieldPassword;
+    
+    @FXML
+    private Button btnSeeConfirm;
+    
+    @FXML
+    private TextField hiddenFieldConfirm;
+    
+    private boolean isOn;
+    
     @FXML
     private void initialize() {
+        hiddenFieldPassword.setVisible(false);
+        hiddenFieldConfirm.setVisible(false);
         btn_Back.setOnAction(this::handleGoBack);
         btn_Register.setOnAction(this::handleRegister);
+        btnSeePassword.setOnAction(this::handleViewPassword);
+        btnSeeConfirm.setOnAction(this::handleViewConfirm);
+        
+        Image image = new Image("/com/tartanga/grupo4/resources/images/eyeclosed.png");
+
+        ImageView imageView = new ImageView(image);
+        ImageView imageViewConfirm = new ImageView(image);
+
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+        imageView.setPreserveRatio(true);
+        
+        imageViewConfirm.setFitWidth(50);
+        imageViewConfirm.setFitHeight(50);
+        imageViewConfirm.setPreserveRatio(true);
+
+        btnSeePassword.setMinSize(25, 25);
+        btnSeePassword.setMaxSize(25, 25);
+
+        btnSeePassword.setGraphic(imageView);
+
+        btnSeePassword.setStyle("-fx-background-color: transparent; -fx-border-color:transparent");
+        
+        btnSeeConfirm.setMinSize(25, 25);
+        btnSeeConfirm.setMaxSize(25, 25);
+
+        btnSeeConfirm.setGraphic(imageViewConfirm);
+
+        btnSeeConfirm.setStyle("-fx-background-color: transparent; -fx-border-color:transparent");
     }
 
     @FXML
@@ -194,5 +241,103 @@ public class SignUpController {
         fld_Street.setText("");
         fld_Zip.setText("");
         chb_Active.setSelected(false);
+    }
+    
+     @FXML
+    private void handleViewPassword(ActionEvent event) {
+        isOn = !isOn;
+        
+        if (isOn) {
+          
+            String password = fld_Password.getText();
+            fld_Password.setVisible(false);
+            hiddenFieldPassword.setVisible(true);
+            hiddenFieldPassword.setText(password);
+            fld_Password.setText(password);
+            
+            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeopened.png");
+
+            ImageView imageView = new ImageView(image);
+
+            imageView.setFitWidth(50);
+            imageView.setFitHeight(50);
+            imageView.setPreserveRatio(true);
+
+            btnSeePassword.setMinSize(25, 25);
+            btnSeePassword.setMaxSize(25, 25);
+
+            btnSeePassword.setGraphic(imageView);
+
+            btnSeePassword.setStyle("-fx-background-color: transparent; -fx-border-color:transparent");
+        } else {
+            
+            hiddenFieldPassword.setVisible(false);
+            fld_Password.setText(hiddenFieldPassword.getText());
+            fld_Password.setVisible(true);
+            
+            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeclosed.png");
+
+            ImageView imageView = new ImageView(image);
+
+            imageView.setFitWidth(50);
+            imageView.setFitHeight(50);
+            imageView.setPreserveRatio(true);
+
+            btnSeePassword.setMinSize(25, 25);
+            btnSeePassword.setMaxSize(25, 25);
+
+            btnSeePassword.setGraphic(imageView);
+
+            btnSeePassword.setStyle("-fx-background-color: transparent; -fx-border-color:transparent");
+        }
+    }
+    
+     @FXML
+    private void handleViewConfirm(ActionEvent event) {
+        isOn = !isOn;
+        
+        if (isOn) {
+          
+            String password = fld_Confirm.getText();
+            fld_Confirm.setVisible(false);
+            hiddenFieldConfirm.setVisible(true);
+            hiddenFieldConfirm.setText(password);
+            fld_Confirm.setText(password);
+            
+            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeopened.png");
+
+            ImageView imageViewConfirm = new ImageView(image);
+
+            imageViewConfirm.setFitWidth(50);
+            imageViewConfirm.setFitHeight(50);
+            imageViewConfirm.setPreserveRatio(true);
+
+            btnSeeConfirm.setMinSize(25, 25);
+            btnSeeConfirm.setMaxSize(25, 25);
+
+            btnSeeConfirm.setGraphic(imageViewConfirm);
+
+            btnSeeConfirm.setStyle("-fx-background-color: transparent; -fx-border-color:transparent");
+        } else {
+            
+            hiddenFieldConfirm.setVisible(false);
+            fld_Confirm.setText(hiddenFieldConfirm.getText());
+            fld_Confirm.setVisible(true);
+            
+            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeclosed.png");
+
+            ImageView imageViewConfirm = new ImageView(image);
+
+            imageViewConfirm.setFitWidth(50);
+            imageViewConfirm.setFitHeight(50);
+            imageViewConfirm.setPreserveRatio(true);
+
+            btnSeeConfirm.setMinSize(25, 25);
+            btnSeeConfirm.setMaxSize(25, 25);
+
+            btnSeeConfirm.setGraphic(imageViewConfirm);
+
+            btnSeeConfirm.setStyle("-fx-background-color: transparent; -fx-border-color:transparent");
+        }
     }
 }

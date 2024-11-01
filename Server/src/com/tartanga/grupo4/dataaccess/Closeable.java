@@ -1,16 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tartanga.grupo4.dataaccess;
 
 import java.sql.SQLException;
 
 /**
- *
+ *Closeable interface is in charge of closing pool connections when the server is shut down.
+ * It is going to be implemented in the pool and used when the server is powered off by the
+ * pressing of a key.
+ * 
  * @author Iñi
  */
 public interface Closeable {
+    /**
+     * 
+     * This close() method is implemented in the pool to close all pool connections.
+     * 
+     * @throws SQLException when something goes wrong during the connection closing.
+     */
     public void close() throws SQLException;
 }
