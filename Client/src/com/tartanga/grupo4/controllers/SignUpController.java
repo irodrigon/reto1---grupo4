@@ -63,7 +63,7 @@ public class SignUpController {
         btnSeePassword.setOnAction(this::handleViewPassword);
         btnSeeConfirm.setOnAction(this::handleViewConfirm);
         
-        Image image = new Image("/com/tartanga/grupo4/resources/images/eyeclosed.png");
+        Image image = new Image("/com/tartanga/grupo4/resources/images/eyeopened.png");
 
         ImageView imageView = new ImageView(image);
         ImageView imageViewConfirm = new ImageView(image);
@@ -255,7 +255,7 @@ public class SignUpController {
             hiddenFieldPassword.setText(password);
             fld_Password.setText(password);
             
-            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeopened.png");
+            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeclosed.png");
 
             ImageView imageView = new ImageView(image);
 
@@ -275,7 +275,7 @@ public class SignUpController {
             fld_Password.setText(hiddenFieldPassword.getText());
             fld_Password.setVisible(true);
             
-            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeclosed.png");
+            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeopened.png");
 
             ImageView imageView = new ImageView(image);
 
@@ -304,7 +304,7 @@ public class SignUpController {
             hiddenFieldConfirm.setText(password);
             fld_Confirm.setText(password);
             
-            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeopened.png");
+            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeclosed.png");
 
             ImageView imageViewConfirm = new ImageView(image);
 
@@ -324,7 +324,7 @@ public class SignUpController {
             fld_Confirm.setText(hiddenFieldConfirm.getText());
             fld_Confirm.setVisible(true);
             
-            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeclosed.png");
+            Image image = new Image("/com/tartanga/grupo4/resources/images/eyeopened.png");
 
             ImageView imageViewConfirm = new ImageView(image);
 
