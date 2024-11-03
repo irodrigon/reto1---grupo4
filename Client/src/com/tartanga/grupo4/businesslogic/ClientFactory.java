@@ -1,7 +1,7 @@
-package com.tartanga.grupo4.controllers;
+package com.tartanga.grupo4.businesslogic;
 
 import com.tartanga.grupo4.model.Signable;
-import com.tartanga.grupo4.main.Cliente;
+import com.tartanga.grupo4.businesslogic.Cliente;
 
 /**
  * The {@code ClientFactory} class is a singleton factory that implement the

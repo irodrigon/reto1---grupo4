@@ -110,7 +110,7 @@ public class Worker extends Thread {
             mandarMessage(message);
 
         } catch (UserPasswdException error) {
-            logger.log(Level.INFO, "Password/USer does not match", error.toString());
+            logger.log(Level.INFO, "Password/User does not match", error.toString());
             message.setSignInSignUpEnum(SignInSignUpEnum.USER_PASSWD_ERROR);
             mandarMessage(message);
             

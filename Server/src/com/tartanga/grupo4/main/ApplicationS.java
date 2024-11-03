@@ -111,8 +111,8 @@ public class ApplicationS {
                     hilo.start();
 
                 } else {
-                    //Esto no esta testeado porque no tengo manera de mantener 5 conexiones a la vez. Probar con Junit
-                    logger.log(Level.INFO, "Max conections (5) reached, refusing service");
+                    
+                    logger.log(Level.INFO, "Max conections reached, refusing service");
                     salida = new ObjectOutputStream(cliente.getOutputStream());
                     Message message = new Message();
                     message.setSignInSignUpEnum(SignInSignUpEnum.MAX_CONNECTIONS);
@@ -130,8 +130,9 @@ public class ApplicationS {
             }
         } catch (IOException e) {
             System.out.println("The server has been closed");
+            logger.log(Level.INFO, "Server had been closed");
         } catch (Exception e) {
-            System.out.println("The server has been closed");
+            System.out.println("The server has not been closed correctly");
         } finally {
             finalizar();
 
@@ -185,6 +186,7 @@ public class ApplicationS {
         while (conexiones != 0);
         try {
             CloseableFactory.getInstance().getCloseable().close();
+            logger.log(Level.INFO, "Closing pool connections");
         } catch (SQLException error) {
             logger.log(Level.SEVERE, "ERROR when closing the connections in the pool{0}", error);
         }

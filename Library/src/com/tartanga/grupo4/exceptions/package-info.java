@@ -9,8 +9,8 @@
  *
  * 
  * <p>
- *  This custom exception are very basic with a simple constructor that passed a
- *  string explaining the error 
+ *  This custom exception have a simple constructor that takes a String as an argument
+ *  with the the reason for the exception.
  * </p>
  * 
  * @see <a href="file:///C:/Users/2dami/Documents/NetBeansProjects/reto1---grupo4/Server/dist/javadoc/index-files/index-12.html">Worker</a>

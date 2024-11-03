@@ -1,4 +1,4 @@
-package com.tartanga.grupo4.main;
+package com.tartanga.grupo4.businesslogic;
 
 import com.tartanga.grupo4.exceptions.ClientSideException;
 import com.tartanga.grupo4.model.Message;
@@ -94,7 +94,7 @@ public class Cliente implements Signable {
             salida.writeObject(message);
 
             message = (Message) entrada.readObject();
-            //user = message.getUser();//Esta linea esta para probar el mensaje, borrarla cuando acabe las pruebas
+            
             sign = (SignInSignUpEnum) message.getSignInSignUpEnum();
             logger.log(Level.INFO, "Answer from the server recived");
 
@@ -117,7 +117,7 @@ public class Cliente implements Signable {
             }
 
         } catch (IOException error) {
-            logger.log(Level.SEVERE, "IOException from ObjectOutputStream,ObjectInputStream");
+            logger.log(Level.SEVERE, "Error when connecting to the server");
             throw new ClientSideException();
         } catch (ClassNotFoundException error) {
             logger.log(Level.SEVERE, "ClassNotFoundException from readObject()");
