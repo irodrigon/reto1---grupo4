@@ -51,23 +51,23 @@ public class Cliente implements Signable {
             message = (Message) entrada.readObject();
             //user = message.getUser();//Esta linea esta para probar el mensaje, borrarla cuando acabe las pruebas
             sign = (SignInSignUpEnum) message.getSignInSignUpEnum();
-            logger.log(Level.INFO, "Answer from the server recived");
+            logger.log(Level.INFO, "Answer from the server recived.");
 
             switch (sign) {
                 case OK:
-                    logger.log(Level.INFO, "User verified");
+                    logger.log(Level.INFO, "User verified.");
                     break;
 
                 case USER_PASSWD_ERROR:
-                    logger.log(Level.SEVERE, "ERROR, password or user incorrect");
+                    logger.log(Level.SEVERE, "ERROR, password or user incorrect.");
                     throw new UserPasswdException();
 
                 case MAX_CONNECTIONS:
-                    logger.log(Level.SEVERE, "Max conections (5) reached, refusing service");
+                    logger.log(Level.SEVERE, "Max conections (5) reached, refusing service.");
                     throw new MaxConnectionsException();
 
                 case SERVER_ERROR:
-                    logger.log(Level.SEVERE, "Internal server ERROR");
+                    logger.log(Level.SEVERE, "Internal server ERROR.");
                     throw new ServerErrorException();
             }
 
@@ -98,23 +98,23 @@ public class Cliente implements Signable {
 
             message = (Message) entrada.readObject();
             sign = (SignInSignUpEnum) message.getSignInSignUpEnum();
-            logger.log(Level.INFO, "Answer from the server recived");
+            logger.log(Level.INFO, "Answer from the server recived.");
 
             switch (sign) {
                 case OK:
-                    logger.log(Level.INFO, "User has been registered");
+                    logger.log(Level.INFO, "User has been registered.");
                     break;
 
                 case USER_EXIST_IN_DB:
-                    logger.log(Level.SEVERE, "ERROR, chosen login already exist");
+                    logger.log(Level.SEVERE, "ERROR, chosen login already exist.");
                     throw new UserExistInDatabaseException();
 
                 case MAX_CONNECTIONS:
-                    logger.log(Level.SEVERE, "Max conections (5) reached, refusing service");
+                    logger.log(Level.SEVERE, "Max conections (5) reached, refusing service.");
                     throw new MaxConnectionsException();
 
                 case SERVER_ERROR:
-                    logger.log(Level.SEVERE, "Internal server ERROR");
+                    logger.log(Level.SEVERE, "Internal server ERROR.");
                     throw new ServerErrorException();
             }
 
