@@ -1,6 +1,7 @@
 package com.tartanga.grupo4.controllers;
 
 
+import com.tartanga.grupo4.businesslogic.ClientFactory;
 import com.tartanga.grupo4.exceptions.ServerErrorException;
 import com.tartanga.grupo4.exceptions.UserPasswdException;
 import com.tartanga.grupo4.model.User;

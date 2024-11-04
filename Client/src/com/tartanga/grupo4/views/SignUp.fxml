@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../resources/styles/estilo.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tartanga.grupo4.controllers.SignUpController">
+<Pane fx:id="panelSignUp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="/com/tartanga/grupo4/resources/styles/loginViewStyles.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tartanga.grupo4.controllers.SignUpController">
     <children>
         <Button fx:id="btn_Register" layoutX="818.0" layoutY="715.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="97.0" text="Register" />
         <Label fx:id="lbl_Email" layoutX="56.0" layoutY="185.0" prefHeight="40.0" prefWidth="97.0" text="Login:">
@@ -37,9 +37,12 @@
             </font>
         </Label>
         <TextField fx:id="fld_Email" layoutX="199.0" layoutY="177.0" prefHeight="59.0" prefWidth="211.0" promptText="example@example.com" />
-        <PasswordField fx:id="fld_Password" layoutX="199.0" layoutY="299.0" prefHeight="59.0" prefWidth="211.0" promptText="Password" />
-        <PasswordField fx:id="fld_Confirm" layoutX="199.0" layoutY="438.0" prefHeight="59.0" prefWidth="211.0" />
-        
+        <PasswordField fx:id="fld_Password" layoutX="199.0" layoutY="299.0" prefHeight="59.0" prefWidth="211.0" promptText="🔒Password" />
+        <TextField fx:id="hiddenFieldPassword" layoutX="199.0" layoutY="299.0" prefHeight="59.0" prefWidth="211.0"  />
+        <PasswordField fx:id="fld_Confirm" layoutX="199.0" layoutY="438.0" prefHeight="59.0" prefWidth="211.0" promptText="🔒Password"/>
+        <TextField fx:id="hiddenFieldConfirm" layoutX="199.0" layoutY="438.0" prefHeight="59.0" prefWidth="211.0" />
+        <Button fx:id="btnSeePassword" layoutX="430.0" layoutY="312.0" prefHeight="25.0" prefWidth="25.0"/>
+        <Button fx:id="btnSeeConfirm" layoutX="430.0" layoutY="450.0" prefHeight="25.0" prefWidth="25.0"/>
         <TextField fx:id="fld_Name" layoutX="199.0" layoutY="564.0" prefHeight="59.0" prefWidth="211.0" promptText="Name" />
         <TextField fx:id="fld_City" layoutX="622.0" layoutY="176.0" prefHeight="59.0" prefWidth="211.0" promptText="City" />
         <Label fx:id="lbl_Title" contentDisplay="CENTER" layoutX="375.0" layoutY="54.0" prefHeight="59.0" prefWidth="251.0" text="WELCOME NEW USER">
@@ -66,12 +69,12 @@
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label fx:id="lbl_error_Email" layoutX="199.0" layoutY="243.0" prefHeight="18.0" prefWidth="211.0" text="" />
-        <Label fx:id="lbl_error_Password" layoutX="199.0" layoutY="355.0" prefHeight="59.0" prefWidth="211.0" text="" />
-        <Label fx:id="lbl_error_Confirm" layoutX="199.0" layoutY="510.0" prefHeight="18.0" prefWidth="211.0" text="" />
-        <Label fx:id="lbl_error_Name" layoutX="199.0" layoutY="635.0" prefHeight="18.0" prefWidth="211.0" text="" />
-        <Label fx:id="lbl_error_Zip" layoutX="622.0" layoutY="502.0" prefHeight="18.0" prefWidth="211.0" text="" />
-        <Label fx:id="lbl_error_City" layoutX="622.0" layoutY="243.0" prefHeight="18.0" prefWidth="211.0" text="" />
-        <Label fx:id="lbl_error_Street" layoutX="622.0" layoutY="366.0" prefHeight="18.0" prefWidth="211.0" text="" />
+        <Label fx:id="lbl_error_Email" layoutX="199.0" layoutY="243.0" prefHeight="18.0" prefWidth="211.0" text=""  style="-fx-text-fill: red;"/>
+        <Label fx:id="lbl_error_Password" layoutX="199.0" layoutY="355.0" prefHeight="59.0" prefWidth="211.0" text=""  style="-fx-text-fill: red;"/>
+        <Label fx:id="lbl_error_Confirm" layoutX="199.0" layoutY="510.0" prefHeight="18.0" prefWidth="211.0" text=""  style="-fx-text-fill: red;"/>
+        <Label fx:id="lbl_error_Name" layoutX="199.0" layoutY="635.0" prefHeight="18.0" prefWidth="211.0" text=""  style="-fx-text-fill: red;"/>
+        <Label fx:id="lbl_error_Zip" layoutX="622.0" layoutY="502.0" prefHeight="18.0" prefWidth="211.0" text=""  style="-fx-text-fill: red;"/>
+        <Label fx:id="lbl_error_City" layoutX="622.0" layoutY="243.0" prefHeight="18.0" prefWidth="211.0" text=""  style="-fx-text-fill: red;"/>
+        <Label fx:id="lbl_error_Street" layoutX="622.0" layoutY="366.0" prefHeight="18.0" prefWidth="211.0" text=""  style="-fx-text-fill: red;"/>
     </children>
 </Pane>
