@@ -1,6 +1,7 @@
 package com.tartanga.grupo4.controllers;
 
 
+import com.tartanga.grupo4.businesslogic.ClientFactory;
 import com.tartanga.grupo4.exceptions.ServerErrorException;
 import com.tartanga.grupo4.exceptions.UserPasswdException;
 import com.tartanga.grupo4.model.User;
@@ -78,7 +79,7 @@ public class SignInController {
     private void handleCreateUser(ActionEvent event) {
 
         try {
-            FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignUp.fxml"));
+            FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignUpView.fxml"));
             Parent mainView = FXMLLoader.load();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

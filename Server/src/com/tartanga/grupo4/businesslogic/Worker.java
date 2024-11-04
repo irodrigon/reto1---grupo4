@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  * it uses either <code>signIn</code> or <code>signUp</code> to attack the database. 
  * It responds with a <code>Message</code> that contains the answer of the server.
  * 
- * <p>This class is responsible for:
+ * This class is responsible for:
  * <ul>
  *   <li>Reading the client's request message</li>
  *   <li>Authenticating a user for sign-in</li> 
@@ -33,7 +33,7 @@ import java.util.logging.Logger;
  *   <li>Releasing resources when the client is finished</li>
  *   <li>Updating <code>conexiones</code> lowering the counts when the client has finished</li>
  * </ul>
- * </p>
+ *
  * 
  * @author Aitor
  */
