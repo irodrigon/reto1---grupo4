@@ -149,6 +149,7 @@ public class SignUpController {
             lbl_error_Zip.setText("Invalid ZIP code.");
             hasError = true;
         } else {
+            
             lbl_error_Zip.setText("");
         }
 
