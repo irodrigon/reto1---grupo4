@@ -1,4 +1,3 @@
-
 package com.tartanga.grupo4.businesslogic;
 
 import com.tartanga.grupo4.main.ApplicationS;
@@ -63,5 +62,5 @@ public class Listener implements Runnable {
             Logger.getLogger("Listener").log(Level.SEVERE, "Error When closing Scanner{0}", Arrays.toString(error.getStackTrace()));
         }
     }
-
 }
+

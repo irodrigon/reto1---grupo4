@@ -13,7 +13,6 @@ import com.tartanga.grupo4.exceptions.UserPasswdException;
  * @author Aitor
  */
 public interface Signable {
-
     /**
      * Authenticates a user based on the provided {@code User} object containing 
      * login credentials. If authentication is successful, returns a {@code User} 

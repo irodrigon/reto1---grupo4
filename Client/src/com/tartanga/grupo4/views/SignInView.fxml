@@ -18,6 +18,7 @@
       <Button fx:id="btn_Login" layoutX="242.0" layoutY="253.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="132.0" text="Login" />
       <TextField fx:id="userField" layoutX="234.0" layoutY="133.0" promptText="👤example@gmail.com" />
       <PasswordField fx:id="passwordField" layoutX="234.0" layoutY="200.0" promptText="🔒password"/>
+      <TextField fx:id="hiddenField" layoutX="234.0" layoutY="200.0" />
       <Label fx:id="userLabel" layoutX="186.0" layoutY="137.0" text="User:" />
       <Label fx:id="passwordLabel" layoutX="158.0" layoutY="204.0" text="Password:" />
       <Button fx:id="btnSeePassword" layoutX="420.0" layoutY="205.0" prefHeight="25.0" prefWidth="25.0"/>

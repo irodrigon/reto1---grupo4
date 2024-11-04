@@ -101,6 +101,25 @@ public class SignUpController {
      */
     @FXML
     private CheckBox chb_Active;
+    
+    @FXML
+    private Button btnSeePassword;
+    
+    @FXML
+    private TextField hiddenFieldPassword;
+    
+    @FXML
+    private Button btnSeeConfirm;
+    
+    @FXML
+    private TextField hiddenFieldConfirm;
+    
+    private boolean isOn;
+    
+     /**
+     * This boolean is going to be used as a trigger on the button to see a clear password on the confirm password field.
+     */
+    private boolean isOnConfirm = false;
 
     /**
      * The label displaying error messages related to email input.
@@ -150,7 +169,7 @@ public class SignUpController {
      * This method is automatically called after the FXML elements have been loaded.
      * It sets up event handlers for the Back and Register buttons.
      */
-    @FXML
+	@FXML
     private void initialize() {
         hiddenFieldPassword.setVisible(false);
         hiddenFieldConfirm.setVisible(false);
@@ -413,11 +432,10 @@ public class SignUpController {
     }
     
      @FXML
-    private void handleViewConfirm(ActionEvent event) {
-        isOn = !isOn;
+	 private void handleViewConfirm(ActionEvent event) {
+        isOnConfirm = !isOnConfirm;
         
-        if (isOn) {
-          
+        if (isOnConfirm) {
             String password = fld_Confirm.getText();
             fld_Confirm.setVisible(false);
             hiddenFieldConfirm.setVisible(true);
@@ -461,3 +479,4 @@ public class SignUpController {
         }
     }
 }
+

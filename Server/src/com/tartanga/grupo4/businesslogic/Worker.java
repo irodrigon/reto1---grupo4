@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * it uses either <code>signIn</code> or <code>signUp</code> to attack the database. 
  * It responds with a <code>Message</code> that contains the answer of the server.
  * 
- * <p>This class is responsible for:</p>
+ * This class is responsible for:
  * <ul>
  *   <li>Reading the client's request message</li>
  *   <li>Authenticating a user for sign-in</li> 
@@ -125,7 +125,7 @@ public class Worker extends Thread {
             mandarMessage(message);
             
         } catch (Exception error) {
-            logger.log(Level.INFO, "ERROR SERVIDOR", error.toString());
+            logger.log(Level.INFO, "Server error", error.toString());
             message.setSignInSignUpEnum(SignInSignUpEnum.SERVER_ERROR);
             mandarMessage(message);
             
