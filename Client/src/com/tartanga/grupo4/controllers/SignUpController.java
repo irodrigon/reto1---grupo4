@@ -13,8 +13,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -27,18 +25,82 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
+
+/**
+ * Controller class for the Sign-Up view.
+ * <p>
+ * This class manages the Sign-Up user interface, handling input validation,
+ * user registration, and navigation back to the Sign-In view.
+ * The main responsibilities include:
+ * <ul>
+ *     <li>Validating user inputs to ensure correctness and completeness.</li>
+ *     <li>Attempting to register a new user and handling potential errors.</li>
+ *     <li>Navigating back to the Sign-In view when requested.</li>
+ *     <li>Displaying alerts for user feedback and information.</li>
+ * </ul>
+ */
 public class SignUpController {
 
+    /**
+     * The button that allows the user to go back to the Sign-In view.
+     */
     @FXML
-    private Button btn_Back, btn_Register;
+    private Button btn_Back;
+
+    /**
+     * The button that initiates the registration process.
+     */
     @FXML
-    private TextField fld_Email, fld_Name, fld_City, fld_Street, fld_Zip;
+    private Button btn_Register;
+
+    /**
+     * The text field for the user to input their email address.
+     */
     @FXML
-    private PasswordField fld_Password, fld_Confirm;
+    private TextField fld_Email;
+
+    /**
+     * The text field for the user's name.
+     */
+    @FXML
+    private TextField fld_Name;
+
+    /**
+     * The text field for the user's city of residence.
+     */
+    @FXML
+    private TextField fld_City;
+
+    /**
+     * The text field for the user's street address.
+     */
+    @FXML
+    private TextField fld_Street;
+
+    /**
+     * The text field for the user's ZIP code.
+     */
+    @FXML
+    private TextField fld_Zip;
+
+    /**
+     * The password field for the user to input their password.
+     */
+    @FXML
+    private PasswordField fld_Password;
+
+    /**
+     * The password field for the user to confirm their password.
+     */
+    @FXML
+    private PasswordField fld_Confirm;
+
+    /**
+     * The checkbox indicating whether the user is active.
+     */
     @FXML
     private CheckBox chb_Active;
-    @FXML
-    private Label lbl_error_Email, lbl_error_Password, lbl_error_Confirm, lbl_error_Name, lbl_error_City, lbl_error_Street, lbl_error_Zip;
     
     @FXML
     private Button btnSeePassword;
@@ -58,12 +120,61 @@ public class SignUpController {
      * This boolean is going to be used as a trigger on the button to see a clear password on the confirm password field.
      */
     private boolean isOnConfirm = false;
-    
+
+    /**
+     * The label displaying error messages related to email input.
+     */
     @FXML
+    private Label lbl_error_Email;
+
+    /**
+     * The label displaying error messages related to password input.
+     */
+    @FXML
+    private Label lbl_error_Password;
+
+    /**
+     * The label displaying error messages related to password confirmation input.
+     */
+    @FXML
+    private Label lbl_error_Confirm;
+
+    /**
+     * The label displaying error messages related to name input.
+     */
+    @FXML
+    private Label lbl_error_Name;
+
+    /**
+     * The label displaying error messages related to city input.
+     */
+    @FXML
+    private Label lbl_error_City;
+
+    /**
+     * The label displaying error messages related to street input.
+     */
+    @FXML
+    private Label lbl_error_Street;
+
+    /**
+     * The label displaying error messages related to ZIP code input.
+     */
+    @FXML
+    private Label lbl_error_Zip;
+
+    /**
+     * Initializes the Sign-Up view.
+     * <p>
+     * This method is automatically called after the FXML elements have been loaded.
+     * It sets up event handlers for the Back and Register buttons.
+     */
+	@FXML
     private void initialize() {
         hiddenFieldPassword.setVisible(false);
         hiddenFieldConfirm.setVisible(false);
         btn_Back.setOnAction(this::handleGoBack);
+
         btn_Register.setOnAction(this::handleRegister);
         btnSeePassword.setOnAction(this::handleViewPassword);
         btnSeeConfirm.setOnAction(this::handleViewConfirm);
@@ -96,12 +207,18 @@ public class SignUpController {
         btnSeeConfirm.setStyle("-fx-background-color: transparent; -fx-border-color:transparent");
     }
 
+    /**
+     * Handles navigation back to the Sign-In view when the Back button is clicked.
+     * <p>
+     * Loads the Sign-In view FXML and switches the current stage's scene to it.
+     *
+     * @param event The action event triggered by clicking the Back button.
+     */
     @FXML
     private void handleGoBack(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignInView.fxml"));
             Parent mainView = fxmlLoader.load();
-
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(mainView);
             stage.setScene(scene);
@@ -111,7 +228,17 @@ public class SignUpController {
         }
     }
 
-    private void handleRegister(ActionEvent event) {
+    /**
+     * Handles the registration process when the Register button is clicked.
+     * <p>
+     * This method validates all user inputs for correctness. If any input is invalid,
+     * error messages are displayed next to the corresponding fields. If all inputs are
+     * valid, an attempt is made to register the user by calling the server API.
+     * Appropriate feedback is given based on the outcome of the registration attempt.
+     *
+     * @param event The action event triggered by clicking the Register button.
+     */
+    private void handleRegister(ActionEvent event) throws Exception {
         String email = fld_Email.getText();
         String password = fld_Password.getText();
         String confirm = fld_Confirm.getText();
@@ -122,7 +249,7 @@ public class SignUpController {
         boolean isActive = chb_Active.isSelected();
         boolean hasError = false;
 
-        // Email validation
+        // Validate email
         if (email.isEmpty()) {
             lbl_error_Email.setText("Email is required.");
             hasError = true;
@@ -133,12 +260,12 @@ public class SignUpController {
             lbl_error_Email.setText("");
         }
 
-        // Password validation
+        // Validate password
         if (password.isEmpty()) {
             lbl_error_Password.setText("Password is required.");
             hasError = true;
         } else if (!password.matches("^.{6,}$")) {
-            lbl_error_Password.setText("Password must be at least \n 6 characters long.");
+            lbl_error_Password.setText("Password must be at least 6 characters long.");
             hasError = true;
         } else if (!password.matches("(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).*")) {
             lbl_error_Password.setText("Password must include at least one uppercase letter, one lowercase letter, and one number.");
@@ -147,18 +274,18 @@ public class SignUpController {
             lbl_error_Password.setText("");
         }
 
-        // Confirm password validation
+        // Validate password confirmation
         if (confirm.isEmpty()) {
             lbl_error_Confirm.setText("Password confirmation is required.");
             hasError = true;
         } else if (!password.equals(confirm)) {
-            lbl_error_Confirm.setText("Passwords don´t match.");
+            lbl_error_Confirm.setText("Passwords don’t match.");
             hasError = true;
         } else {
             lbl_error_Confirm.setText("");
         }
 
-        // Name validation
+        // Validate name
         if (name.isEmpty()) {
             lbl_error_Name.setText("Name is required.");
             hasError = true;
@@ -169,7 +296,7 @@ public class SignUpController {
             lbl_error_Name.setText("");
         }
 
-        // City validation
+        // Validate city
         if (city.isEmpty()) {
             lbl_error_City.setText("City is required.");
             hasError = true;
@@ -180,7 +307,7 @@ public class SignUpController {
             lbl_error_City.setText("");
         }
 
-        // Street validation
+        // Validate street
         if (street.isEmpty()) {
             lbl_error_Street.setText("Street is required.");
             hasError = true;
@@ -191,7 +318,7 @@ public class SignUpController {
             lbl_error_Street.setText("");
         }
 
-        // Zip code validation
+        // Validate ZIP code
         if (zip.isEmpty()) {
             lbl_error_Zip.setText("ZIP code is required.");
             hasError = true;
@@ -202,50 +329,57 @@ public class SignUpController {
             lbl_error_Zip.setText("");
         }
 
-        // If no errors, proceed with registration logic
+        // Proceed with registration if no errors
         if (!hasError) {
             User user = new User(email, password, name, street, isActive, city, Integer.parseInt(zip));
             try {
                 user = ClientFactory.getInstance().getSignable().signUp(user);
-
+                alert("Successful", "User created successfully.", "Go back to sign in to your account.");
+                clearFields();
             } catch (UserExistInDatabaseException error) {
-                System.out.println("Password/usuario mal");
+                alert("Error", "Login already exists.", "Introduce a different e-mail.");
             } catch (ServerErrorException error) {
-                System.out.println("Error critico del server");
+                alert("Error", "An error occurred on the server.", "Try again later.");
             } catch (MaxConnectionsException error) {
-                System.out.println("Maximas conecsiones alcanzadas");
-            } catch (Exception error) {
-                System.out.println("Otro errores");
-            } 
-
-            Alert correct = new Alert(AlertType.NONE);
-            correct.setTitle("Successful");
-            correct.setHeaderText("User created successfully.");
-            correct.setContentText("Go back to sign in to your account.");
-            ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.OK_DONE);
-            correct.getButtonTypes().add(closeButton);
-            correct.showAndWait();
-
-            // Clear fields after successful registration
-            clearFields();
-        } else {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("There was an error in one of the fields.");
-            alert.setContentText("Please try again.");
-            alert.showAndWait();
+                alert("Error", "Max connections exceeded.", "Try again later.");
+            }
         }
     }
 
+    /**
+     * Displays an alert with the specified title, header, and content.
+     *
+     * @param title   The title of the alert.
+     * @param header  The header message of the alert.
+     * @param content The content message of the alert.
+     */
+    private void alert(String title, String header, String content) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    /**
+     * Clears all input fields in the Sign-Up form.
+     */
     private void clearFields() {
-        fld_Email.setText("");
-        fld_Password.setText("");
-        fld_Confirm.setText("");
-        fld_Name.setText("");
-        fld_City.setText("");
-        fld_Street.setText("");
-        fld_Zip.setText("");
+        fld_Email.clear();
+        fld_Name.clear();
+        fld_City.clear();
+        fld_Street.clear();
+        fld_Zip.clear();
+        fld_Password.clear();
+        fld_Confirm.clear();
         chb_Active.setSelected(false);
+        lbl_error_Email.setText("");
+        lbl_error_Name.setText("");
+        lbl_error_City.setText("");
+        lbl_error_Street.setText("");
+        lbl_error_Zip.setText("");
+        lbl_error_Password.setText("");
+        lbl_error_Confirm.setText("");
     }
     
      @FXML
@@ -298,11 +432,10 @@ public class SignUpController {
     }
     
      @FXML
-    private void handleViewConfirm(ActionEvent event) {
+	 private void handleViewConfirm(ActionEvent event) {
         isOnConfirm = !isOnConfirm;
         
         if (isOnConfirm) {
-          
             String password = fld_Confirm.getText();
             fld_Confirm.setVisible(false);
             hiddenFieldConfirm.setVisible(true);
@@ -346,3 +479,4 @@ public class SignUpController {
         }
     }
 }
+

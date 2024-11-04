@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tartanga.grupo4.businesslogic;
 
 import com.tartanga.grupo4.dataaccess.DAOFactory;
@@ -38,13 +33,35 @@ import java.util.logging.Logger;
  * @author Aitor
  */
 public class Worker extends Thread {
+    
+    /**
+     * Logger to record server and connection information.
+     */
     private static final Logger logger = Logger.getLogger("Worker");
-    Socket cliente;
-    ObjectInputStream entrada = null;
-    ObjectOutputStream salida = null;
+    /**
+     * Client socket used to communicate with the server.
+     */
+    private Socket cliente;
+    /**
+     *  Input stream to receive data from the client.
+     */
+    private ObjectInputStream entrada = null;
+    /**
+     * Output stream to send data to the client.
+     */
+    private ObjectOutputStream salida = null;
+    /**
+     * The server instance, used to control active connections and manage shutdown processes.
+     */
     private ApplicationS servidor;
+    /**
+     * Message object to encapsulate data exchanged with the client.
+     */
     private Message message;
-    User user;
+    /**
+     * User object to represent the client in the sign-in or sign-up process.
+     */
+    private User user;
 
     
     /**
@@ -135,16 +152,15 @@ public class Worker extends Thread {
                 salida.close();
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
     }
 
     /**
-     * Sends the the message to the client
+     * Sends the message to the client that contains the response from the server
      * 
-     * @param message the message that want to be sent to the client
+     * @param message the message that wants to be sent to the client
      */
     private void mandarMessage(Message message) {
         try {
