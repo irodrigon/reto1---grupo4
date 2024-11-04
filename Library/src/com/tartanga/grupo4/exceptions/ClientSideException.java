@@ -1,19 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tartanga.grupo4.exceptions;
 
 /**
- *
- * @author 2dami
+ * Exception that is thrown when an error occurs on the client side of the application.
+ * This exception serves as a custom indication of client-specific issues.
+ * 
+ * @author Aitor
+ * 
  */
 public class ClientSideException extends Exception {
 
     /**
-     * Creates a new instance of <code>ClientSideException</code> without detail
-     * message.
+     * Constructor for {@code ClientSideException} with a default message 
+     * indicating a client-side error has occurred.
      */
     public ClientSideException() {
         super("An error in the client side just happened, please contact support service or try later");

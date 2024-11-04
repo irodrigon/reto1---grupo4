@@ -1,18 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tartanga.grupo4.exceptions;
 
 /**
- *
- * @author 2dami
+ * Exception that is thrown when the user's login and password does not match up 
+ * when trying to sign in. 
+ * 
+ * @author Aitor
+ * 
  */
 public class UserPasswdException extends Exception {
-    /**
-     * Creates a new instance of <code>UserPasswdException</code> without detail
-     * message.
+     /**
+     * Constructor for {@code UserPasswdException} with a default message 
+     * indicating that the login and password does not match up.
      */
     public UserPasswdException() {      
         super("The user/password is not correct");

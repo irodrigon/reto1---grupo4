@@ -1,19 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tartanga.grupo4.exceptions;
 
 /**
- *
- * @author 2dami
+ * Exception that is thrown when an error occurs on the server side of the application. 
+ * This exception serves as a custom indication of server-specific issues.
+ * 
+ * @author Aitor
+ * 
  */
 public class ServerErrorException extends Exception {
 
     /**
-     * Creates a new instance of <code>ServerErrorException</code> without
-     * detail message.
+     * Constructor for {@code ServerErrorException} with a default message 
+     * indicating an error on the server side.
      */
     public ServerErrorException() {
         super("Server returned an error");
