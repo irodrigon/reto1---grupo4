@@ -54,6 +54,11 @@ public class SignUpController {
     
     private boolean isOn;
     
+     /**
+     * This boolean is going to be used as a trigger on the button to see a clear password on the confirm password field.
+     */
+    private boolean isOnConfirm = false;
+    
     @FXML
     private void initialize() {
         hiddenFieldPassword.setVisible(false);
@@ -294,9 +299,9 @@ public class SignUpController {
     
      @FXML
     private void handleViewConfirm(ActionEvent event) {
-        isOn = !isOn;
+        isOnConfirm = !isOnConfirm;
         
-        if (isOn) {
+        if (isOnConfirm) {
           
             String password = fld_Confirm.getText();
             fld_Confirm.setVisible(false);
