@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /JavaFXApplication5/nbproject/private/*
 /Library/dist/*
 /Library/build/*
@@ -8,3 +9,16 @@
 /Client/dist/*
 /Client/build/*
 /Client/nbproject/*
+=======
+/JavaFXApplication5/nbproject/private/
+/Library/dist/
+/Library/build/
+/Library/nbproject/
+/Server/dist/
+/Server/build/
+/Server/nbproject/
+/Client/dist/
+/Client/build/
+/Client/nbproject/
+
+>>>>>>> 915498d1b1aae75ece8dd9f9cff42f1167f778fd

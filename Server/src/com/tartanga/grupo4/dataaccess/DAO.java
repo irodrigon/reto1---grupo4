@@ -46,7 +46,7 @@ public class DAO implements Signable {
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
             resultSet = preparedStatement.executeQuery();
-            
+           
 
             if (!resultSet.next()) {
                 user.setUsername(null);

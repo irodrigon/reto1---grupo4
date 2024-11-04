@@ -79,7 +79,7 @@ public class SignInController {
     private void handleCreateUser(ActionEvent event) {
 
         try {
-            FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignUpView.fxml"));
+            FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/SignUp.fxml"));
             Parent mainView = FXMLLoader.load();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

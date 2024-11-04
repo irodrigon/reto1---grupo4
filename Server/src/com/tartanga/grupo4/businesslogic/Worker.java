@@ -33,7 +33,6 @@ import java.util.logging.Logger;
  *   <li>Releasing resources when the client is finished</li>
  *   <li>Updating <code>conexiones</code> lowering the counts when the client has finished</li>
  * </ul>
- *
  * 
  * @author Aitor
  */
