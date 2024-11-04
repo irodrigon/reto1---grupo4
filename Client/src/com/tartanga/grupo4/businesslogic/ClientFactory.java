@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.tartanga.grupo4.controllers;
+package com.tartanga.grupo4.businesslogic;
 
 import com.tartanga.grupo4.model.Signable;
-import com.tartanga.grupo4.main.Cliente;
 
 /**
  *
