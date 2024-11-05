@@ -69,13 +69,13 @@
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label fx:id="lbl_error_Email" layoutX="199.0" layoutY="243.0" prefHeight="18.0" prefWidth="211.0" text="" />
-        <Label fx:id="lbl_error_Password" layoutX="199.0" layoutY="355.0" prefHeight="59.0" prefWidth="211.0" text="" />
-        <Label fx:id="lbl_error_Confirm" layoutX="199.0" layoutY="510.0" prefHeight="18.0" prefWidth="211.0" text="" />
-        <Label fx:id="lbl_error_Name" layoutX="199.0" layoutY="635.0" prefHeight="18.0" prefWidth="211.0" text="" />
-        <Label fx:id="lbl_error_Zip" layoutX="622.0" layoutY="502.0" prefHeight="18.0" prefWidth="211.0" text="" />
-        <Label fx:id="lbl_error_City" layoutX="622.0" layoutY="243.0" prefHeight="18.0" prefWidth="211.0" text="" />
-        <Label fx:id="lbl_error_Street" layoutX="622.0" layoutY="366.0" prefHeight="18.0" prefWidth="211.0" text="" />
+        <Label fx:id="lbl_error_Email" layoutX="199.0" layoutY="243.0" prefHeight="18.0" prefWidth="211.0" text="" style="-fx-text-fill: #C40C0C;" />
+        <Label fx:id="lbl_error_Password" layoutX="199.0" layoutY="355.0" prefHeight="59.0" prefWidth="211.0" text="" style="-fx-text-fill: #C40C0C;" />
+        <Label fx:id="lbl_error_Confirm" layoutX="199.0" layoutY="510.0" prefHeight="18.0" prefWidth="211.0" text="" style="-fx-text-fill: #C40C0C;" />
+        <Label fx:id="lbl_error_Name" layoutX="199.0" layoutY="635.0" prefHeight="18.0" prefWidth="211.0" text="" style="-fx-text-fill: #C40C0C;" />
+        <Label fx:id="lbl_error_Zip" layoutX="622.0" layoutY="502.0" prefHeight="18.0" prefWidth="211.0" text="" style="-fx-text-fill: #C40C0C;" />
+        <Label fx:id="lbl_error_City" layoutX="622.0" layoutY="243.0" prefHeight="18.0" prefWidth="211.0" text="" style="-fx-text-fill: #C40C0C;" />
+        <Label fx:id="lbl_error_Street" layoutX="622.0" layoutY="366.0" prefHeight="18.0" prefWidth="211.0" text="" style="-fx-text-fill: #C40C0C;" />
     </children>
 </Pane>
 

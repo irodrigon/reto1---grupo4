@@ -25,9 +25,17 @@ public class SignInControllerTestServer extends ApplicationTest{
     public SignInControllerTestServer() {
     }
     
-    //Test if a user is a user is already in the database, correct if it is able to login.
+    //The server must be shut down to run the test.
     @Test
     public void testA_serverError() {
-       
+       clickOn("#userField");
+       write("test2@gmail.com");
+       clickOn("#passwordField");
+       write("abcD*1234");
+       clickOn("#btnSeePassword");
+       clickOn("#btn_Login");
+       verifyThat("Error on Client Side. Contact your System Administrator.",isVisible());
+       sleep(1000);
+       clickOn("OK");
     }
 }

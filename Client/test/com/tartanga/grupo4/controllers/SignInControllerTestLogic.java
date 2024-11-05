@@ -29,35 +29,38 @@ public class SignInControllerTestLogic extends ApplicationTest{
     @Test
     public void testA_signInOK() {
         clickOn("#userField");
-        write("inigo@user.com");
+        write("test2@gmail.com");
         clickOn("#passwordField");
-        write("Inigo1234");
+        write("abcD*1234");
         clickOn("#btnSeePassword");
         clickOn("#btn_Login");
+        sleep(1000);
         verifyThat("#BorderPaneMain",isVisible());
     }
     
     @Test
     public void testB_testErrorOnEmail() {
         clickOn("#userField");
-        write("user@user.com");
+        write("test@user.com");
         clickOn("#passwordField");
-        write("Inigo1234");
+        write("abcD*1234");
         clickOn("#btnSeePassword");
         clickOn("#btn_Login");
         verifyThat("The user or password are incorrect. Please try again.",isVisible());
+        sleep(1000);
         clickOn("OK");
     }
     
     @Test
     public void testC_testErrorOnPassword() {
         clickOn("#userField");
-        write("inigo@user.com");
+        write("test2@gmail.com");
         clickOn("#passwordField");
         write("User1234");
         clickOn("#btnSeePassword");
         clickOn("#btn_Login");
         verifyThat("The user or password are incorrect. Please try again.",isVisible());
+        sleep(1000);
         clickOn("OK");
     }
 }

@@ -7,9 +7,9 @@ package com.tartanga.grupo4.controllers;
 
 import com.tartanga.grupo4.main.ApplicationU;
 import javafx.stage.Stage;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import static org.testfx.api.FxAssert.verifyThat;
@@ -23,18 +23,18 @@ import static org.testfx.matcher.base.NodeMatchers.isVisible;
  * @author Alin
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SignUpControllerTest extends ApplicationTest{
+public class SignUpControllerTestLogic extends ApplicationTest{
     
     @Override
     public void start(Stage stage)throws Exception{
         new ApplicationU().start(stage);
     }
     
-    public SignUpControllerTest() {
+    public SignUpControllerTestLogic() {
     }
 
     
-    @Test
+    /*@Test
     public void testSomeMethod() {
     }
     /*
@@ -42,11 +42,17 @@ public class SignUpControllerTest extends ApplicationTest{
     @Ignore
     @Test
     */
+    
+    @Before
+    public void enterTest() {
+        clickOn("Create User");
+    }
+    
+    //The server must be running and the user must not exist within the database.
     @Test
     public void test_A_SignUpOK(){
-        clickOn("#hl_create");
         clickOn("#fld_Email");
-        write("test@gmail.com");
+        write("test19@gmail.com");
         clickOn("#fld_Password");
         write("abcD*1234");
         clickOn("#btnSeePassword");
@@ -63,14 +69,20 @@ public class SignUpControllerTest extends ApplicationTest{
         write("123456");
         clickOn("#chb_Active");
         clickOn("#btn_Register");
-        verifyThat("Close", isVisible());
+        sleep(1000);
+        verifyThat("User created successfully.", isVisible());
+    }
+    
+    @After 
+    public void exitTest(){
         clickOn("Close");
     }
+    
+    //The server must be running.
     @Test
     public void test_B_UserAlreadyExist(){
-        clickOn("#hl_create");
         clickOn("#fld_Email");
-        write("test@gmail.com");
+        write("test19@gmail.com");
         clickOn("#fld_Password");
         write("abcD*1234");
         clickOn("#btnSeePassword");
@@ -87,8 +99,8 @@ public class SignUpControllerTest extends ApplicationTest{
         write("123456");
         clickOn("#chb_Active");
         clickOn("#btn_Register");
-        verifyThat("Yes", isVisible());
-        clickOn("Yes");
+        sleep(1000);
+        verifyThat("Login already exists.", isVisible());
     }
 
 }

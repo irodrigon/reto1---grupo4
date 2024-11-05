@@ -15,20 +15,18 @@ import java.io.Serializable;
  * Serializable interface, allowing instances of this class to be serialized for
  * transmission over a network or for saving to a file.
  * </p>
- * <p>
  * The class contains the following attributes:
  * <ul>
  *     <li><strong>User user:</strong> The user associated with this message.</li>
  *     <li><strong>Enum SignInSignUpEnum:</strong> An enumeration that indicates whether
  *     this message pertains to a sign-in or sign-up operation.</li>
  * </ul>
- * </p>
  * <p>
  * The Message class provides getter and setter methods for its attributes, enabling
  * the retrieval and modification of user data and operation types.
  * </p>
  *
- * @author rabio
+ * @author Aratz
  */
 public class Message implements Serializable {
     private static final long serialVersionUID = 1L; // Unique identifier for serialization
