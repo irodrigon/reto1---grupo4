@@ -1,19 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tartanga.grupo4.exceptions;
 
 /**
- *
- * @author 2dami
+ * Exception that is thrown when the user trying to sign up already exist in the database. 
+ * 
+ * @author Aitor
+ * 
  */
 public class UserExistInDatabaseException extends Exception {
 
     /**
-     * Creates a new instance of <code>UserExistInDatabaseException</code>
-     * without detail message.
+     * Constructor for {@code UserExistInDatabaseException} with a default message 
+     * indicating an error on the server side.
      */
     public UserExistInDatabaseException() {
         super("The introduced login already exist in the DB");

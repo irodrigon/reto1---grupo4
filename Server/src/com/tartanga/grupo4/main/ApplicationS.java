@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tartanga.grupo4.main;
 
+import com.tartanga.grupo4.businesslogic.Listener;
 import com.tartanga.grupo4.model.Message;
 import com.tartanga.grupo4.model.SignInSignUpEnum;
 import java.io.IOException;
@@ -14,6 +10,9 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.tartanga.grupo4.businesslogic.Worker;
+import com.tartanga.grupo4.dataaccess.CloseableFactory;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 /**
  * Main Class that starts the server. In a loop accepting client sockets until
@@ -25,17 +24,42 @@ import com.tartanga.grupo4.businesslogic.Worker;
  */
 public class ApplicationS {
 
+    /**
+     * Port number on which the server will listen for incoming client connections.
+     */
     private final int PUERTO = 6000;
-    ServerSocket servidor = null;
-    Socket cliente = null;
+    /**
+     * Server socket that listens for client connection requests.
+     */
+     private ServerSocket servidor = null;
+    /**
+     * Client socket that represents the connection between the server and a client.
+     */
+    private Socket cliente = null;
+    /**
+     * Counter to track the number of active client connections.
+     */
     private static int conexiones = 0;
-    private final int MAX_CONEXIONES = 5;
-
-    //private boolean running = true;
-
-
+    /**
+     * Flag indicating whether the server is running; used to control the server's main loop.
+     */
+    private static boolean running = true;
+    /**
+     * Resource bundle for loading configuration properties, such as maximum connections allowed.
+     */
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("com/tartanga/grupo4/resources/connection");
+    /**
+     * Maximum number of client connections allowed simultaneously, loaded from configuration.
+     */
+    private final int MAX_CONEXIONES = Integer.parseInt(resourceBundle.getString("max_conections"));
+    /**
+     * Logger to record server events, information, and errors at various log levels.
+     */
     private static final Logger logger = Logger.getLogger("ApplicationS");
-    ObjectOutputStream salida = null;
+    /**
+     * Output stream used to send messages to clients; primarily for transmitting errors.
+     */
+    private ObjectOutputStream salida = null;
 
     /**
      * The main method that launches the server. It initializes the server,
@@ -45,8 +69,11 @@ public class ApplicationS {
      */
     public static void main(String[] args) {
         ApplicationS application = new ApplicationS();
+        Thread listener = new Thread(new Listener(application));
+
         try {
             logger.log(Level.INFO, "Starting server...");
+            listener.start();
             application.iniciar();
         } catch (IOException error) {
             logger.log(Level.INFO, "Critical error when starting the server", error.toString());
@@ -61,56 +88,51 @@ public class ApplicationS {
      * refuses the connection if the limit is exceeded.
      *
      * @throws IOException if there is with the connection or
-     *                     <code>ObjectOutputStream</code>.
+     * <code>ObjectOutputStream</code>.
      */
     public void iniciar() throws IOException {
 
         try {
             servidor = new ServerSocket(PUERTO);
 
-            while (true) {
-                logger.log(Level.INFO, "Wating conexion from client");
+            while (running) {
+                logger.log(Level.INFO, "Wating conection from client");
+                System.out.println("Press \"ENTER\" to close the server");
                 cliente = servidor.accept();
-
+                
                 if (conexiones < MAX_CONEXIONES) {
                     controlarConexion(1);
                     Worker hilo = new Worker(cliente, this);
                     hilo.start();
 
                 } else {
-                    //Esto no esta testeado porque no tengo manera de mantener 5 conexiones a la vez. Probar con Junit
-                    logger.log(Level.INFO, "Max conections (5) reached, refusing service");
+                    
+                    logger.log(Level.INFO, "Max conections reached, refusing service");
                     salida = new ObjectOutputStream(cliente.getOutputStream());
                     Message message = new Message();
                     message.setSignInSignUpEnum(SignInSignUpEnum.MAX_CONNECTIONS);
                     salida.writeObject(message);
                     if (cliente != null) {
                         cliente.close();
+                        cliente=null;
                     }
                     if (salida != null) {
                         salida.close();
+                        salida=null;
                     }
                 }
 
             }
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("The server has been closed");
+            logger.log(Level.INFO, "Server had been closed");
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("The server has not been closed correctly");
         } finally {
             finalizar();
 
         }
     }
-          
-    /*public void finishServer() {
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-        running = false;
-        System.out.println("Cerrando servidor...");
-        System.exit(0);
-    }*/
-
 
     /**
      * Closed the server and client sockets. This method is called when the
@@ -118,16 +140,18 @@ public class ApplicationS {
      */
     public void finalizar() {
         try {
-            if (servidor != null) {
+            if (servidor != null && !servidor.isClosed()) {
                 servidor.close();
+                servidor=null;
             }
 
-            if (cliente != null) {
+            if (cliente != null && !cliente.isClosed()) {
                 cliente.close();
+                cliente=null;
             }
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            System.out.println("en catch");
             e.printStackTrace();
         }
     }
@@ -135,18 +159,34 @@ public class ApplicationS {
     /**
      * Synchronizes and controls the number of active client connections.
      *
-     * @param tipo an integer value to tell the method to increase or decrease <code>conexiones</code>.
-     *             Pass 1 increase, any other value to decrease.
+     * @param tipo an integer value to tell the method to increase or decrease
+     * <code>conexiones</code>. Pass 1 increase, any other value to decrease.
      */
     public synchronized void controlarConexion(int tipo) {
         if (tipo == 1) {
             conexiones++;
-            Logger.getLogger("SERVIDOR").log(Level.INFO, "Clients connected: {0}", conexiones);
+            logger.log(Level.INFO, "Clients connected: {0}", conexiones);
         } else {
             conexiones--;
-            Logger.getLogger("SERVIDOR").log(Level.INFO, "Clients connected: {0}", conexiones);
+            logger.log(Level.INFO, "Clients connected: {0}", conexiones);
         }
 
+    }
+    /**
+     * Stops the server loop and closes all connections after verifying
+     * that no client connections are still active.
+     */
+    public void stopLoop() {
+        ApplicationS.running = false;
+        while (conexiones != 0);
+        try {
+            CloseableFactory.getInstance().getCloseable().close();
+            logger.log(Level.INFO, "Closing pool connections");
+        } catch (SQLException error) {
+            logger.log(Level.SEVERE, "ERROR when closing the connections in the pool{0}", error);
+        }
+        finalizar();
+        
     }
 
 }
