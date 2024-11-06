@@ -37,7 +37,7 @@ public class Cliente implements Signable {
     /**
      * IP address of the server to connect to.
      */
-    private final String IP = "127.0.0.1";//Cambiar segun donde conectar
+    private final String IP = "127.0.0.1";
     /**
      * The client socket used for establishing a connection with the server.
      */

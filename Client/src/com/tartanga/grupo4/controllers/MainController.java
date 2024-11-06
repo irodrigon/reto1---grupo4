@@ -1,6 +1,5 @@
 package com.tartanga.grupo4.controllers;
 
-import com.tartanga.grupo4.exceptions.ClientSideException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

@@ -52,7 +52,7 @@ public class SignUpControllerTestLogic extends ApplicationTest{
     @Test
     public void test_A_SignUpOK(){
         clickOn("#fld_Email");
-        write("test19@gmail.com");
+        write("test22@gmail.com");
         clickOn("#fld_Password");
         write("abcD*1234");
         clickOn("#btnSeePassword");
@@ -82,7 +82,7 @@ public class SignUpControllerTestLogic extends ApplicationTest{
     @Test
     public void test_B_UserAlreadyExist(){
         clickOn("#fld_Email");
-        write("test19@gmail.com");
+        write("test22@gmail.com");
         clickOn("#fld_Password");
         write("abcD*1234");
         clickOn("#btnSeePassword");

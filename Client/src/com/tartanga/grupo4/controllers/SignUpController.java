@@ -279,6 +279,15 @@ public class SignUpController {
         Stage alertStage = (Stage) alert2.getDialogPane().getScene().getWindow();
         alertStage.getIcons().add(icon);
         String email = fld_Email.getText();
+        
+        if (hiddenFieldPassword.isVisible()) {
+            fld_Password.setText(hiddenFieldPassword.getText());
+        }
+        
+        if (hiddenFieldConfirm.isVisible()) {
+            fld_Confirm.setText(hiddenFieldConfirm.getText());
+        } 
+        
         String password = fld_Password.getText();
         String confirm = fld_Confirm.getText();
         String name = fld_Name.getText();
@@ -287,7 +296,7 @@ public class SignUpController {
         String zip = fld_Zip.getText();
         boolean isActive = chb_Active.isSelected();
         boolean hasError = false;
-
+        
         // Validate email
         if (email.isEmpty()) {
             lbl_error_Email.setText("Email is required.");
@@ -431,6 +440,8 @@ public class SignUpController {
         fld_Street.clear();
         fld_Zip.clear();
         fld_Password.clear();
+        hiddenFieldPassword.clear();
+        hiddenFieldConfirm.clear();
         fld_Confirm.clear();
         chb_Active.setSelected(false);
         lbl_error_Email.setText("");

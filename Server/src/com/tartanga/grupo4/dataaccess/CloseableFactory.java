@@ -3,7 +3,10 @@ package com.tartanga.grupo4.dataaccess;
 import com.tartanga.grupo4.pool.Pool;
 
 /**
- *
+ *The {@code CloseableFactory} class is a singleton factory that implement the
+ * {@code Closeable} interface, such as the {@code Pool} class. The singleton
+ * pattern is used to manage the instantiation of the factory itself,
+ * 
  * @author Aitor
  */
 public class CloseableFactory {

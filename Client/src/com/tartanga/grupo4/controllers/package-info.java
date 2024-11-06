@@ -1,5 +1,5 @@
 /**
- * <h1>Window Controller Classes</h1>
+ * <h1>Window Controller Classes.</h1>
  *
  * <p>
  * This package contains controllers for managing the user interface in the application.
