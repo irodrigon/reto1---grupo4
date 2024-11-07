@@ -76,7 +76,7 @@ public class MainController implements Initializable {
     @FXML
     private void onCloseRequestWindowEvent(Event event) {
         
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Do you with to log out?", ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Do you wish to close the application?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Exiting confirmation");
         alert.setHeaderText(null);
         alert.initOwner(getStage());
@@ -98,7 +98,7 @@ public class MainController implements Initializable {
      */
     @FXML
     private void handleLogOut(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Do you with to log out?", ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Do you wish to log out?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Closing confirmation");
         alert.setHeaderText(null);
         alert.initOwner(getStage());

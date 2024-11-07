@@ -89,7 +89,7 @@ public class Pool implements Closeable{
      */
     private Connection createNewConnection() throws ClassNotFoundException, SQLException{
         Connection connection = null;
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("com/tartanga/grupo4/resources/connection");
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("com/tartanga/grupo4/resources/connectionServer");
         Class.forName(resourceBundle.getString("driver"));
         connection = DriverManager.getConnection(resourceBundle.getString("url"),resourceBundle.getString("username"),resourceBundle.getString("password"));
         return connection;

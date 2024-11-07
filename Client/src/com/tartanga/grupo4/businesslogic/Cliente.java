@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,14 +31,18 @@ import java.util.logging.Logger;
  * @see Signable
  */
 public class Cliente implements Signable {
+    /**
+     * Resource bundle for loading configuration properties, such as ip and port.
+     */
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("com/tartanga/grupo4/resources/files/connectionClient");
      /**
      * Port number for connecting to the server.
      */
-    private final int PUERTO = 6000;
+    private final int PUERTO = Integer.parseInt(resourceBundle.getString("port"));
     /**
      * IP address of the server to connect to.
      */
-    private final String IP = "127.0.0.1";
+    private final String IP = resourceBundle.getString("ip");
     /**
      * The client socket used for establishing a connection with the server.
      */

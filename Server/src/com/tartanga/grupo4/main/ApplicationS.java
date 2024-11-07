@@ -23,11 +23,18 @@ import java.util.ResourceBundle;
  * @author Aitor
  */
 public class ApplicationS {
-
+    /**
+     * Resource bundle for loading configuration properties, such as maximum connections allowed.
+     */
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("com/tartanga/grupo4/resources/connectionServer");
     /**
      * Port number on which the server will listen for incoming client connections.
      */
-    private final int PUERTO = 6000;
+    private final int PUERTO = Integer.parseInt(resourceBundle.getString("port"));
+    /**
+     * Maximum number of client connections allowed simultaneously, loaded from configuration.
+     */
+    private final int MAX_CONEXIONES = Integer.parseInt(resourceBundle.getString("max_conections"));
     /**
      * Server socket that listens for client connection requests.
      */
@@ -44,14 +51,6 @@ public class ApplicationS {
      * Flag indicating whether the server is running; used to control the server's main loop.
      */
     private static boolean running = true;
-    /**
-     * Resource bundle for loading configuration properties, such as maximum connections allowed.
-     */
-    ResourceBundle resourceBundle = ResourceBundle.getBundle("com/tartanga/grupo4/resources/connection");
-    /**
-     * Maximum number of client connections allowed simultaneously, loaded from configuration.
-     */
-    private final int MAX_CONEXIONES = Integer.parseInt(resourceBundle.getString("max_conections"));
     /**
      * Logger to record server events, information, and errors at various log levels.
      */

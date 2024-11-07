@@ -10,7 +10,7 @@
 
 .menu-bar {
     -fx-padding: 0;
-    -fx-background-color: #3a3a3a; 
+    -fx-background-color: #0a9396; 
     -fx-border-color: #00ffcc;
     -fx-border-width: 0; 
     -fx-text-fill: #cfcfcf;
@@ -18,6 +18,6 @@
 }
 
 .menu-bar .menu {
-    -fx-text-fill: WHITE; 
+    -fx-text-fill: #ffffff; 
 }
 
