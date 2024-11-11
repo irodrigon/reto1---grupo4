@@ -4,6 +4,7 @@ import com.tartanga.grupo4.main.ApplicationU;
 import javafx.stage.Stage;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import static org.testfx.api.FxAssert.verifyThat;
@@ -35,10 +36,11 @@ public class SignUpControllerTestServer extends ApplicationTest{
     }
     
     //The server must be shut down.
+    @Ignore
     @Test
     public void test_B_UserAlreadyExist(){
         clickOn("#fld_Email");
-        write("test19@gmail.com");
+        write("test22@gmail.com");
         clickOn("#fld_Password");
         write("abcD*1234");
         clickOn("#btnSeePassword");
@@ -58,6 +60,28 @@ public class SignUpControllerTestServer extends ApplicationTest{
         sleep(1000);
         verifyThat("Error on Client Side.", isVisible());
     }
-
+    @Test
+        public void test_C_MaxConnectionError(){
+            clickOn("#fld_Email");
+            write("test22@gmail.com");
+            clickOn("#fld_Password");
+            write("abcD*1234");
+            clickOn("#btnSeePassword");
+            clickOn("#fld_Confirm");
+            write("abcD*1234");
+            clickOn("#btnSeeConfirm");
+            clickOn("#fld_Name");
+            write("Test");
+            clickOn("#fld_City");
+            write("Bilbao");
+            clickOn("#fld_Street");
+            write("Lehendakari Aguirre");
+            clickOn("#fld_Zip");
+            write("123456");
+            clickOn("#chb_Active");
+            clickOn("#btn_Register");
+            sleep(1000);
+            verifyThat("Max connections exceeded.", isVisible());
+        }
 }
 
