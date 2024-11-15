@@ -218,17 +218,24 @@ public class SignInController {
                 user.setUsername(userField.getText());
                 user.setPassword(passwordField.getText());
                 user = ClientFactory.getInstance().getSignable().signIn(user);
-
+                
+                System.out.print(user.toString());
+                
                 FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/MainView.fxml"));
-                Parent mainView = FXMLLoader.load();
-
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Parent mainView = (Parent)FXMLLoader.load();
+                
+                MainController controller =  ((MainController)FXMLLoader.getController());
+                controller.setStage(this.stage);
+                controller.initStage(mainView, user);
+                /*Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
                 Scene scene = new Scene(mainView);
                 stage.setScene(scene);
                 stage.setTitle("Main Window");
                 stage.show();
-                logger.info("Correct user.");
+                logger.info("Correct user.");*/
+                
+                
             } catch (UserPasswdException e) {
                 logger.log(Level.SEVERE, "UserPasswdException", e.getMessage());
                 alert.setTitle("Incorrect user or password");

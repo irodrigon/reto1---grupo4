@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="BorderPaneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../resources/styles/mainViewStyles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tartanga.grupo4.controllers.MainController">
-	<center>
-        <Label prefHeight="256.0" prefWidth="367.0" text="Welcome to our application" textFill="WHITE" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="System Bold Italic" size="24.0" />
-				</font></Label>
-    </center>
+<BorderPane fx:id="BorderPaneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="513.0" prefWidth="658.0" stylesheets="@../resources/styles/mainViewStyles.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tartanga.grupo4.controllers.MainController">
     <top>
         <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
             <menus>
@@ -30,10 +22,78 @@
                     </items>
                 </Menu>
             </menus>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
         </MenuBar>
         
     </top>
+    <bottom>
+        <Label prefHeight="90.0" prefWidth="367.0" text="Welcome to our application" textFill="WHITE" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="System Bold Italic" size="24.0" />
+            </font>
+        </Label>
+    </bottom>
+    <center>
+        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label fx:id="m_nombre" layoutX="46.0" layoutY="143.0" prefHeight="35.0" prefWidth="72.0" text="Name :" textAlignment="RIGHT" textFill="WHITE">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="m_logIn" layoutX="46.0" layoutY="80.0" prefHeight="31.0" prefWidth="71.0" text="Log In :" textFill="WHITE">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="m_street" layoutX="311.0" layoutY="138.0" text="Street :" textFill="WHITE">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="m_city" layoutX="326.0" layoutY="80.0" prefHeight="32.0" prefWidth="82.0" text="CIty :" textFill="WHITE">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="m_zip" layoutX="331.0" layoutY="191.0" prefHeight="32.0" prefWidth="72.0" text="Zip :" textFill="WHITE">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <CheckBox fx:id="l_active" layoutX="44.0" layoutY="209.0" mnemonicParsing="false" text="Active" textFill="WHITE">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </CheckBox>
+                <Label fx:id="l_logIn" layoutX="120.0" layoutY="87.0" prefHeight="26.0" prefWidth="182.0" textFill="WHITE">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="l_name" layoutX="117.0" layoutY="147.0" prefHeight="25.0" prefWidth="182.0" textFill="WHITE">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="l_city" layoutX="388.0" layoutY="87.0" prefHeight="26.0" prefWidth="183.0" textFill="WHITE">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="l_street" layoutX="401.0" layoutY="137.0" prefHeight="28.0" prefWidth="185.0" textFill="WHITE">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="l_zip" layoutX="412.0" layoutY="194.0" prefHeight="26.0" prefWidth="186.0" textFill="WHITE">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+    </center>
 </BorderPane>

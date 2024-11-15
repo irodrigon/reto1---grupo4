@@ -389,19 +389,19 @@ public class SignUpController {
                 clearFields();
                 logger.info("User created correctly.");
             } catch (UserExistInDatabaseException error) {
-                logger.log(Level.SEVERE, "UserExistInDatabaseException", error.getMessage());
+                logger.log(Level.WARNING, "UserExistInDatabaseException", error.getMessage());
                 alert("Error", "Login already exists.", "Enter a different e-mail.");
             } catch (ServerErrorException error) {
-                logger.log(Level.SEVERE, "ServerErrorException: {0}", error.getMessage());
+                logger.log(Level.WARNING, "ServerErrorException: {0}", error.getMessage());
                 alert("Error", "An error occurred on the server.", "Try again later.");
             } catch (MaxConnectionsException error) {
-                logger.log(Level.SEVERE, "MaxConnectionsException: {0}", error.getMessage());
+                logger.log(Level.WARNING, "MaxConnectionsException: {0}", error.getMessage());
                 alert("Error", "Max connections exceeded.", "Try again later.");
             } catch (ClientSideException error) {
-                logger.log(Level.SEVERE, "ClientSideException: {0}", error.getMessage());
+                logger.log(Level.WARNING, "ClientSideException: {0}", error.getMessage());
                 alert("Error", "Error on Client Side.", "Contact your System Administrator.");
             } catch (Exception error) {
-                logger.log(Level.SEVERE, "Critical Error: {0}", error.getMessage());
+                logger.log(Level.WARNING, "Critical Error: {0}", error.getMessage());
                 alert("Critical Error", "Critical Error.", "Contact your System Administrator.");
             }
         }
