@@ -1,0 +1,23 @@
+
+.root {
+    
+    -fx-background-color: #1e1e1e;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: red;
+}
+
+
+.menu-bar {
+    -fx-padding: 0;
+    -fx-background-color: #0a9396; 
+    -fx-border-color: #00ffcc;
+    -fx-border-width: 0; 
+    -fx-text-fill: #cfcfcf;
+    
+}
+
+.menu-bar .menu {
+    -fx-text-fill: #ffffff; 
+}
+
