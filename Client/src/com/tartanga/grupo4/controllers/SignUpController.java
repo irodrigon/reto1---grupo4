@@ -233,6 +233,14 @@ public class SignUpController {
         btnSeeConfirm.setGraphic(imageViewConfirm);
 
         btnSeeConfirm.setStyle("-fx-background-color: transparent; -fx-border-color:transparent");
+        
+        fld_Email.textProperty().addListener((observable, oldValue, newValue) -> lbl_error_Email.setText(""));
+        fld_Name.textProperty().addListener((observable, oldValue, newValue) -> lbl_error_Name.setText(""));
+        fld_City.textProperty().addListener((observable, oldValue, newValue) -> lbl_error_City.setText(""));
+        fld_Street.textProperty().addListener((observable, oldValue, newValue) -> lbl_error_Street.setText(""));
+        fld_Zip.textProperty().addListener((observable, oldValue, newValue) -> lbl_error_Zip.setText(""));
+        fld_Password.textProperty().addListener((observable, oldValue, newValue) -> lbl_error_Password.setText(""));
+        fld_Confirm.textProperty().addListener((observable, oldValue, newValue) -> lbl_error_Confirm.setText(""));
     }
 
     /**
