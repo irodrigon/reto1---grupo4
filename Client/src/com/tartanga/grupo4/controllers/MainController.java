@@ -58,7 +58,7 @@ public class MainController implements Initializable {
     private Label userData;
 
     public MainController() {
-        this.user = (User) BorderPaneMain.getScene().getWindow().getUserData();
+        user = (User) BorderPaneMain.getScene().getWindow().getUserData();
     }
     /**
      * Initializes the MainController. Sets event handlers for the "Log Out"
