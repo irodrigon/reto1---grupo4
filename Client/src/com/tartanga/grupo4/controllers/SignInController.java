@@ -220,6 +220,7 @@ public class SignInController {
                 user = ClientFactory.getInstance().getSignable().signIn(user);
 
                 FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource("/com/tartanga/grupo4/views/MainView.fxml"));
+                
                 Parent mainView = FXMLLoader.load();
 
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -227,6 +228,7 @@ public class SignInController {
                 Scene scene = new Scene(mainView);
                 stage.setScene(scene);
                 stage.setTitle("Main Window");
+                stage.setUserData(user);
                 stage.show();
                 logger.info("Correct user.");
             } catch (UserPasswdException e) {
@@ -250,14 +252,15 @@ public class SignInController {
                 alert.setContentText("Error on Client Side. Contact your System Administrator.");
                 alert.showAndWait();
             } catch (IOException e) {
+                e.printStackTrace();
                 logger.log(Level.SEVERE, "IOException: {0}", e.getMessage());
                 alert.setTitle("I/O Error");
                 alert.setContentText("Error on Client Side. Contact your System Administrator.");
                 alert.showAndWait();
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "Critical Error: {0}", e.getMessage());
-                alert.setTitle("Critical Error");
-                alert.setContentText("Critical Error. Please escalate the request.");
+                alert.setTitle("Unexpected Error");
+                alert.setContentText("Unexpected Error. Please escalate the request.");
                 alert.showAndWait();
             }
         }

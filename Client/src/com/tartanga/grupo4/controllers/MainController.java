@@ -1,5 +1,6 @@
 package com.tartanga.grupo4.controllers;
 
+import com.tartanga.grupo4.model.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -11,10 +12,12 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -32,6 +35,7 @@ public class MainController implements Initializable {
      */
     private static final Logger logger = Logger.getLogger("Client");
     
+    private User user;
     /**
      * BorderPane used to get the scece of this window.
      */
@@ -50,6 +54,12 @@ public class MainController implements Initializable {
     @FXML
     private MenuItem mni_Exit;
     
+    @FXML
+    private Label userData;
+
+    public MainController() {
+        this.user = (User) BorderPaneMain.getScene().getWindow().getUserData();
+    }
     /**
      * Initializes the MainController. Sets event handlers for the "Log Out"
      * and "Exit" menu items.
@@ -60,7 +70,7 @@ public class MainController implements Initializable {
     @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+        userData.setText(user.getUsername());
         mni_LogOut.setOnAction(this::handleLogOut);
         mni_Exit.setOnAction(this::onCloseRequestWindowEvent);
         
@@ -128,4 +138,5 @@ public class MainController implements Initializable {
     private Stage getStage() {
         return (Stage) BorderPaneMain.getScene().getWindow();
     }
+    
 }
